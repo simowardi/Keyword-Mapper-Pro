@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="UTF-8">
+	    <title>ShareBlast - Supercharge Your Social Media Giveaways</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/static/css/login.css">
+	</head>
+	<body>
+	  <div class="container">
+		<div class="logo">ShareBlast</div>
+		<h1>Login</h1>
+		<form id="loginForm" action="{{ url_for('auth.login') }}" method="post">
+			<input type="text" name="username" required>
+			<input type="password" name="password" required>
+			<button type="submit">Login</button>
+		</form>
+		<div class="links">
+		  <a href="{{ url_for('auth.register') }}">Sign Up</a>
+		</div>
+	  </div>
+
+	  <script script src="/static/js/login.js"></script>
+
+	</body>
+</html>

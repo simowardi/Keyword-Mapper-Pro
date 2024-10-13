@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <title>ShareBlast - Supercharge Your Social Media Giveaways</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/static/css/signup.css">
+	</head>
+	<body>
+	  <div class="container">
+		<div class="logo">ShareBlast</div>
+		<h1>Sign Up</h1>
+		<div class="benefits">
+		  <h3>Join ShareBlast Today!</h3>
+		  <ul>
+			<li>Create unlimited giveaways</li>
+			<li>Access giveaway analytics</li>
+			<li>24/7 customer support</li>
+		  </ul>
+		</div>
+
+		{% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+		<form action="{{ url_for('auth.register') }}" method="post">
+		  <label for="username">USERNAME</label>
+		  <input type="text" id="username" name="username" required>
+
+		  <label for="email">Email</label>
+		  <input type="email" id="email" name="email" required>
+
+		  <label for="password">Password</label>
+		  <input type="password" id="password" name="password" required>
+	  
+		  <button type="submit">Create Account</button>
+		</form>
+		<div class="links">
+		  <p>Already have an account? <a href="{{ url_for('auth.login') }}">Log In</a></p>
+		</div>
+	  </div>
+	</body>
+</html>

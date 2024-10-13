@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="UTF-8">
+	    <title>Keyword Mapper Pro - All you keyword need in one place</title>
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="/static/css/styles.css">
+	</head>
+
+	<body>
+	  <header>
+		<nav>
+			<a href="{{ url_for('index') }}" class="logo">ShareBlast</a>
+		  <ul>
+			<li><a href="#features">Features</a></li>
+			<li><a href="#about">About</a></li>
+			<li><a href="{{ url_for('auth.login') }}">Login</a></li>
+			<li><a href="{{ url_for('auth.register') }}" class="cta-button">Sign Up</a></li>
+		  </ul>
+		</nav>
+	  </header>
+
+	  <section id="intro" class="intro">
+		<div class="cover-image"></div>
+		<div class="intro-content">
+			<h1>ShareBlast</h1>
+			<h2>Create Exciting Giveaways in Minutes</h2>
+			<p>Boost engagement, grow your audience, and reward your followers with ShareBlast.</p>
+			<p>Supercharge Your Social Media Giveaways</p>
+			<a href="{{ url_for('auth.login') }}" class="cta-button">Launch App</a>
+		</div>
+	</section>
+
+
+	  <section id="features" class="features">
+		<h2>Why Choose ShareBlast?</h2>
+		<div class="feature-grid">
+		  <div class="feature-card">
+			<div class="feature-icon">🚀</div>
+			<h3>Boost Engagement</h3>
+			<p>Our intelligent algorithms help your giveaways reach a wider audience and drive more participation.</p>
+		  </div>
+		  <div class="feature-card">
+			<div class="feature-icon">📊</div>
+			<h3>Advanced Analytics</h3>
+			<p>Get deep insights into your giveaway performance with our comprehensive analytics Metrics.</p>
+		  </div>
+		  <div class="feature-card">
+			<div class="feature-icon">⭐</div>
+			<h3>Easy Setup</h3>
+			<p>Create a giveaway in just a few clicks with our intuitive interface.</p>
+		  </div>
+		</div>
+	  </section>
+
+
+	  <section class="hero">
+		<div class="hero-content">
+		  <h1>Create Exciting Giveaways in Minutes</h1>
+		  <p>Boost engagement, grow your audience, and reward your followers with ShareBlast.</p>
+		  <a href="{{ url_for('auth.register') }}" class="cta-button">Get Started Free</a>
+		</div>
+	  </section>
+
+
+	  <section id="about" class="about">
+		<h2>About ShareBlast</h2>
+		<p>
+			ShareBlast was created out of my frustration with the process of creating and managing <strong>giveaways</strong>. 
+			As a digital marketer, I often struggled to obtain targeted leads such as email addresses and phone numbers. 
+			I envisioned a solution that utilizes <strong>giveaways</strong> to effectively grow my audience. 
+			<strong>Giveaways</strong> can ensure easy and repeatable results, and they allow us to measure the impact of our campaigns.
+			Thus, we decided to develop a tool that simplifies running <strong>giveaways</strong> for marketers and content creators.
+		</p>
+		<p>
+			This project is a Portfolio Project for Holberton School. Learn more about Holberton 
+			<a href="https://www.holbertonschool.com">here</a>.
+		</p>
+		<h3>Our Team</h3>
+		<ul class="team-list">
+			<li>
+				<strong>Mohamed Wardi</strong>: 
+				<a href="https://www.linkedin.com/in/mohamed-wardi-22874626a">LinkedIn</a> | 
+				<a href="https://github.com/simowardi">GitHub</a> | 
+				<a href="https://x.com/simowardi23">X/Twitter</a>
+			</li>
+		</ul>
+		<p>
+			Check out our <a href="https://github.com/simowardi/shareblast">GitHub repository &#128279;</a> for more information about the project.
+		</p>
+	</section>
+
+
+	<footer>
+		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
+		<p>
+			<a href="{{ url_for('static', filename='TOS.html') }}">Terms of Service</a>
+			<a href="{{ url_for('static', filename='privacy.html') }}">Privacy Policy</a>			
+		</p>
+	</footer>
+
+	</body>
+</html>
