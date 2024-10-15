@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+    <title>Keyword Grouper</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .text-box {
+            width: 45%;
+            margin-bottom: 20px;
+        }
+        .result-box {
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .progress {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            width: 0;
+            height: 20px;
+            background-color: #4caf50;
+            border-radius: 5px;
+        }
+        .copy-icon {
+            cursor: pointer;
+            color: blue;
+            margin-left: 5px;
+            font-size: 1.2em;
+        }
+    </style>
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('progress-bar').style.width = '100%';
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Copied to clipboard!');
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Keyword Grouper</h1>
+    <form method="POST" onsubmit="showLoading()">
+        <div class="container">
+            <div class="text-box">
+                <h3>Keyword List</h3>
+                <textarea name="keyword_list" rows="20" cols="30">{{ keyword_list | join('\n') }}</textarea>
+                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=keyword_list]').value)">📋</span>
+            </div>
+
+            <div class="text-box">
+                <h3>Options</h3>
+                <label for="min_group_length">Minimum Group Length:</label>
+                <input type="number" name="min_group_length" value="{{ min_group_length }}" min="1"><br><br>
+                
+                <label for="excluded_words">Excluded Words List:</label>
+                <textarea name="excluded_words" rows="5" cols="30">{{ excluded_words | join('\n') }}</textarea>
+                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=excluded_words]').value)">📋</span>
+            </div>
+        </div>
+        
+        <button type="submit">Process Keywords</button>
+    </form>
+
+    <div id="loading" class="loading">
+        <p>Processing keywords...</p>
+        <div class="progress">
+            <div id="progress-bar" class="progress-bar"></div>
+        </div>
+    </div>
+
+    {% if grouped_keywords %}
+        <div class="result-box">
+            <h3>{{ min_group_length }} or more | less than {{ min_group_length }}</h3>
+            <p>Analyzed {{ num_keywords }} keywords | Created {{ num_groups }} groups</p>
+            <form method="POST" action="{{ url_for('export_csv') }}">
+                <input type="hidden" name="grouped_keywords" value="{{ grouped_keywords | join(',') }}">
+                <button type="submit">Export to .csv</button>
+            </form>
+            <h3>Grouped Keywords:</h3>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                {% for keyword in grouped_keywords %}
+                    <textarea rows="1" cols="50" readonly>{{ keyword }}</textarea>
+                    <span class="copy-icon" onclick="copyToClipboard('{{ keyword }}')">📋</span>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+    <title>Keyword Filter</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .text-box {
+            width: 45%;
+            margin-bottom: 20px;
+        }
+        .result-box {
+            width: 45%;
+            margin-bottom: 20px;
+        }
+        .copy-icon {
+            cursor: pointer;
+            color: blue;
+            margin-left: 5px;
+        }
+    </style>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Copied to clipboard!');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Keyword Filter</h1>
+    <form method="POST">
+        <div class="container">
+            <div class="text-box">
+                <h3>Positive Match</h3>
+                <textarea name="positive_keywords" rows="5" cols="30">{{ positive_keywords | join('\n') }}</textarea>
+                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=positive_keywords]').value)">📋</span>
+
+                <h3>Negative Match</h3>
+                <textarea name="negative_keywords" rows="5" cols="30">{{ negative_keywords | join('\n') }}</textarea>
+                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=negative_keywords]').value)">📋</span>
+
+                <h3>Keyword List</h3>
+                <textarea name="keyword_list" rows="10" cols="30">{{ keyword_list | join('\n') }}</textarea>
+                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=keyword_list]').value)">📋</span>
+            </div>
+
+            <div class="result-box">
+                <h3>Matched Keywords ({{ matched_keywords | length }})</h3>
+                <ul>
+                    {% for keyword in matched_keywords %}
+                        <li>{{ keyword }}</li>
+                    {% endfor %}
+                </ul>
+
+                <h3>Keywords Don't Match ({{ not_matched_keywords | length }})</h3>
+                <ul>
+                    {% for keyword in not_matched_keywords %}
+                        <li>{{ keyword }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <button type="submit">Filter</button>
+    </form>
+</body>
+</html>
