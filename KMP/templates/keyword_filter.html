@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keyword Filter Pro™</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/filter.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='filter.css') }}">
 </head>
 <body>
 <div class="container">
@@ -14,23 +14,39 @@
             <div class="keyword-column">
                 <label for="keys_to_be_matched"><span class="emoji">🔑</span>Keyword List:</label>
                 <textarea name="keys_to_be_matched" id="keys_to_be_matched" placeholder="Enter keywords, one per line"></textarea>
+                <button type="button" class="copy-btn" onclick="copyToClipboard('keys_to_be_matched')">Copy</button>
             </div>
             <div class="keyword-column">
                 <label for="keys_to_match"><span class="emoji">✅</span>Positive Keywords:</label>
                 <textarea name="keys_to_match" id="keys_to_match" placeholder="Enter positive keywords, one per line"></textarea>
+                <button type="button" class="copy-btn" onclick="copyToClipboard('keys_to_match')">Copy</button>
             </div>
             <div class="keyword-column">
                 <label for="keys_to_filter_match"><span class="emoji">❌</span>Negative Keywords:</label>
                 <textarea name="keys_to_filter_match" id="keys_to_filter_match" placeholder="Enter negative keywords, one per line"></textarea>
+                <button type="button" class="copy-btn" onclick="copyToClipboard('keys_to_filter_match')">Copy</button>
             </div>
         </div>
         <button class="filter-button" type="submit"><span class="emoji">🔍</span>Filter Text</button>
     </form>
 
     <div id="stats"></div>
-    <div id="output"></div>
+
+    <div class="keyword-input">
+        <div class="keyword-column">
+            <label for="matches"><span class="emoji">✅</span>Matches:</label>
+            <textarea id="matches" readonly></textarea>
+            <button type="button" class="copy-btn" onclick="copyToClipboard('matches')">Copy</button>
+        </div>
+        <div class="keyword-column">
+            <label for="non_matches"><span class="emoji">❌</span>Non-Matches:</label>
+            <textarea id="non_matches" readonly></textarea>
+            <button type="button" class="copy-btn" onclick="copyToClipboard('non_matches')">Copy</button>
+        </div>
+    </div>
+
 </div>
 
-<script src="{{ url_for('static', filename='/js/filter.js') }}"></script>
+<script src="{{ url_for('static', filename='filter.js') }}"></script>
 </body>
 </html>
