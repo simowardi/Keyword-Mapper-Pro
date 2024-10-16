@@ -32,15 +32,15 @@
 
     <div id="stats"></div>
 
-    <div class="keyword-input">
+    <div class="keyword-input results-area">
         <div class="keyword-column">
-            <label for="matches"><span class="emoji">✅</span>Matches:</label>
-            <textarea id="matches" readonly></textarea>
+            <label for="matches" class="results-label"><span class="emoji">✅</span>Matches:</label>
+            <textarea id="matches" class="matches-textarea" readonly></textarea>
             <button type="button" class="copy-btn" onclick="copyToClipboard('matches')">Copy</button>
         </div>
         <div class="keyword-column">
-            <label for="non_matches"><span class="emoji">❌</span>Non-Matches:</label>
-            <textarea id="non_matches" readonly></textarea>
+            <label for="non_matches" class="results-label"><span class="emoji">❌</span>Non-Matches:</label>
+            <textarea id="non_matches" class="non-matches-textarea" readonly></textarea>
             <button type="button" class="copy-btn" onclick="copyToClipboard('non_matches')">Copy</button>
         </div>
     </div>
