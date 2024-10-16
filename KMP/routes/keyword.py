@@ -1,4 +1,4 @@
-from flask import Flask, Blueprint, render_template, redirect, url_for, flash, jsonify, request, Response, send_from_directory
+from flask import Flask, Blueprint, render_template, redirect, url_for, flash, jsonify, request, Response
 from models import db, User
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
@@ -13,11 +13,6 @@ keyword_bp = Blueprint('keyword', __name__)
 
 
 
-
-@keyword_bp.route('/static/<path:filename>')
-def serve_static(filename):
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    return send_from_directory(os.path.join(root_dir, 'static'), filename)
 
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required

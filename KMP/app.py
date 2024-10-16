@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, send_from_directory
 from models import db, init_app
 from models.user import User
 from datetime import datetime
@@ -71,3 +71,8 @@ if __name__ == '__main__':
     
     # Run the Flask application
     app.run(debug=True)
+
+@keyword_bp.route('/static/<path:filename>')
+def serve_static(filename):
+    root_dir = os.path.dirname(os.path.abspath(__file__))
+    return send_from_directory(os.path.join(root_dir, 'static'), filename)
