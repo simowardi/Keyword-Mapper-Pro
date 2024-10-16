@@ -8,7 +8,7 @@ import requests
 keyword_bp = Blueprint('keyword', __name__)
 
 
-@app.route('/keyword_filter', methods=['GET', 'POST'])
+@keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
 def keyword_filter():
     """
@@ -41,7 +41,7 @@ def keyword_filter():
     return render_template('keyword_filter.html')
 
 
-@app.route('/keyword_grouper', methods=['GET', 'POST'])
+@keyword_bp.route('/keyword_grouper', methods=['GET', 'POST'])
 @login_required
 def keyword_grouper():
     """
@@ -84,7 +84,7 @@ def keyword_grouper():
 
     return render_template('keyword_grouper.html')
 
-@app.route('/export_csv', methods=['POST'])
+@keyword_bp.route('/export_csv', methods=['POST'])
 @login_required
 def export_csv():
     """
@@ -101,7 +101,7 @@ def export_csv():
     return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": "attachment;filename=grouped_keywords.csv"})
 
 
-@app.route('/keyword_explorer', methods=['GET', 'POST'])
+@keyword_bp.route('/keyword_explorer', methods=['GET', 'POST'])
 @login_required
 def keyword_explorer():
     suggestions = []
@@ -155,7 +155,7 @@ def get_google_suggestions(keyword, language, country, depth):
     return []
 
 
-@app.route('/keyword_intent', methods=['GET', 'POST'])
+@keyword_bp.route('/keyword_intent', methods=['GET', 'POST'])
 @login_required
 def keyword_intent():
     intent = ""
