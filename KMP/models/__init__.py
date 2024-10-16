@@ -6,10 +6,6 @@ db = SQLAlchemy()
 
 # Import your models
 from .user import User
-# from .giveaway import Giveaway
-
-
-
 
 
 # Function to initialize app with SQLAlchemy

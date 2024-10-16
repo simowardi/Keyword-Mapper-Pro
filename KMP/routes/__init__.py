@@ -4,7 +4,6 @@ from flask import Blueprint
 
 # Initialize the blueprints
 auth_bp = Blueprint('auth', __name__)
-giveaway_bp = Blueprint('giveaway', __name__)
 account_bp = Blueprint('account', __name__)
 
 
