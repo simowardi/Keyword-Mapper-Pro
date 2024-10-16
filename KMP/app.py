@@ -29,6 +29,7 @@ init_app(app)
 # Register blueprints
 app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(account_bp, url_prefix='/account')
+app.register_blueprint(keyword_bp, url_prefix='/keyword')
 
 
 @login_manager.user_loader

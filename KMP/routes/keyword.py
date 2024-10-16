@@ -5,7 +5,7 @@ from datetime import datetime
 import csv
 import requests
 
-account_bp = Blueprint('account', __name__)
+keyword_bp = Blueprint('account', __name__)
 
 
 @app.route('/keyword_filter', methods=['GET', 'POST'])
