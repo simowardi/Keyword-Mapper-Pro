@@ -3,26 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEO Keyword Fetcher</title>
+    <title>Keyword Suggestion Tool</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='seo.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>SEO Keyword Fetcher</h1>
-        <form method="post" id="keyword-form">
-            <input type="text" name="query" placeholder="Enter your query" required>
-            <input type="text" name="country_code" placeholder="Country code (default: US)">
+        <h1>Keyword Suggestion Tool</h1>
+        <form id="keyword-form" method="POST">
+            <input type="text" id="keyword" name="keyword" placeholder="Enter your keyword" required>
+            <input type="text" id="country_code" name="country_code" placeholder="Country code (e.g., US)" value="US">
             <div class="checkbox-group">
-                <label>
-                    <input type="checkbox" name="sources" value="google" checked> Google
-                </label>
-                <label>
-                    <input type="checkbox" name="sources" value="youtube" checked> YouTube
-                </label>
+                <label><input type="checkbox" name="sources" value="google" checked> Google</label>
+                <label><input type="checkbox" name="sources" value="youtube" checked> YouTube</label>
             </div>
-            <button type="submit">Search</button>
-            <button type="submit" name="stop">Stop</button>
+            <button type="submit">Get Suggestions</button>
         </form>
+
+        <div id="results">
+            <div id="google-results">
+                <h2>Google Suggestions</h2>
+                <ul>
+                {% for suggestion in google_suggestions %}
+                    <li>{{ suggestion }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+            <div id="youtube-results">
+                <h2>YouTube Suggestions</h2>
+                <ul>
+                {% for suggestion in youtube_suggestions %}
+                    <li>{{ suggestion }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='seo.js') }}"></script>
 </body>

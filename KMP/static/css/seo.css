@@ -13,14 +13,14 @@ body {
     padding: 20px;
 }
 
-h1 {
+h1, h2 {
     color: #333;
-    text-align: center;
 }
 
 form {
     background: #fff;
     padding: 20px;
+    margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -51,29 +51,27 @@ button:hover {
     background: #555;
 }
 
+#results {
+    display: flex;
+    justify-content: space-between;
+}
+
+#google-results, #youtube-results {
+    width: 48%;
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 ul {
     list-style-type: none;
     padding: 0;
 }
 
 li {
-    background: #fff;
-    margin-bottom: 10px;
+    background: #f9f9f9;
+    margin-bottom: 5px;
     padding: 10px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.back-button {
-    display: inline-block;
-    background: #333;
-    color: #fff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.back-button:hover {
-    background: #555;
+    border-radius: 3px;
 }
