@@ -28,7 +28,6 @@ init_app(app)
 
 # Register blueprints
 app.register_blueprint(auth_bp, url_prefix='/auth')
-app.register_blueprint(giveaway_bp, url_prefix='/giveaway')
 app.register_blueprint(account_bp, url_prefix='/account')
 
 
