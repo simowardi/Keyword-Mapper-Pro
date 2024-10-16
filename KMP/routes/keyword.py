@@ -4,6 +4,8 @@ from flask_login import login_required, current_user, LoginManager, login_user, 
 from datetime import datetime
 import csv
 import requests
+import json
+import string
 
 keyword_bp = Blueprint('keyword', __name__)
 
@@ -155,6 +157,7 @@ def get_google_suggestions(keyword, language, country, depth):
     return []
 
 
+
 @keyword_bp.route('/keyword_intent', methods=['GET', 'POST'])
 @login_required
 def keyword_intent():
@@ -244,3 +247,71 @@ def analyze_intent(keyword):
         return "Advice"
     
     return "Unclassified"
+
+
+
+def fetch_google_keywords(query, country_code='US'):
+    """
+    Fetches keyword suggestions from Google based on a given query and country code.
+    Parameters
+    ----------
+    query : str
+        The search query to fetch suggestions for
+    country_code : str, optional
+        The country code to use for the search, defaults to 'US'
+    Returns
+    -------
+    list
+        A list of keyword suggestions
+    """
+    url = f"http://google.com/complete/search?output=toolbar&gl={country_code}&q={query}"
+    response = requests.get(url)
+    return [suggestion[0] for suggestion in json.loads(response.text)[1]]
+
+def fetch_youtube_keywords(query):
+    """
+    Fetches keyword suggestions from YouTube based on a given query.
+    This function sends a request to the YouTube suggestion API and retrieves
+    keyword suggestions in JSON format. It returns the list of suggestions
+    extracted from the response.
+    Args:
+        query (str): The search query for which keyword suggestions are to be fetched.
+    Returns:
+        list: A list of keyword suggestions for the given query.
+    """
+    url = f"http://suggestqueries.google.com/complete/search?client=youtube&ds=yt&alt=json&q={query}"
+    response = requests.get(url)
+    return json.loads(response.text)[1]
+
+@login_required
+@keyword_bp.route('/seokeyword', methods=['GET', 'POST'])
+@login_required
+def seokeyword():
+    if request.method == 'POST':
+        query = request.form['query']
+        country_code = request.form.get('country_code', 'US')
+        sources = request.form.getlist('sources')
+        
+        google_keywords = []
+        youtube_keywords = []
+        
+        if '*' in query:
+            chars = string.ascii_lowercase + string.digits
+            base_query = query.replace('*', '{}')
+            for char in chars:
+                current_query = base_query.format(char)
+                if 'google' in sources:
+                    google_keywords.extend(fetch_google_keywords(current_query, country_code))
+                if 'youtube' in sources:
+                    youtube_keywords.extend(fetch_youtube_keywords(current_query))
+                if 'stop' in request.form:
+                    break
+        else:
+            if 'google' in sources:
+                google_keywords = fetch_google_keywords(query, country_code)
+            if 'youtube' in sources:
+                youtube_keywords = fetch_youtube_keywords(query)
+        
+        return render_template('seoresults.html', google_keywords=google_keywords, youtube_keywords=youtube_keywords)
+    
+    return render_template('seokeyword.html')

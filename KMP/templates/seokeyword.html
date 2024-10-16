@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Keyword Fetcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='seo.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>SEO Keyword Fetcher</h1>
+        <form method="post" id="keyword-form">
+            <input type="text" name="query" placeholder="Enter your query" required>
+            <input type="text" name="country_code" placeholder="Country code (default: US)">
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" name="sources" value="google" checked> Google
+                </label>
+                <label>
+                    <input type="checkbox" name="sources" value="youtube" checked> YouTube
+                </label>
+            </div>
+            <button type="submit">Search</button>
+            <button type="submit" name="stop">Stop</button>
+        </form>
+    </div>
+    <script src="{{ url_for('static', filename='seo.js') }}"></script>
+</body>
+</html>
