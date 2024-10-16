@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Keyword Filter</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Keyword Filter Pro™</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='/css/filter.css') }}">
 </head>
 <body>
 <div class="container">
     <h1>🔍✂️ Advanced Keyword Filter</h1>
-    <p><span class="emoji">🚀</span>Free Online Text Filtering Tool</p>
-
-    <div class="keyword-input">
-        <div class="keyword-column">
-            <label for="keywords"><span class="emoji">🔑</span>Keyword List:</label>
-            <textarea id="keywords" placeholder="Enter keywords, one per line"></textarea>
+    <form method="POST" id="keyword-filter-form">
+        <div class="keyword-input">
+            <div class="keyword-column">
+                <label for="keys_to_be_matched"><span class="emoji">🔑</span>Keyword List:</label>
+                <textarea name="keys_to_be_matched" id="keys_to_be_matched" placeholder="Enter keywords, one per line"></textarea>
+            </div>
+            <div class="keyword-column">
+                <label for="keys_to_match"><span class="emoji">✅</span>Positive Keywords:</label>
+                <textarea name="keys_to_match" id="keys_to_match" placeholder="Enter positive keywords, one per line"></textarea>
+            </div>
+            <div class="keyword-column">
+                <label for="keys_to_filter_match"><span class="emoji">❌</span>Negative Keywords:</label>
+                <textarea name="keys_to_filter_match" id="keys_to_filter_match" placeholder="Enter negative keywords, one per line"></textarea>
+            </div>
         </div>
-        <div class="keyword-column">
-            <label for="positiveKeywords"><span class="emoji">✅</span>Positive Keywords:</label>
-            <textarea id="positiveKeywords" placeholder="Enter positive keywords, one per line"></textarea>
-        </div>
-        <div class="keyword-column">
-            <label for="negativeKeywords"><span class="emoji">❌</span>Negative Keywords:</label>
-            <textarea id="negativeKeywords" placeholder="Enter negative keywords, one per line"></textarea>
-        </div>
-    </div>
-
-    <button class="filter-button" onclick="filterText()"><span class="emoji">🔍</span>Filter Text</button>
+        <button class="filter-button" type="submit"><span class="emoji">🔍</span>Filter Text</button>
+    </form>
 
     <div id="stats"></div>
     <div id="output"></div>

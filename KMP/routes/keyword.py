@@ -14,11 +14,6 @@ keyword_bp = Blueprint('keyword', __name__)
 
 
 
-@keyword_bp.route('/static/<path:filename>')
-def serve_static(filename):
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    return send_from_directory(os.path.join(root_dir, 'static'), filename)
-
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
 def keyword_filter():
@@ -48,10 +43,12 @@ def keyword_filter():
             'non_match_count': len(non_matches)
         }
 
+        # Return JSON for AJAX request
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return jsonify(response_data)
-        else:
-            return render_template('keyword_filter.html', **response_data)
+        
+        # Render the template with results (for non-JS requests)
+        return render_template('keyword_filter.html', **response_data)
 
     return render_template('keyword_filter.html')
 
