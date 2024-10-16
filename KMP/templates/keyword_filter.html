@@ -3,45 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keyword Filter Pro™ - Filter Your Keyword Lists Fast</title>
+    <title>Advanced Keyword Filter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='filter.css') }}">
 </head>
 <body>
-    <div id="app">
-        <div class="left-panel">
-            <form method="POST" id="keyword-filter-form">
-                <div class="input-group">
-                    <h3>Positive Match</h3>
-                    <textarea name="keys_to_match" id="keys_to_match">{{ keys_to_match }}</textarea>
-                    <small>keyword = Broad Match, "keyword" = Phrase Match, [keyword] = Exact Match</small>
-                </div>
-                <div class="input-group">
-                    <h3>Negative Match</h3>
-                    <textarea name="keys_to_filter_match" id="keys_to_filter_match">{{ keys_to_filter_match }}</textarea>
-                    <small>keyword = Negative Broad Match, "keyword" = Negative Phrase Match, [keyword] = Negative Exact Match</small>
-                </div>
-                <div class="input-group">
-                    <h3>Keyword List</h3>
-                    <textarea name="keys_to_be_matched" id="keys_to_be_matched">{{ keys_to_be_matched }}</textarea>
-                    <small id="keysToBeMatchedCount"><span>0</span> keywords</small>
-                </div>
-                <button type="submit">Filter Keywords</button>
-            </form>
+<div class="container">
+    <h1>🔍✂️ Advanced Keyword Filter</h1>
+    <p><span class="emoji">🚀</span>Free Online Text Filtering Tool</p>
+
+    <div class="keyword-input">
+        <div class="keyword-column">
+            <label for="keywords"><span class="emoji">🔑</span>Keyword List:</label>
+            <textarea id="keywords" placeholder="Enter keywords, one per line"></textarea>
         </div>
-        <div class="right-panel">
-            <div class="result-group">
-                <h3>Matches (<span id="matchCount">{{ match_count }}</span>)</h3>
-                <textarea id="matchResult" readonly>{{ matches }}</textarea>
-            </div>
-            <div class="result-group">
-                <h3>Non-Matches (<span id="nonMatchCount">{{ non_match_count }}</span>)</h3>
-                <textarea id="dontMatchResult" readonly>{{ non_matches }}</textarea>
-            </div>
+        <div class="keyword-column">
+            <label for="positiveKeywords"><span class="emoji">✅</span>Positive Keywords:</label>
+            <textarea id="positiveKeywords" placeholder="Enter positive keywords, one per line"></textarea>
+        </div>
+        <div class="keyword-column">
+            <label for="negativeKeywords"><span class="emoji">❌</span>Negative Keywords:</label>
+            <textarea id="negativeKeywords" placeholder="Enter negative keywords, one per line"></textarea>
         </div>
     </div>
-    <footer>
-        <p>© Copyright 2024 MarketBold.com All Rights Reserved.</p>
-    </footer>
-    <script src="{{ url_for('static', filename='filter.js') }}"></script>
+
+    <button class="filter-button" onclick="filterText()"><span class="emoji">🔍</span>Filter Text</button>
+
+    <div id="stats"></div>
+    <div id="output"></div>
+</div>
+
+<script src="{{ url_for('static', filename='filter.js') }}"></script>
 </body>
 </html>
