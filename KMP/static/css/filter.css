@@ -1,11 +1,10 @@
-body, html {
+body {
     font-family: 'Roboto', sans-serif;
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     margin: 0;
     padding: 20px;
     color: #333;
 }
-
 .container {
     max-width: 900px;
     margin: 0 auto;
@@ -14,25 +13,18 @@ body, html {
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-
 h1, h2, h3 {
     color: #4a4a4a;
     text-align: center;
     font-weight: 700;
     margin-bottom: 20px;
 }
-
-.keyword-input, .results-area {
+.input-area {
     margin-bottom: 20px;
-    display: flex;
-    justify-content: space-between;
+    background-color: #f0f0f0;
+    padding: 15px;
+    border-radius: 8px;
 }
-
-.keyword-column {
-    width: 48%;
-    position: relative;
-}
-
 textarea {
     width: 100%;
     padding: 10px;
@@ -42,24 +34,14 @@ textarea {
     resize: vertical;
     height: 100px;
 }
-
-.copy-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 12px;
+.keyword-input {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
 }
-
-.copy-btn:hover {
-    background-color: #45a049;
+.keyword-column {
+    width: 31%;
 }
-
 .filter-button {
     background-color: #4CAF50;
     color: white;
@@ -73,25 +55,55 @@ textarea {
     margin: 20px auto;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-
 .filter-button:hover {
     background-color: #45a049;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0,0,0,0.15);
 }
-
-.matches-textarea, .non-matches-textarea {
-    height: 200px; /* Increase height for matches and non-matches text areas */
-    font-size: 16px; /* Make text larger */
-}
-
-.results-area {
+#output, #stats {
     margin-top: 20px;
-    margin-bottom: 20px;
-    gap: 30px; /* Reduce space between matches and non-matches to less than 40px */
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+}
+.emoji {
+    font-size: 24px;
+    margin-right: 10px;
+}
+.advanced-options {
+    display: none;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+}
+.show-advanced {
+    text-align: center;
+    margin-top: 20px;
+    cursor: pointer;
+    color: #4CAF50;
+}
+.show-advanced:hover {
+    text-decoration: underline;
+}
+.option-group {
+    margin-bottom: 15px;
+}
+.option-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+select, input[type="number"] {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
-.results-label {
-    font-weight: bold;
-    margin-bottom: 5px;
+/* New styles for Matches and Non-Matches text areas */
+.matches-textarea, .non-matches-textarea {
+    height: 200px; /* Increased height */
+    font-size: 16px; /* Larger font size */
+    margin-bottom: 30px; /* Space between text areas */
 }

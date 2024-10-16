@@ -35,16 +35,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Function to copy text from a textarea to clipboard
+
+// Function to copy text from a textarea to the clipboard
 function copyToClipboard(elementId) {
     const textarea = document.getElementById(elementId);
+    const copyButton = textarea.nextElementSibling; // Find the copy button next to the textarea
+    
     textarea.select();
     textarea.setSelectionRange(0, 99999); // For mobile devices
 
     try {
         document.execCommand('copy');
-        alert('Copied to clipboard');
+        // Change button color to green after successful copy
+        copyButton.style.backgroundColor = '#28a745'; // Green color for success
+        setTimeout(() => {
+            // Revert back to original color after 2 seconds
+            copyButton.style.backgroundColor = '#4CAF50'; // Original button color
+        }, 2000);
     } catch (err) {
-        alert('Failed to copy text');
+        console.error('Failed to copy text');
     }
 }

@@ -13,7 +13,6 @@ keyword_bp = Blueprint('keyword', __name__)
 
 
 
-
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
 def keyword_filter():
