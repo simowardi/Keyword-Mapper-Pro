@@ -49,9 +49,9 @@ function copyToClipboard(elementId) {
         // Change button color to green after successful copy
         copyButton.style.backgroundColor = '#28a745'; // Green color for success
         setTimeout(() => {
-            // Revert back to original color after 2 seconds
+            // Revert back to original color after 1 second
             copyButton.style.backgroundColor = '#4CAF50'; // Original button color
-        }, 2000);
+        }, 1000); // Change duration here to 1000 milliseconds (1 second)
     } catch (err) {
         console.error('Failed to copy text');
     }
