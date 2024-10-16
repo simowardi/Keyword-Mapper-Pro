@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(form);
 
         // Send form data to the Flask route via AJAX
-        fetch('/keywords/keyword_filter', {
+        fetch('/keyword/keyword_filter', {
             method: 'POST',
             body: formData,
             headers: {
