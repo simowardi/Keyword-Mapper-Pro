@@ -1,77 +1,84 @@
+/* seo.css */
+
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
-    line-height: 1.6;
+    background-color: #f4f4f9;
     margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
     padding: 20px;
 }
 
-h1, h2 {
+/* Heading styling */
+h1 {
     color: #333;
+    text-align: center;
 }
 
+h2 {
+    color: #555;
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+
+/* Form styling */
 form {
-    background: #fff;
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 input[type="text"] {
-    width: 100%;
     padding: 10px;
+    font-size: 16px;
+    width: 300px;
     margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
 
-.checkbox-group {
-    margin-bottom: 10px;
+/* Radio button group */
+label {
+    margin-right: 10px;
+    font-size: 16px;
+    cursor: pointer;
 }
 
+input[type="radio"] {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+/* Submit button styling */
 button {
-    display: inline-block;
-    background: #333;
-    color: #fff;
     padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007bff;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
 button:hover {
-    background: #555;
+    background-color: #0056b3;
 }
 
-#results {
-    display: flex;
-    justify-content: space-between;
-}
-
-#google-results, #youtube-results {
-    width: 48%;
-    background: #fff;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
+/* Suggestions list styling */
 ul {
     list-style-type: none;
     padding: 0;
 }
 
 li {
-    background: #f9f9f9;
+    background-color: #fff;
+    border: 1px solid #ddd;
     margin-bottom: 5px;
     padding: 10px;
-    border-radius: 3px;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+li:hover {
+    background-color: #f1f1f1;
 }

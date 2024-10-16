@@ -1,48 +1,37 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('keyword-form');
-    const resultsDiv = document.getElementById('results');
+// seo.js
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const formData = new FormData(form);
-        const data = {
-            keyword: formData.get('keyword'),
-            country_code: formData.get('country_code'),
-            sources: formData.getAll('sources')
-        };
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector('form');
+    const searchTermInput = document.querySelector('input[name="search_term"]');
+    const radioButtons = document.querySelectorAll('input[name="increment_option"]');
+    
+    // Form submission validation
+    form.addEventListener('submit', function(event) {
+        const searchTerm = searchTermInput.value;
+        let selectedOption = null;
 
-        fetch('/fetch', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-        .then(response => response.json())
-        .then(data => {
-            updateResults(data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
+        // Check if any radio button is selected
+        radioButtons.forEach((radio) => {
+            if (radio.checked) {
+                selectedOption = radio.value;
+            }
         });
-    });
 
-    function updateResults(data) {
-        let html = '';
-        if (data.google) {
-            html += '<div id="google-results"><h2>Google Suggestions</h2><ul>';
-            data.google.forEach(suggestion => {
-                html += `<li>${suggestion}</li>`;
-            });
-            html += '</ul></div>';
+        // Validate if '*' is present in the search term
+        if (!searchTerm.includes('*')) {
+            alert("Please include '*' in your search term.");
+            event.preventDefault();  // Prevent form submission
         }
-        if (data.youtube) {
-            html += '<div id="youtube-results"><h2>YouTube Suggestions</h2><ul>';
-            data.youtube.forEach(suggestion => {
-                html += `<li>${suggestion}</li>`;
-            });
-            html += '</ul></div>';
+
+        // Validate if an increment option is selected
+        if (!selectedOption) {
+            alert("Please select an increment option.");
+            event.preventDefault();  // Prevent form submission
         }
-        resultsDiv.innerHTML = html;
-    }
+    });
 });
+
+function copyToClipboard(text) {
+	navigator.clipboard.writeText(text);
+	alert('Copied to clipboard!');
+}

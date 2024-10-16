@@ -251,80 +251,37 @@ def analyze_intent(keyword):
 
 
 
-def fetch_google_suggestions(query, country_code='US'):
-    url = f"http://google.com/complete/search?output=toolbar&gl={country_code}&q={query}"
-    try:
-        response = requests.get(url, timeout=5)
-        response.raise_for_status()
-        suggestions = json.loads(response.text)[1]
-        return [suggestion[0] for suggestion in suggestions]
-    except (requests.RequestException, json.JSONDecodeError, IndexError) as e:
-        print(f"Error fetching Google suggestions: {e}")
-        return []
+def generate_variations(query, increment_option):
+    variations = []
+    base_query = query.replace('*', '').strip()
 
-def fetch_youtube_suggestions(query):
-    url = f"http://suggestqueries.google.com/complete/search?client=youtube&ds=yt&alt=json&q={query}"
-    try:
-        response = requests.get(url, timeout=5)
-        response.raise_for_status()
-        suggestions = response.json()[1]
-        return [suggestion[0] for suggestion in suggestions]
-    except (requests.RequestException, json.JSONDecodeError, IndexError) as e:
-        print(f"Error fetching YouTube suggestions: {e}")
-        return []
+    if increment_option == 'a-z':
+        characters = string.ascii_lowercase
+    elif increment_option == 'A-Z':
+        characters = string.ascii_uppercase
+    elif increment_option == '0-9':
+        characters = string.digits
+    else:
+        return variations  # Empty list if no valid option
 
+    # Append each character to the base query
+    for char in characters:
+        variations.append(f"{base_query}{char}")
 
-@keyword_bp.route("/seokeyword", methods=["GET", "POST"])
+    return variations
+
+@keyword_bp.route('/seokeyword', methods=['GET', 'POST'])
 @login_required
 def seokeyword():
-    google_suggestions = []
-    youtube_suggestions = []
-    
-    if request.method == "POST":
-        user_input = request.form.get("keyword")
-        country_code = request.form.get("country_code", "US")
-        sources = request.form.getlist("sources")
-        
-        if user_input:
-            with ThreadPoolExecutor(max_workers=2) as executor:
-                futures = []
-                if "google" in sources:
-                    futures.append(executor.submit(fetch_google_suggestions, user_input, country_code))
-                if "youtube" in sources:
-                    futures.append(executor.submit(fetch_youtube_suggestions, user_input))
-                
-                results = [future.result() for future in futures]
-                
-                if "google" in sources:
-                    google_suggestions = results.pop(0)
-                if "youtube" in sources:
-                    youtube_suggestions = results.pop(0)
+    suggestions = []
+    if request.method == 'POST':
+        search_term = request.form.get('search_term')
+        increment_option = request.form.get('increment_option')
 
-    return render_template("seokeyword.html", google_suggestions=google_suggestions, youtube_suggestions=youtube_suggestions)
+        if '*' in search_term:
+            # Generate variations based on the selected increment option
+            suggestions = generate_variations(search_term, increment_option)
+        else:
+            suggestions.append("No '*' wildcard found in the search term.")
 
-
-@keyword_bp.route("/fetch", methods=["POST"])
-@login_required
-def fetch_suggestions():
-    data = request.json
-    user_input = data.get("keyword")
-    country_code = data.get("country_code", "US")
-    sources = data.get("sources", [])
-    
-    results = {}
-    
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        futures = []
-        if "google" in sources:
-            futures.append(executor.submit(fetch_google_suggestions, user_input, country_code))
-        if "youtube" in sources:
-            futures.append(executor.submit(fetch_youtube_suggestions, user_input))
-        
-        future_results = [future.result() for future in futures]
-        
-        if "google" in sources:
-            results["google"] = future_results.pop(0)
-        if "youtube" in sources:
-            results["youtube"] = future_results.pop(0)
-
-    return jsonify(results)
+    return render_template('seokeyword.html', suggestions=suggestions)
