@@ -4,55 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keyword Filter Pro™ - Filter Your Keyword Lists Fast</title>
-	<link rel="stylesheet" href="/static/css/filter.css">    
+    <link rel="stylesheet" href="{{ url_for('static', filename='filter.css') }}">
 </head>
 <body>
-    <div id="logo">
-        <img src="{{ url_for('static', filename='logo.gif') }}" alt="Logo">
-    </div>
-    <form method="POST" id="keyword-filter-form">
-        <div class="row">
-            <div class="col">
-                <h3>Positive Match</h3>
-                <textarea name="keys_to_match" id="keys_to_match">{{ keys_to_match }}</textarea>
-                <small>keyword = Broad Match, "keyword" = Phrase Match, [keyword] = Exact Match</small>
-            </div>
-            <div class="col">
-                <h3>Negative Match</h3>
-                <textarea name="keys_to_filter_match" id="keys_to_filter_match">{{ keys_to_filter_match }}</textarea>
-                <small>keyword = Negative Broad Match, "keyword" = Negative Phrase Match, [keyword] = Negative Exact Match</small>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h3>Keyword List</h3>
-                <textarea name="keys_to_be_matched" id="keys_to_be_matched">{{ keys_to_be_matched }}</textarea>
-                <small id="keysToBeMatchedCount"><span>0</span> keywords</small>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
+    <div id="app">
+        <div class="left-panel">
+            <form method="POST" id="keyword-filter-form">
+                <div class="input-group">
+                    <h3>Positive Match</h3>
+                    <textarea name="keys_to_match" id="keys_to_match">{{ keys_to_match }}</textarea>
+                    <small>keyword = Broad Match, "keyword" = Phrase Match, [keyword] = Exact Match</small>
+                </div>
+                <div class="input-group">
+                    <h3>Negative Match</h3>
+                    <textarea name="keys_to_filter_match" id="keys_to_filter_match">{{ keys_to_filter_match }}</textarea>
+                    <small>keyword = Negative Broad Match, "keyword" = Negative Phrase Match, [keyword] = Negative Exact Match</small>
+                </div>
+                <div class="input-group">
+                    <h3>Keyword List</h3>
+                    <textarea name="keys_to_be_matched" id="keys_to_be_matched">{{ keys_to_be_matched }}</textarea>
+                    <small id="keysToBeMatchedCount"><span>0</span> keywords</small>
+                </div>
                 <button type="submit">Filter Keywords</button>
+            </form>
+        </div>
+        <div class="right-panel">
+            <div class="result-group">
+                <h3>Matches (<span id="matchCount">{{ match_count }}</span>)</h3>
+                <textarea id="matchResult" readonly>{{ matches }}</textarea>
             </div>
-        </div>
-    </form>
-    <div class="row">
-        <div class="col">
-            <h3>Matches (<span id="matchCount">{{ match_count }}</span>)</h3>
-            <textarea id="matchResult" readonly>{{ matches }}</textarea>
-        </div>
-        <div class="col">
-            <h3>Non-Matches (<span id="nonMatchCount">{{ non_match_count }}</span>)</h3>
-            <textarea id="dontMatchResult" readonly>{{ non_matches }}</textarea>
+            <div class="result-group">
+                <h3>Non-Matches (<span id="nonMatchCount">{{ non_match_count }}</span>)</h3>
+                <textarea id="dontMatchResult" readonly>{{ non_matches }}</textarea>
+            </div>
         </div>
     </div>
     <footer>
-        <p><strong>Keyword Filter Pro</strong> helps you find targeted keywords fast.</p>
-        <p><a href="https://www.youtube.com/watch?v=S7BP0D9gvAo" target="_blank">Free video training is available here.</a></p>
-        <p>© Copyright 2023 MarketBold.com All Rights Reserved.</p>
+        <p>© Copyright 2024 MarketBold.com All Rights Reserved.</p>
     </footer>
-
-	<script script src="/static/js/filter.js"></script>
-
+    <script src="{{ url_for('static', filename='filter.js') }}"></script>
 </body>
 </html>

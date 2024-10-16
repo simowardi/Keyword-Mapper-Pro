@@ -1,8 +1,9 @@
-from flask import Flask, Blueprint, render_template, redirect, url_for, flash, request, Response
+from flask import Flask, Blueprint, render_template, redirect, url_for, flash, jsonify, request, Response, send_from_directory
 from models import db, User
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
 import csv
+import os
 import requests
 import json
 import string
@@ -11,7 +12,12 @@ from concurrent.futures import ThreadPoolExecutor
 keyword_bp = Blueprint('keyword', __name__)
 
 
-from flask import jsonify
+
+
+@keyword_bp.route('/static/<path:filename>')
+def serve_static(filename):
+    root_dir = os.path.dirname(os.path.abspath(__file__))
+    return send_from_directory(os.path.join(root_dir, 'static'), filename)
 
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
@@ -35,22 +41,17 @@ def keyword_filter():
         non_matches = [keyword for keyword in keys_to_be_matched if keyword not in matches]
         non_matches.extend(negative_matches)
 
+        response_data = {
+            'matches': '\n'.join(final_matches),
+            'non_matches': '\n'.join(non_matches),
+            'match_count': len(final_matches),
+            'non_match_count': len(non_matches)
+        }
+
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return jsonify({
-                'matches': '\n'.join(final_matches),
-                'non_matches': '\n'.join(non_matches),
-                'match_count': len(final_matches),
-                'non_match_count': len(non_matches)
-            })
+            return jsonify(response_data)
         else:
-            return render_template('keyword_filter.html',
-                                   keys_to_match='\n'.join(keys_to_match),
-                                   keys_to_filter_match='\n'.join(keys_to_filter_match),
-                                   keys_to_be_matched='\n'.join(keys_to_be_matched),
-                                   matches='\n'.join(final_matches),
-                                   non_matches='\n'.join(non_matches),
-                                   match_count=len(final_matches),
-                                   non_match_count=len(non_matches))
+            return render_template('keyword_filter.html', **response_data)
 
     return render_template('keyword_filter.html')
 
