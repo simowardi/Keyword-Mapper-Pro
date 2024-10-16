@@ -3,6 +3,7 @@ from models import db, User
 from flask_login import login_required, current_user, LoginManager, login_user, logout_user
 from datetime import datetime
 import csv
+from app import app
 import requests
 
 keyword_bp = Blueprint('account', __name__)
