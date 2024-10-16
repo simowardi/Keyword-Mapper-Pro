@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEO Keyword Suggestions</title>
-    <!-- Link the external CSS file -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/seo.css') }}">
 </head>
 <body>
@@ -28,15 +27,17 @@
     </form>
 
     {% if suggestions %}
-        <h2>Keyword Variations:</h2>
-        <ul>
-            {% for suggestion in suggestions %}
-                <li>{{ suggestion }}</li>
-            {% endfor %}
-        </ul>
+        <h2>Google Keyword Suggestions:</h2>
+        {% for query, google_suggestions in suggestions %}
+            <h3>For query: {{ query }}</h3>
+            <ul>
+                {% for suggestion in google_suggestions %}
+                    <li>{{ suggestion }}</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
     {% endif %}
 
-    <!-- Link the external JS file -->
     <script src="{{ url_for('static', filename='js/seo.js') }}"></script>
 </body>
 </html>

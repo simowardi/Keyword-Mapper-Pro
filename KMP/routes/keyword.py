@@ -251,9 +251,8 @@ def analyze_intent(keyword):
 
 
 
-def generate_variations(query, increment_option):
-    variations = []
-    base_query = query.replace('*', '').strip()
+def generate_search_queries(query, increment_option):
+    base_query = query.replace('+', ' ').replace('*', '')
 
     if increment_option == 'a-z':
         characters = string.ascii_lowercase
@@ -262,26 +261,46 @@ def generate_variations(query, increment_option):
     elif increment_option == '0-9':
         characters = string.digits
     else:
-        return variations  # Empty list if no valid option
+        characters = []
 
-    # Append each character to the base query
-    for char in characters:
-        variations.append(f"{base_query}{char}")
+    # Create queries by adding characters in place of *
+    queries = [f"{base_query}{char}" for char in characters]
+    
+    return queries
 
-    return variations
+def fetch_google_suggestions(query):
+    url = f"https://suggestqueries.google.com/complete/search?output=toolbar&hl=en&q={query}"
+    response = requests.get(url)
 
-@keyword_bp.route('/seokeyword', methods=['GET', 'POST'])
+    suggestions = []
+    if response.status_code == 200:
+        from xml.etree import ElementTree as ET
+        root = ET.fromstring(response.content)
+
+        for suggestion in root.findall('.//suggestion'):
+            suggestions.append(suggestion.attrib['data'])
+
+    return suggestions
+
+@keyword_bp.route('/keyword/seokeyword', methods=['GET', 'POST'])
 @login_required
 def seokeyword():
-    suggestions = []
+    all_suggestions = []
+
     if request.method == 'POST':
         search_term = request.form.get('search_term')
         increment_option = request.form.get('increment_option')
 
+        # If * is in the search term, generate variations
         if '*' in search_term:
-            # Generate variations based on the selected increment option
-            suggestions = generate_variations(search_term, increment_option)
-        else:
-            suggestions.append("No '*' wildcard found in the search term.")
+            queries = generate_search_queries(search_term, increment_option)
 
-    return render_template('seokeyword.html', suggestions=suggestions)
+            # For each generated query, get Google suggestions
+            for query in queries:
+                google_suggestions = fetch_google_suggestions(query)
+                all_suggestions.append((query, google_suggestions))
+        else:
+            all_suggestions.append(("Invalid search term", ["No '*' found in the search term."]))
+
+    return render_template('seokeyword.html', suggestions=all_suggestions)
+
