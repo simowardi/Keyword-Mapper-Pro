@@ -1,71 +1,58 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Keyword Filter</title>
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .text-box {
-            width: 45%;
-            margin-bottom: 20px;
-        }
-        .result-box {
-            width: 45%;
-            margin-bottom: 20px;
-        }
-        .copy-icon {
-            cursor: pointer;
-            color: blue;
-            margin-left: 5px;
-        }
-    </style>
-    <script>
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                alert('Copied to clipboard!');
-            }, function(err) {
-                console.error('Could not copy text: ', err);
-            });
-        }
-    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Filter Pro™ - Filter Your Keyword Lists Fast</title>
+	<link rel="stylesheet" href="/static/css/filter.css">    
 </head>
 <body>
-    <h1>Keyword Filter</h1>
-    <form method="POST">
-        <div class="container">
-            <div class="text-box">
+    <div id="logo">
+        <img src="{{ url_for('static', filename='logo.gif') }}" alt="Logo">
+    </div>
+    <form method="POST" id="keyword-filter-form">
+        <div class="row">
+            <div class="col">
                 <h3>Positive Match</h3>
-                <textarea name="positive_keywords" rows="5" cols="30">{{ positive_keywords | join('\n') }}</textarea>
-                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=positive_keywords]').value)">📋</span>
-
-                <h3>Negative Match</h3>
-                <textarea name="negative_keywords" rows="5" cols="30">{{ negative_keywords | join('\n') }}</textarea>
-                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=negative_keywords]').value)">📋</span>
-
-                <h3>Keyword List</h3>
-                <textarea name="keyword_list" rows="10" cols="30">{{ keyword_list | join('\n') }}</textarea>
-                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=keyword_list]').value)">📋</span>
+                <textarea name="keys_to_match" id="keys_to_match">{{ keys_to_match }}</textarea>
+                <small>keyword = Broad Match, "keyword" = Phrase Match, [keyword] = Exact Match</small>
             </div>
-
-            <div class="result-box">
-                <h3>Matched Keywords ({{ matched_keywords | length }})</h3>
-                <ul>
-                    {% for keyword in matched_keywords %}
-                        <li>{{ keyword }}</li>
-                    {% endfor %}
-                </ul>
-
-                <h3>Keywords Don't Match ({{ not_matched_keywords | length }})</h3>
-                <ul>
-                    {% for keyword in not_matched_keywords %}
-                        <li>{{ keyword }}</li>
-                    {% endfor %}
-                </ul>
+            <div class="col">
+                <h3>Negative Match</h3>
+                <textarea name="keys_to_filter_match" id="keys_to_filter_match">{{ keys_to_filter_match }}</textarea>
+                <small>keyword = Negative Broad Match, "keyword" = Negative Phrase Match, [keyword] = Negative Exact Match</small>
             </div>
         </div>
-        <button type="submit">Filter</button>
+        <div class="row">
+            <div class="col">
+                <h3>Keyword List</h3>
+                <textarea name="keys_to_be_matched" id="keys_to_be_matched">{{ keys_to_be_matched }}</textarea>
+                <small id="keysToBeMatchedCount"><span>0</span> keywords</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit">Filter Keywords</button>
+            </div>
+        </div>
     </form>
+    <div class="row">
+        <div class="col">
+            <h3>Matches (<span id="matchCount">{{ match_count }}</span>)</h3>
+            <textarea id="matchResult" readonly>{{ matches }}</textarea>
+        </div>
+        <div class="col">
+            <h3>Non-Matches (<span id="nonMatchCount">{{ non_match_count }}</span>)</h3>
+            <textarea id="dontMatchResult" readonly>{{ non_matches }}</textarea>
+        </div>
+    </div>
+    <footer>
+        <p><strong>Keyword Filter Pro</strong> helps you find targeted keywords fast.</p>
+        <p><a href="https://www.youtube.com/watch?v=S7BP0D9gvAo" target="_blank">Free video training is available here.</a></p>
+        <p>© Copyright 2023 MarketBold.com All Rights Reserved.</p>
+    </footer>
+
+	<script script src="/static/js/filter.js"></script>
+
 </body>
 </html>

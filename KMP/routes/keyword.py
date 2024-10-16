@@ -11,37 +11,49 @@ from concurrent.futures import ThreadPoolExecutor
 keyword_bp = Blueprint('keyword', __name__)
 
 
+from flask import jsonify
+
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
 def keyword_filter():
-    """
-    Endpoint to filter keywords based on positive and negative matches
-
-    If the request is a POST, filters the given keyword list based on the given
-    positive and negative keywords, then renders the keyword_filter.html template
-    with the filtered keywords and keyword count.
-
-    If the request is a GET, renders the keyword_filter.html template with empty
-    variables.
-
-    :return: rendered keyword_filter.html template
-    """
     if request.method == 'POST':
-        positive_keywords = request.form.get('positive_keywords', '').splitlines()
-        negative_keywords = request.form.get('negative_keywords', '').splitlines()
-        keyword_list = request.form.get('keyword_list', '').splitlines()
+        keys_to_match = request.form.get('keys_to_match', '').splitlines()
+        keys_to_filter_match = request.form.get('keys_to_filter_match', '').splitlines()
+        keys_to_be_matched = request.form.get('keys_to_be_matched', '').splitlines()
 
-        matched_keywords = [keyword for keyword in keyword_list if any(pos in keyword for pos in positive_keywords)]
-        not_matched_keywords = [keyword for keyword in keyword_list if not any(pos in keyword for pos in positive_keywords)]
+        def matches_pattern(keyword, pattern):
+            if pattern.startswith('[') and pattern.endswith(']'):
+                return keyword.lower() == pattern[1:-1].lower()
+            elif pattern.startswith('"') and pattern.endswith('"'):
+                return pattern[1:-1].lower() in keyword.lower()
+            else:
+                return all(word.lower() in keyword.lower() for word in pattern.split())
 
-        return render_template('keyword_filter.html',
-                               positive_keywords=positive_keywords,
-                               negative_keywords=negative_keywords,
-                               keyword_list=keyword_list,
-                               matched_keywords=matched_keywords,
-                               not_matched_keywords=not_matched_keywords)
+        matches = [keyword for keyword in keys_to_be_matched if any(matches_pattern(keyword, pattern) for pattern in keys_to_match)]
+        negative_matches = [keyword for keyword in matches if any(matches_pattern(keyword, pattern) for pattern in keys_to_filter_match)]
+        final_matches = [keyword for keyword in matches if keyword not in negative_matches]
+        non_matches = [keyword for keyword in keys_to_be_matched if keyword not in matches]
+        non_matches.extend(negative_matches)
+
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            return jsonify({
+                'matches': '\n'.join(final_matches),
+                'non_matches': '\n'.join(non_matches),
+                'match_count': len(final_matches),
+                'non_match_count': len(non_matches)
+            })
+        else:
+            return render_template('keyword_filter.html',
+                                   keys_to_match='\n'.join(keys_to_match),
+                                   keys_to_filter_match='\n'.join(keys_to_filter_match),
+                                   keys_to_be_matched='\n'.join(keys_to_be_matched),
+                                   matches='\n'.join(final_matches),
+                                   non_matches='\n'.join(non_matches),
+                                   match_count=len(final_matches),
+                                   non_match_count=len(non_matches))
 
     return render_template('keyword_filter.html')
+
 
 
 @keyword_bp.route('/keyword_grouper', methods=['GET', 'POST'])
