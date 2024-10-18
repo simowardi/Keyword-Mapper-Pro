@@ -1,0 +1,205 @@
+:root {
+    --bg-color: #121212; /* Background color for the body */
+    --text-color: #e0e0e0; /* Main text color */
+    --primary-color: #6a5acd; /* Primary color for accents */
+    --secondary-color: #ff6b6b; /* Secondary color for accents */
+    --tertiary-color: #4ecca3; /* Color for call-to-action buttons */
+    --highlight-color: #00ffff; /* Highlight color for links and interactive elements */
+}
+
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font styles */
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    background-color: var(--bg-color); /* Set background color */
+    color: var(--text-color); /* Set text color */
+    line-height: 1.6; /* Line height for readability */
+}
+
+
+header {
+    background-color: rgba(106, 90, 205, 0.9); /* More opaque background */
+    padding: 1rem 0; /* Padding for header */
+    position: static; /* Changed from fixed to static */
+    width: 100%; /* Full width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+
+/* Navigation styles */
+nav {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between items */
+    align-items: center; /* Center items vertically */
+    max-width: 1200px; /* Max width for the nav */
+    margin: 0 auto; /* Center horizontally */
+    padding: 0 2rem; /* Padding for nav */
+}
+
+.logo {
+    font-size: 3rem; /* Logo font size */
+    font-weight: bold; /* Bold font weight */
+    color: var(--highlight-color); /* Logo color */
+}
+
+nav ul {
+    display: flex; /* Flexbox for the nav list */
+    list-style: none; /* Remove bullet points */
+}
+
+nav ul li {
+    margin-left: 2rem; /* Space between list items */
+}
+
+nav ul li a {
+    color: var(--text-color); /* Link color */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s; /* Transition for hover effect */
+}
+
+nav ul li a:hover {
+    color: var(--highlight-color); /* Change color on hover */
+}
+
+
+/* Hero section styles */
+.hero {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color)); /* Gradient background */
+    height: 100vh; /* Full viewport height */
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-align: center; /* Center text */
+    color: white; /* Text color */
+}
+
+.hero-content {
+    max-width: 800px; /* Max width for hero content */
+    padding: 2rem; /* Padding for hero content */
+}
+
+h1 {
+    font-size: 3rem; /* Main heading size */
+    margin-bottom: 1rem; /* Space below heading */
+}
+
+h2 {
+    text-align: center; /* Center secondary heading */
+    font-size: 2rem; /* Size for secondary heading */
+    margin-bottom: 2rem; /* Space below heading */
+}
+
+
+/* Call-to-action button styles */
+.cta-button {
+    display: inline-block; /* Inline block for button */
+    background-color: var(--tertiary-color); /* Button background color */
+    color: var(--bg-color); /* Button text color */
+    padding: 0.8rem 2rem; /* Padding for button */
+    border-radius: 50px; /* Rounded corners */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Bold font weight */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transition for effects */
+}
+
+.cta-button:hover {
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* Shadow effect on hover */
+}
+
+
+/* Features section styles */
+.features {
+    padding: 4rem 2rem; /* Padding for features section */
+    max-width: 1200px; /* Max width for features */
+    margin: 0 auto; /* Center horizontally */
+}
+
+.feature-grid {
+    display: grid; /* Use grid for layout */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 2rem; /* Space between grid items */
+}
+
+.feature-card {
+    background-color: rgba(255,255,255,0.05); /* Card background color */
+    padding: 2rem; /* Padding for cards */
+    border-radius: 8px; /* Rounded corners for cards */
+    text-align: center; /* Center text in card */
+}
+
+.feature-icon {
+    font-size: 3rem; /* Icon size */
+    color: var(--highlight-color); /* Icon color */
+    margin-bottom: 1rem; /* Space below icon */
+}
+
+
+/* About section styles */
+.features, .about {
+    padding: 4rem 2rem; /* Padding for about section */
+    max-width: 1200px; /* Max width for about */
+    margin: 0 auto; /* Center horizontally */
+}
+
+.feature-card img {
+    max-width: 100%; /* Responsive images */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 8px; /* Rounded corners for images */
+    margin-bottom: 1rem; /* Space below image */
+}
+
+
+/* Team list styles */
+.team-list {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove padding */
+}
+
+.team-list li {
+    margin-bottom: 1rem; /* Space between team members */
+}
+
+
+/* Intro section styles */
+.intro {
+    position: relative; /* Position relative for absolute elements */
+    height: 100vh; /* Full viewport height */
+    display: flex; /* Flexbox for alignment */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    text-align: center; /* Center text */
+    color: white; /* Text color */
+    overflow: hidden; /* Hide overflow */
+}
+
+.cover-image {
+    position: absolute; /* Position absolute for background */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-image: url('https://files.catbox.moe/ekrgib.jpg'); /* Background image */
+    background-size: cover; /* Cover background */
+    background-position: center; /* Center image */
+    background-repeat: no-repeat; /* No repeat */
+    z-index: -1; /* Send to back */
+}
+
+.intro-content {
+    position: relative; /* Position relative for content */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    padding: 2rem; /* Padding for content */
+    border-radius: 10px; /* Rounded corners */
+    z-index: 1; /* Bring to front */
+}
+
+
+/* Footer styles */
+footer {
+    background-color: rgba(106, 90, 205, 0.1); /* Footer background color */
+    text-align: center; /* Center text */
+    padding: 2rem 0; /* Padding for footer */
+    margin-top: 2rem; /* Space above footer */
+}

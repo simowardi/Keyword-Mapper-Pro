@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-    	<meta charset="UTF-8">
-	    <title>Keyword Mapper Pro - All you keyword need in one place</title>
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="/static/css/styles.css">
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Mapper Pro</title>
+    <link rel="stylesheet" href="src/css/styles.css">
+</head>
 
-	<body>
-	  <header>
-		<nav>
-			<a href="{{ url_for('index') }}" class="logo">ShareBlast</a>
+<body>
+    <header>
+        <nav>
+			<a href="{{ url_for('index') }}" class="logo">Keyword Mapper Pro</a>
 		  <ul>
 			<li><a href="#features">Features</a></li>
 			<li><a href="#about">About</a></li>
@@ -23,59 +23,65 @@
 	  <section id="intro" class="intro">
 		<div class="cover-image"></div>
 		<div class="intro-content">
-			<h1>ShareBlast</h1>
-			<h2>Create Exciting Giveaways in Minutes</h2>
-			<p>Boost engagement, grow your audience, and reward your followers with ShareBlast.</p>
-			<p>Supercharge Your Social Media Giveaways</p>
+            <h1>Keyword Mapper Pro</h1>
+            <h2>Master Your Keyword Strategy in Minutes</h2>
+            <p>Explore, filter, analyze, and map your keywords with ease.</p>
 			<a href="{{ url_for('auth.login') }}" class="cta-button">Launch App</a>
 		</div>
 	</section>
 
 
 	  <section id="features" class="features">
-		<h2>Why Choose ShareBlast?</h2>
+		<h2>Why Choose Keyword Mapper Pro?</h2>
 		<div class="feature-grid">
-		  <div class="feature-card">
-			<div class="feature-icon">🚀</div>
-			<h3>Boost Engagement</h3>
-			<p>Our intelligent algorithms help your giveaways reach a wider audience and drive more participation.</p>
-		  </div>
-		  <div class="feature-card">
-			<div class="feature-icon">📊</div>
-			<h3>Advanced Analytics</h3>
-			<p>Get deep insights into your giveaway performance with our comprehensive analytics Metrics.</p>
-		  </div>
-		  <div class="feature-card">
-			<div class="feature-icon">⭐</div>
-			<h3>Easy Setup</h3>
-			<p>Create a giveaway in just a few clicks with our intuitive interface.</p>
-		  </div>
+			<div class="feature-card">
+				<div class="feature-icon">🔍</div>
+				<h3>Keyword Explorer</h3>
+				<p>Generate keywords and scrape search completions based on your input.</p>
+			</div>
+			<div class="feature-card">
+				<div class="feature-icon">🔢</div>
+				<h3>Keyword Filter</h3>
+				<p>Filter keywords by keeping positive ones and removing negative ones.</p>
+			</div>
+			<div class="feature-card">
+				<div class="feature-icon">🎯</div>
+				<h3>Intent Analyzer</h3>
+				<p>Analyze the intent of keywords based on predefined categories.</p>
+			</div>
+			<div class="feature-card">
+				<div class="feature-icon">🗺️</div>
+				<h3>Topic Mapper</h3>
+				<p>Categorize and map your keywords to specific topics for better organization.</p>
+			</div>
 		</div>
 	  </section>
 
 
 	  <section class="hero">
 		<div class="hero-content">
-		  <h1>Create Exciting Giveaways in Minutes</h1>
-		  <p>Boost engagement, grow your audience, and reward your followers with ShareBlast.</p>
+		  <h2>Supercharge Your Keyword Research</h2>
+		  <p>Unlock the full potential of your SEO and content strategy with Keyword Mapper Pro.</p>
 		  <a href="{{ url_for('auth.register') }}" class="cta-button">Get Started Free</a>
 		</div>
 	  </section>
 
 
-	  <section id="about" class="about">
-		<h2>About ShareBlast</h2>
-		<p>
-			ShareBlast was created out of my frustration with the process of creating and managing <strong>giveaways</strong>. 
-			As a digital marketer, I often struggled to obtain targeted leads such as email addresses and phone numbers. 
-			I envisioned a solution that utilizes <strong>giveaways</strong> to effectively grow my audience. 
-			<strong>Giveaways</strong> can ensure easy and repeatable results, and they allow us to measure the impact of our campaigns.
-			Thus, we decided to develop a tool that simplifies running <strong>giveaways</strong> for marketers and content creators.
+	  <section id="about" class="section about">
+        <h2>About Keyword Mapper Pro</h2>
+        <p>
+			Keyword Mapper Pro was born out of the need for a comprehensive, 
+			user-friendly tool to streamline the keyword research process. 
+			As digital marketers and SEO professionals, 
+			we understand the challenges of managing and analyzing large sets of keywords. 
+			Our goal is to provide a solution that simplifies this process, 
+			allowing you to focus on creating impactful strategies.
 		</p>
-		<p>
-			This project is a Portfolio Project for Holberton School. Learn more about Holberton 
-			<a href="https://www.holbertonschool.com">here</a>.
+        <p>
+			This project is a Portfolio Project for Holberton School. 
+			Learn more about Holberton <a href="https://www.holbertonschool.com">here</a>.
 		</p>
+
 		<h3>Our Team</h3>
 		<ul class="team-list">
 			<li>
@@ -86,13 +92,14 @@
 			</li>
 		</ul>
 		<p>
-			Check out our <a href="https://github.com/simowardi/shareblast">GitHub repository &#128279;</a> for more information about the project.
+			Check out our <a href="https://github.com/simowardi/keyword-mapper-pro">GitHub repository &#128279;</a> for more information about the project.
 		</p>
 	</section>
 
+	<script src="/static/js/index.js"></script>
 
 	<footer>
-		<p>&copy; 2024 ShareBlast. All rights reserved.</p>
+		<p>&copy; 2024 Keyword Mapper Pro. All rights reserved.</p>
 		<p>
 			<a href="{{ url_for('terms_of_service') }}">Terms of Service</a>
 			<a href="{{ url_for('privacy_policy') }}">Privacy Policy</a>			
