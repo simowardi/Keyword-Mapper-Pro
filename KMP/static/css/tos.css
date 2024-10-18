@@ -1,0 +1,61 @@
+/* General styles for the body */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 2rem;
+    background-color: #f4f4f4; /* Light background for better readability */
+    color: #333; /* Dark text color */
+}
+
+/* Headings */
+h1 {
+    font-size: 2.5rem; /* Larger font size for main headings */
+    color: #6a5acd; /* Primary color for headings */
+    margin-bottom: 1rem; /* Space below heading */
+}
+
+h2 {
+    font-size: 2rem; /* Secondary headings */
+    margin-top: 2rem; /* Space above secondary headings */
+    margin-bottom: 0.5rem; /* Space below secondary headings */
+    color: #4ecca3; /* Tertiary color for secondary headings */
+}
+
+/* Paragraphs */
+p {
+    line-height: 1.6; /* Improved readability */
+    margin-bottom: 1rem; /* Space below paragraphs */
+}
+
+/* List styles */
+ul {
+    margin-left: 2rem; /* Indent lists */
+}
+
+li {
+    margin-bottom: 0.5rem; /* Space between list items */
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 1rem 0; /* Padding for footer */
+    background-color: rgba(106, 90, 205, 0.1); /* Light footer background */
+    margin-top: 2rem; /* Space above footer */
+    color: #666; /* Footer text color */
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    body {
+        padding: 1rem; /* Reduced padding on smaller screens */
+    }
+    
+    h1 {
+        font-size: 2rem; /* Smaller font size for headings on mobile */
+    }
+    
+    h2 {
+        font-size: 1.5rem; /* Smaller font size for secondary headings on mobile */
+    }
+}
