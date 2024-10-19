@@ -301,21 +301,21 @@ body, html {
 
 
 
-  /* Copy button styles */
+/* Copy button styles */
 .copy-btn {
-    position: relative; /* Relative positioning for tooltip */
-    background-color: var(--primary-color); /* Primary color */
-    color: white; /* Text color */
+    background-color: transparent; /* Transparent background */
+    color: var(--primary-color); /* Icon color */
     border: none; /* No border */
-    border-radius: 4px; /* Rounded corners */
-    padding: 5px 10px; /* Padding for button */
+    border-radius: 50%; /* Circular shape */
+    padding: 5px; /* Small padding for a compact look */
     cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s; /* Smooth transition for background color */
+    transition: background-color 0.3s; /* Smooth transition */
+    position: relative; /* Relative positioning for tooltip */
 }
 
 /* Hover effect for copy button */
 .copy-btn:hover {
-    background-color: #2980b9; /* Darker shade on hover */
+    background-color: rgba(41, 128, 185, 0.2); /* Light background on hover */
 }
 
 /* Tooltip styles */
@@ -339,4 +339,9 @@ body, html {
 .copy-btn:hover .tooltip {
     visibility: visible; /* Show on hover */
     opacity: 1; /* Fully visible */
+}
+
+/* Icon size adjustment */
+.copy-btn i {
+    font-size: 16px; /* Adjust icon size */
 }
