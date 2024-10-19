@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
+/**
+ * Copies the text from the textarea with the given ID to the clipboard.
+ * @param {string} textareaId - The ID of the textarea from which to copy the text.
+ */
 function copyToClipboard(textareaId) {
     const textarea = document.getElementById(textareaId);
     textarea.select();
@@ -56,6 +60,14 @@ function copyToClipboard(textareaId) {
         button.style.backgroundColor = ''; // Reset to original
     }, 500); // Change to 500 milliseconds (half a second)
 }
+
+
+document.querySelector('.logout').addEventListener('click', function() {
+	if (confirm('Are you sure you want to logout?')) {
+	  // Perform logout action here
+	  alert('Logged out successfully');
+	}
+  });
 
 
 const themeToggle = document.querySelector('.theme-toggle');
