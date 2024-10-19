@@ -13,8 +13,27 @@ themeToggle.addEventListener('click', function() {
 
 
 function confirmDelete() {
-  if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
-    // Add the logic to delete the account here
-    alert("Your account has been deleted."); // Placeholder alert
-  }
+    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+        // If confirmed, submit the form or trigger the delete route
+        fetch('/delete_account', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrf_token'), // Include CSRF token if you're using Flask-WTF
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Redirect to index.html
+                window.location.href = '/index';
+            } else {
+                alert('Error deleting account. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        });
+    }
 }
+
