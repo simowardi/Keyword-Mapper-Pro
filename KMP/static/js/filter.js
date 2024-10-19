@@ -1,11 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('keyword-filter-form'); // Ensure you have a form element
-    const statsDiv = document.getElementById('stats'); // This needs to exist in your HTML
-    const matchesBox = document.getElementById('filteredResults'); // Matches output
+    const kwListTextarea = document.getElementById('keys_to_be_matched');
+    const positiveKwTextarea = document.getElementById('keys_to_match');
+    const matchesBox = document.getElementById('filteredResults');
+    const keywordCountDiv = document.getElementById('keywordCount');
+    const matchCountDiv = document.getElementById('matchCount');
 
+    // Update the keyword count whenever the keyword list changes
+    kwListTextarea.addEventListener('input', function() {
+        const keywords = kwListTextarea.value.split('\n').filter(kw => kw.trim() !== '');
+        keywordCountDiv.textContent = `${keywords.length} keywords`;
+    });
+
+    // Handle the filtering process
     document.querySelector('.filter-btn').addEventListener('click', function() {
-        const kwList = document.getElementById('keys_to_be_matched').value.split('\n');
-        const positiveKw = document.getElementById('keys_to_match').value.split('\n');
+        const kwList = kwListTextarea.value.split('\n').filter(kw => kw.trim() !== '');
+        const positiveKw = positiveKwTextarea.value.split('\n').filter(kw => kw.trim() !== '');
 
         const formData = new FormData();
         formData.append('keys_to_be_matched', kwList.join('\n'));
@@ -22,15 +31,12 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             // Update the stats and output sections with the results
-            statsDiv.innerHTML = `<h3>Filter Results</h3>
-                <p>Positive Match: ${data.match_count} lines match</p>`;
-
-            // Display the results in the text area
+            matchCountDiv.textContent = `${data.match_count} keywords match`;
             matchesBox.value = data.matches;
         })
         .catch(error => {
             console.error('Error:', error);
-            statsDiv.innerHTML = `<p>Error occurred: ${error.message}</p>`;
+            document.getElementById('stats').innerHTML = `<p>Error occurred: ${error.message}</p>`;
         });
     });
 });
@@ -51,8 +57,8 @@ function copyToClipboard(textareaId) {
 }
 
 
-function toggleNightMode() {
-	// Toggle night mode functionality
-	document.body.classList.toggle('night-mode');
-}
-
+const themeToggle = document.querySelector('.theme-toggle');
+themeToggle.addEventListener('click', function() {
+  document.body.classList.toggle('dark-mode');
+  this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
+});

@@ -40,7 +40,6 @@ def keyword_filter():
     return render_template('keyword_filter.html')  # Render for GET requests
 
 
-
 @keyword_bp.route('/keyword_grouper', methods=['GET', 'POST'])
 @login_required
 def keyword_grouper():
