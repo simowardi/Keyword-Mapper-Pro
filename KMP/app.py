@@ -47,7 +47,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/TOS.html')
+@app.route('/TOS')
 def terms_of_service():
     """
     Renders the 'TOS.html' template upon accessing '/TOS.html'.
@@ -55,14 +55,14 @@ def terms_of_service():
     return render_template('TOS.html')
 
 
-@app.route('/privacy.html')
+@app.route('/privacy')
 def privacy_policy():
     """
     Renders the 'privacy.html' template upon accessing '/privacy.html'.
     """
     return render_template('privacy.html')
 
-    
+
 @app.route('/dashboard')
 def dashboard():
     """
