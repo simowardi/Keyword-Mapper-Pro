@@ -12,6 +12,11 @@ themeToggle.addEventListener('click', function() {
 });
 
 
+/**
+ * Confirms whether the user wants to delete their account and if so, 
+ * submits a POST request to /delete_account
+ * to trigger the deletion process.
+ */
 function confirmDelete() {
     if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
         // If confirmed, submit the form or trigger the delete route
@@ -35,5 +40,22 @@ function confirmDelete() {
             alert('An error occurred. Please try again later.');
         });
     }
+}
+
+// Function to get CSRF token from cookies (if using Flask-WTF)
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Check if this cookie string begins with the name we want
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }
 
