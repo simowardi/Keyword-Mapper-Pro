@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Function to copy text from a textarea to the clipboard
 function copyToClipboard(textareaId) {
     const textarea = document.getElementById(textareaId);
     textarea.select();
@@ -51,8 +50,16 @@ function copyToClipboard(textareaId) {
     // Flash effect
     const button = event.target;
     button.style.backgroundColor = 'green';
+
+    // Show tooltip
+    const tooltip = button.querySelector('.tooltip');
+    tooltip.textContent = 'Copied!';
+    tooltip.style.visibility = 'visible';
+
     setTimeout(() => {
         button.style.backgroundColor = ''; // Reset to original
+        tooltip.style.visibility = 'hidden'; // Hide tooltip after some time
+        tooltip.textContent = 'Copy'; // Reset tooltip text
     }, 1000);
 }
 
