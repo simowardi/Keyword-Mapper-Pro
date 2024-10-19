@@ -30,12 +30,10 @@
 					<h2><i class="fas fa-list"></i> Keyword List</h2>
 					<textarea id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line"></textarea>
 					<div class="keyword-count" id="keywordCount">0 keywords</div>
-					<button class="copy-btn" onclick="copyToClipboard('keys_to_be_matched')"><i class="fas fa-copy"></i></button>
 				</div>
 				<div class="filter-box">
 					<h2><i class="fas fa-plus-circle"></i> Positive Match</h2>
 					<textarea id="keys_to_match" placeholder="Enter keywords to include, one per line"></textarea>
-					<button class="copy-btn" onclick="copyToClipboard('keys_to_match')"><i class="fas fa-copy"></i></button>
 				</div>
 				<div class="filter-box" style="display: flex; flex-direction: column;">
 					<h2><i class="fas fa-filter"></i> Filtered Results</h2>
@@ -49,6 +47,7 @@
 				</div>
 			</div>
 			<div id="stats"></div>
+			<button class="filter-btn" style="padding: 15px; margin-top: 20px;">Filter Keywords 🔍</button>
 
 
 			<!-- Footer -->
