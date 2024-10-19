@@ -22,6 +22,9 @@
 
         <!-- Main Content -->
         <div class="main-content">
+			<button class="theme-toggle">🌓 Toggle Night Mode</button>
+
+			<!-- Filters -->
 			<div class="keyword-filter-container">
 				<div class="filter-box">
 					<h2><i class="fas fa-plus-circle"></i> Positive Match</h2>
@@ -29,44 +32,23 @@
 					<button class="copy-btn" onclick="copyToClipboard('keys_to_match')"><i class="fas fa-copy"></i></button>
 				</div>
 				<div class="filter-box">
-					<h2><i class="fas fa-minus-circle"></i> Negative Match</h2>
-					<textarea id="keys_to_filter_match" placeholder="Enter keywords to exclude, one per line"></textarea>
-					<button class="copy-btn" onclick="copyToClipboard('keys_to_filter_match')"><i class="fas fa-copy"></i></button>
-				</div>
-				<div class="filter-box">
 					<h2><i class="fas fa-list"></i> Keyword List</h2>
 					<textarea id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line"></textarea>
 					<div class="keyword-count" id="keywordCount">0 keywords</div>
 					<button class="copy-btn" onclick="copyToClipboard('keys_to_be_matched')"><i class="fas fa-copy"></i></button>
 				</div>
-				<div class="filter-box">
+				<div class="filter-box" style="display: flex; flex-direction: column;">
 					<h2><i class="fas fa-filter"></i> Filtered Results</h2>
-					<textarea id="filteredResults" readonly placeholder="Matched keywords will appear here"></textarea>
+					<textarea id="filteredResults" readonly placeholder="Filtered keywords will appear here" style="height: 200px;"></textarea>
 					<div class="keyword-count">
 						<span id="matchCount">0 keywords match</span>
-						<span id="noMatchCount" style="float: right;">0 keywords don't match</span>
 					</div>
 					<button class="copy-btn" onclick="copyToClipboard('filteredResults')"><i class="fas fa-copy"></i></button>
 				</div>
-				<div class="filter-box">
-					<h2><i class="fas fa-check-circle"></i> Matches</h2>
-					<textarea id="matches" readonly placeholder="Matched keywords will appear here"></textarea>
-					<div class="keyword-count">
-						<span id="matchCount">0 keywords match</span>
-					</div>
-					<button class="copy-btn" onclick="copyToClipboard('matches')"><i class="fas fa-copy"></i></button>
-				</div>
-				<div class="filter-box">
-					<h2><i class="fas fa-times-circle"></i> Non-Matches</h2>
-					<textarea id="non_matches" readonly placeholder="Non-matched keywords will appear here"></textarea>
-					<div class="keyword-count">
-						<span id="noMatchCount">0 keywords don't match</span>
-					</div>
-					<button class="copy-btn" onclick="copyToClipboard('non_matches')"><i class="fas fa-copy"></i></button>
-				</div>
 			</div>
-			<button class="filter-btn" onclick="filterKeywords()">Filter Keywords 🔍</button>
-			
+			<button class="filter-btn" style="padding: 15px; margin-top: 20px;" onclick="filterKeywords()">Filter Keywords 🔍</button>
+
+			<!-- Footer -->
 			<div class="footer">
 				<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
 				<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>

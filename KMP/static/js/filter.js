@@ -37,24 +37,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 // Function to copy text from a textarea to the clipboard
-function copyToClipboard(elementId) {
-    const textarea = document.getElementById(elementId);
-    const copyButton = textarea.nextElementSibling; // Find the copy button next to the textarea
-    
+function copyToClipboard(textareaId) {
+    const textarea = document.getElementById(textareaId);
     textarea.select();
-    textarea.setSelectionRange(0, 99999); // For mobile devices
+    document.execCommand('copy');
 
-    try {
-        document.execCommand('copy');
-        // Change button color to green after successful copy
-        copyButton.style.backgroundColor = '#28a745'; // Green color for success
-        setTimeout(() => {
-            // Revert back to original color after 1 second
-            copyButton.style.backgroundColor = '#4CAF50'; // Original button color
-        }, 1000); // Change duration here to 1000 milliseconds (1 second)
-    } catch (err) {
-        console.error('Failed to copy text');
-    }
+    // Flash effect
+    const button = event.target;
+    button.style.backgroundColor = 'green';
+    setTimeout(() => {
+        button.style.backgroundColor = ''; // Reset to original
+    }, 1000);
 }
 
 
