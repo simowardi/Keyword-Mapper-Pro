@@ -1,41 +1,64 @@
-<!doctype html>
-<html>
-<head>
-    <title>Keyword Intent Analyzer</title>
-    <style>
-        .container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        input[type="text"] {
-            width: 300px;
-            padding: 10px;
-            margin: 10px 0;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Keyword Intent Analyzer</h1>
-        <form method="POST">
-            <input type="text" name="keyword" placeholder="Enter a keyword" required>
-            <br>
-            <button type="submit">Analyze Intent</button>
-        </form>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="UTF-8">
+	<title>Keyword Filter Pro - Dashboard 🚀</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+	</head>
 
-        {% if intent %}
-            <h3>Keyword Intent: {{ intent }}</h3>
-        {% endif %}
+	<body>
+	  <div class="container">
+		<div class="sidebar">
+		  <a href="{{ url_for('dashboard') }}" class="logo">🚀 KeywordPro</a>
+		  <a href="{{ url_for('dashboard') }}" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
+		  <a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item"><span class="menu-item-icon">🌍</span>Keyword Explorer</a>
+		  <a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
+		  <a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
+		  <a href="{{ url_for('keyword.keyword_intent') }}" class="menu-item"><span class="menu-item-icon">🧠</span>Intent Analyzer</a>
+		  <a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
+		  <a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
+		</div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+			<button class="theme-toggle">🌓 Toggle Night Mode</button>
+
+			<!-- Filters -->
+			<div class="keyword-filter-container">
+				<div class="filter-box">
+					<h2><i class="fas fa-list"></i> Keyword List</h2>
+					<textarea id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line"></textarea>
+					<div class="keyword-count" id="keywordCount">0 keywords</div>
+					<button class="copy-btn" onclick="copyToClipboard('keys_to_be_matched')"><i class="fas fa-copy"></i></button>
+				</div>
+				<div class="filter-box">
+					<h2><i class="fas fa-plus-circle"></i> Positive Match</h2>
+					<textarea id="keys_to_match" placeholder="Enter keywords to include, one per line"></textarea>
+					<button class="copy-btn" onclick="copyToClipboard('keys_to_match')"><i class="fas fa-copy"></i></button>
+				</div>
+				<div class="filter-box" style="display: flex; flex-direction: column;">
+					<h2><i class="fas fa-filter"></i> Filtered Results</h2>
+					<textarea id="filteredResults" readonly placeholder="Filtered keywords will appear here" style="height: 200px;"></textarea>
+					<div class="keyword-count">
+						<span id="matchCount">0 keywords match</span>
+					</div>
+					<button class="copy-btn" onclick="copyToClipboard('filteredResults')"><i class="fas fa-copy"></i></button>
+				</div>
+			</div>
+			<div id="stats"></div>
+
+
+			<!-- Footer -->
+			<div class="footer">
+				<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
+				<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+				<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+			</div>
+        </div>
     </div>
+
+	<script src="{{ url_for('static', filename='js/filter.js') }}"></script>
+
 </body>
 </html>

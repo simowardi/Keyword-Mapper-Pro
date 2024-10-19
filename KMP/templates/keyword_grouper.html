@@ -1,107 +1,64 @@
-<!doctype html>
-<html>
-<head>
-    <title>Keyword Grouper</title>
-    <style>
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .text-box {
-            width: 45%;
-            margin-bottom: 20px;
-        }
-        .result-box {
-            width: 100%;
-            margin-top: 20px;
-            text-align: center;
-        }
-        .loading {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .progress {
-            width: 100%;
-            background-color: #f3f3f3;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-        .progress-bar {
-            width: 0;
-            height: 20px;
-            background-color: #4caf50;
-            border-radius: 5px;
-        }
-        .copy-icon {
-            cursor: pointer;
-            color: blue;
-            margin-left: 5px;
-            font-size: 1.2em;
-        }
-    </style>
-    <script>
-        function showLoading() {
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('progress-bar').style.width = '100%';
-        }
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="UTF-8">
+	<title>Keyword Filter Pro - Dashboard 🚀</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+	</head>
 
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(function() {
-                alert('Copied to clipboard!');
-            }).catch(function(err) {
-                console.error('Could not copy text: ', err);
-            });
-        }
-    </script>
-</head>
-<body>
-    <h1>Keyword Grouper</h1>
-    <form method="POST" onsubmit="showLoading()">
-        <div class="container">
-            <div class="text-box">
-                <h3>Keyword List</h3>
-                <textarea name="keyword_list" rows="20" cols="30">{{ keyword_list | join('\n') }}</textarea>
-                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=keyword_list]').value)">📋</span>
-            </div>
+	<body>
+	  <div class="container">
+		<div class="sidebar">
+		  <a href="{{ url_for('dashboard') }}" class="logo">🚀 KeywordPro</a>
+		  <a href="{{ url_for('dashboard') }}" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
+		  <a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item"><span class="menu-item-icon">🌍</span>Keyword Explorer</a>
+		  <a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
+		  <a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
+		  <a href="{{ url_for('keyword.keyword_intent') }}" class="menu-item"><span class="menu-item-icon">🧠</span>Intent Analyzer</a>
+		  <a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
+		  <a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
+		</div>
 
-            <div class="text-box">
-                <h3>Options</h3>
-                <label for="min_group_length">Minimum Group Length:</label>
-                <input type="number" name="min_group_length" value="{{ min_group_length }}" min="1"><br><br>
-                
-                <label for="excluded_words">Excluded Words List:</label>
-                <textarea name="excluded_words" rows="5" cols="30">{{ excluded_words | join('\n') }}</textarea>
-                <span class="copy-icon" onclick="copyToClipboard(document.querySelector('[name=excluded_words]').value)">📋</span>
-            </div>
-        </div>
-        
-        <button type="submit">Process Keywords</button>
-    </form>
+        <!-- Main Content -->
+        <div class="main-content">
+			<button class="theme-toggle">🌓 Toggle Night Mode</button>
 
-    <div id="loading" class="loading">
-        <p>Processing keywords...</p>
-        <div class="progress">
-            <div id="progress-bar" class="progress-bar"></div>
+			<!-- Filters -->
+			<div class="keyword-filter-container">
+				<div class="filter-box">
+					<h2><i class="fas fa-list"></i> Keyword List</h2>
+					<textarea id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line"></textarea>
+					<div class="keyword-count" id="keywordCount">0 keywords</div>
+					<button class="copy-btn" onclick="copyToClipboard('keys_to_be_matched')"><i class="fas fa-copy"></i></button>
+				</div>
+				<div class="filter-box">
+					<h2><i class="fas fa-plus-circle"></i> Positive Match</h2>
+					<textarea id="keys_to_match" placeholder="Enter keywords to include, one per line"></textarea>
+					<button class="copy-btn" onclick="copyToClipboard('keys_to_match')"><i class="fas fa-copy"></i></button>
+				</div>
+				<div class="filter-box" style="display: flex; flex-direction: column;">
+					<h2><i class="fas fa-filter"></i> Filtered Results</h2>
+					<textarea id="filteredResults" readonly placeholder="Filtered keywords will appear here" style="height: 200px;"></textarea>
+					<div class="keyword-count">
+						<span id="matchCount">0 keywords match</span>
+					</div>
+					<button class="copy-btn" onclick="copyToClipboard('filteredResults')"><i class="fas fa-copy"></i></button>
+				</div>
+			</div>
+			<div id="stats"></div>
+
+
+			<!-- Footer -->
+			<div class="footer">
+				<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
+				<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+				<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+			</div>
         </div>
     </div>
 
-    {% if grouped_keywords %}
-        <div class="result-box">
-            <h3>{{ min_group_length }} or more | less than {{ min_group_length }}</h3>
-            <p>Analyzed {{ num_keywords }} keywords | Created {{ num_groups }} groups</p>
-            <form method="POST" action="{{ url_for('export_csv') }}">
-                <input type="hidden" name="grouped_keywords" value="{{ grouped_keywords | join(',') }}">
-                <button type="submit">Export to .csv</button>
-            </form>
-            <h3>Grouped Keywords:</h3>
-            <div style="display: flex; flex-direction: column; align-items: center;">
-                {% for keyword in grouped_keywords %}
-                    <textarea rows="1" cols="50" readonly>{{ keyword }}</textarea>
-                    <span class="copy-icon" onclick="copyToClipboard('{{ keyword }}')">📋</span>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
+	<script src="{{ url_for('static', filename='js/filter.js') }}"></script>
+
 </body>
 </html>
