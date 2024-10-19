@@ -63,10 +63,3 @@ function toggleNightMode() {
 	document.body.classList.toggle('night-mode');
 }
 
-
-function copyToClipboard(elementId) {
-	const element = document.getElementById(elementId);
-	element.select();
-	document.execCommand('copy');
-	alert('Copied to clipboard!');
-  }
