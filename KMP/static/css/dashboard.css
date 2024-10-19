@@ -1,0 +1,232 @@
+:root {
+	/* Color scheme for light mode */
+	--primary-color: #3498db; /* Primary color for accents */
+	--secondary-color: #2c3e50; /* Background color for sidebar */
+	--text-color: #333; /* Default text color */
+	--bg-color: #ecf0f1; /* Background color for the body */
+	--box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Default box shadow */
+  }
+  
+  body.dark-mode {
+	/* Color scheme for dark mode */
+	--primary-color: #5dade2; /* Lighter primary color for dark mode */
+	--secondary-color: #1c2833; /* Darker background for sidebar in dark mode */
+	--text-color: #f0f0f0; /* Light text color for dark mode */
+	--bg-color: #2c3e50; /* Dark background for body in dark mode */
+	--box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Darker box shadow */
+  }
+  
+  body, html {
+	/* Global styles for body and html */
+	margin: 0;
+	padding: 0;
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font settings */
+	height: 100%; /* Full height */
+	color: var(--text-color); /* Text color from variables */
+	background-color: var(--bg-color); /* Background color from variables */
+	transition: all 0.3s ease; /* Smooth transition for changes */
+  }
+  
+  .container {
+	/* Main layout container */
+	display: flex; /* Flex layout for sidebar and content */
+	height: 100%;
+  }
+  
+  .sidebar {
+	/* Sidebar styles */
+	width: 250px; /* Fixed width for sidebar */
+	background-color: var(--secondary-color); /* Background color from variables */
+	color: white; /* Text color for sidebar */
+	padding: 20px; /* Padding inside sidebar */
+	display: flex; /* Flex layout for items */
+	flex-direction: column; /* Vertical layout */
+	transition: all 0.3s ease; /* Smooth transition for hover effects */
+  }
+  
+  .main-content {
+	/* Main content area styles */
+	flex-grow: 1; /* Take up remaining space */
+	padding: 20px; /* Padding inside main content */
+	overflow-y: auto; /* Scrollable content */
+	display: flex; /* Flex layout for items */
+	flex-direction: column; /* Vertical layout */
+  }
+  
+  .logo {
+	/* Logo styles */
+	font-size: 24px; /* Logo size */
+	font-weight: bold; /* Bold text */
+	margin-bottom: 30px; /* Space below logo */
+	text-align: center; /* Center alignment */
+  }
+  
+  .menu-item {
+	/* Menu item styles */
+	padding: 12px 15px; /* Padding for items */
+	margin-bottom: 10px; /* Space between items */
+	border-radius: 8px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor on hover */
+	transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+	display: flex; /* Flex layout for icons and text */
+	align-items: center; /* Center alignment */
+	text-decoration: none; /* Remove underline */
+	color: white; /* Text color */
+  }
+  
+  .menu-item:hover {
+	/* Hover effect for menu items */
+	background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+	transform: translateX(5px); /* Slight move to the right */
+  }
+  
+  .menu-item.active {
+	/* Active menu item styles */
+	background-color: var(--primary-color); /* Highlight active item */
+	font-weight: bold; /* Bold text for active item */
+  }
+  
+  .menu-item-icon {
+	/* Icon styles within menu items */
+	margin-right: 10px; /* Space between icon and text */
+	font-size: 1.2em; /* Icon size */
+  }
+  
+  .logout {
+	/* Logout button styles */
+	margin-top: auto; /* Push to bottom of sidebar */
+	padding: 12px 15px; /* Padding for button */
+	background-color: #e74c3c; /* Red background */
+	border: none; /* No border */
+	color: white; /* Text color */
+	border-radius: 8px; /* Rounded corners */
+	cursor: pointer; /* Pointer cursor */
+	transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+	display: flex; /* Flex layout */
+	align-items: center; /* Center alignment */
+	justify-content: center; /* Center alignment */
+  }
+  
+  .logout:hover {
+	/* Hover effect for logout button */
+	background-color: #c0392b; /* Darker red on hover */
+	transform: translateY(-2px); /* Slight upward move */
+  }
+  
+  .dashboard-container {
+	/* Dashboard main container */
+	display: flex; /* Flex layout */
+	flex-direction: column; /* Vertical layout */
+	gap: 20px; /* Space between elements */
+  }
+  
+  .welcome-box {
+	/* Welcome box styles */
+	background-color: white; /* White background */
+	border-radius: 12px; /* Rounded corners */
+	padding: 25px; /* Padding inside box */
+	box-shadow: var(--box-shadow); /* Shadow from variables */
+	transition: all 0.3s ease; /* Smooth transition */
+  }
+  
+  .dark-mode .welcome-box {
+	/* Welcome box styles for dark mode */
+	background-color: var(--secondary-color); /* Use secondary color */
+  }
+  
+  .welcome-box h2 {
+	/* Header styles within welcome box */
+	margin-top: 0; /* Remove top margin */
+	color: var(--primary-color); /* Primary color for header */
+	display: flex; /* Flex layout for emoji and text */
+	align-items: center; /* Center alignment */
+  }
+  
+  .welcome-box h2 .emoji {
+	/* Emoji styles within welcome box header */
+	margin-right: 10px; /* Space between emoji and text */
+	font-size: 1.5em; /* Emoji size */
+  }
+  
+  .video-container {
+	/* Video container styles */
+	position: relative; /* Position for absolute child */
+	padding-bottom: 56.25%; /* 16:9 aspect ratio */
+	height: 0; /* No height */
+	overflow: hidden; /* Hide overflow */
+	max-width: 100%; /* Responsive width */
+  }
+  
+  .video-container iframe {
+	/* Styles for iframe in video container */
+	position: absolute; /* Absolute positioning */
+	top: 0; /* Align to top */
+	left: 0; /* Align to left */
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+  }
+  
+  .footer {
+	/* Footer styles */
+	margin-top: auto; /* Push to bottom */
+	padding: 15px 20px; /* Padding inside footer */
+	background-color: var(--secondary-color); /* Background from variables */
+	color: white; /* Text color */
+	text-align: center; /* Center alignment */
+	border-radius: 12px 12px 0 0; /* Rounded top corners */
+  }
+  
+  .footer a {
+	/* Footer link styles */
+	color: var(--primary-color); /* Primary color for links */
+	text-decoration: none; /* Remove underline */
+	margin: 0 10px; /* Space between links */
+	transition: color 0.3s; /* Smooth color transition */
+  }
+  
+  .footer a:hover {
+	/* Hover effect for footer links */
+	text-decoration: underline; /* Underline on hover */
+  }
+  
+  .theme-toggle {
+	/* Theme toggle button styles */
+	position: absolute; /* Absolute positioning */
+	top: 20px; /* Position from top */
+	right: 20px; /* Position from right */
+	background-color: var(--primary-color); /* Primary color background */
+	color: white; /* Text color */
+	border: none; /* No border */
+	padding: 10px 15px; /* Padding for button */
+	border-radius: 30px; /* Circular shape */
+	cursor: pointer; /* Pointer cursor */
+	transition: all 0.3s ease; /* Smooth transition */
+	display: flex; /* Flex layout */
+	align-items: center; /* Center alignment */
+  }
+  
+  .theme-toggle:hover {
+	/* Hover effect for theme toggle button */
+	transform: scale(1.05); /* Slightly increase size */
+  }
+  
+  @media (max-width: 768px) {
+	/* Responsive styles for mobile devices */
+	.container {
+	  flex-direction: column; /* Stack items vertically */
+	}
+  
+	.sidebar {
+	  width: 100%; /* Full width for sidebar */
+	  order: 2; /* Position sidebar below main content */
+	}
+  
+	.main-content {
+	  order: 1; /* Position main content above sidebar */
+	}
+  
+	.theme-toggle {
+	  top: 10px; /* Adjust position for smaller screens */
+	  right: 10px; /* Adjust position for smaller screens */
+	}
+  }

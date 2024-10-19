@@ -23,23 +23,3 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 });
-
-
-<script>
-    setTimeout(() => {
-        document.getElementById('overlay').style.display = 'block';
-        document.getElementById('popup').style.display = 'block';
-    }, 35000);
-
-    document.getElementById('close').onclick = () => {
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('popup').style.display = 'none';
-    };
-
-    document.getElementById('popupForm').onsubmit = (event) => {
-        event.preventDefault(); // Prevent form submission for demonstration
-        alert('Thank you for subscribing!');
-        document.getElementById('overlay').style.display = 'none';
-        document.getElementById('popup').style.display = 'none';
-    };
-</script>

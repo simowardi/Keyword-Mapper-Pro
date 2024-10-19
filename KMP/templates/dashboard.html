@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<base href="https://keywordfilterpro.com/">
+	<title>Keyword Filter Pro - Dashboard 🚀</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+	</head>
+
+	<body>
+	  <div class="container">
+		<div class="sidebar">
+		  <div class="logo">🚀 KeywordPro</div>
+		  <a href="/" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
+		  <a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
+		  <a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
+		  <a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
+		  <a href="{{ url_for('auth_bp.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
+		</div>
+		<div class="main-content">
+		  <button class="theme-toggle">🌓 Toggle Night Mode</button>
+		  <h1>🎉 Welcome to Keyword Filter Pro</h1>
+		  <div class="dashboard-container">
+			<div class="welcome-box">
+			  <h2><span class="emoji">👋</span>Getting Started</h2>
+			  <p>Welcome to Keyword Filter Pro! We're excited to help you optimize your keyword strategy. Watch our quick explainer video to get started:</p>
+			  <div class="video-container">
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/EShYKMdj6aM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+			  </div>
+			</div>
+		  </div>
+		  <div class="footer">
+			<a href="/terms-of-service">📜 Terms of Service</a>
+			<a href="/privacy-policy">🔒 Privacy Policy</a>
+			<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+		  </div>
+		</div>
+	  </div>
+
+	<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+	</body>
+	</html>

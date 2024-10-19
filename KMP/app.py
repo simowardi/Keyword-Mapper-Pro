@@ -62,6 +62,22 @@ def privacy_policy():
     """
     return render_template('privacy.html')
 
+    
+@app.route('/dashboard')
+def dashboard():
+    """
+    Renders the 'dashboard.html' template upon accessing the root route ('/dashboard').
+    Returns:
+        The rendered 'dashboard.html' template.
+    """
+    return render_template('dashboard.html')
+
+
+@app.route('/static/<path:filename>')
+def serve_static(filename):
+    root_dir = os.path.dirname(os.path.abspath(__file__))
+    return send_from_directory(os.path.join(root_dir, 'static'), filename)
+
 
 # Only initialize database tables if running as the main application
 if __name__ == '__main__':
@@ -71,8 +87,3 @@ if __name__ == '__main__':
     
     # Run the Flask application
     app.run(debug=True)
-
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    root_dir = os.path.dirname(os.path.abspath(__file__))
-    return send_from_directory(os.path.join(root_dir, 'static'), filename)

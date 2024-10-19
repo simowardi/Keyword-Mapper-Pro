@@ -29,7 +29,7 @@ def login():
     - If the request method is not 'POST', it renders the login page.
     """
     if current_user.is_authenticated:
-        return redirect(url_for('account.account'))
+        return redirect(url_for('dashboard'))
 
     if request.method == 'POST':
         username = request.form['username']
@@ -66,7 +66,7 @@ def register():
     - If the request method is not 'POST', it renders the 'signup.html' template for the registration form.
     """
     if current_user.is_authenticated:
-        return redirect(url_for('account.account'))
+        return redirect(url_for('dashboard'))
 
     if request.method == 'POST':
         # Handle registration logic
