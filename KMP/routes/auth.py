@@ -38,7 +38,7 @@ def login():
 
         if user and check_password_hash(user.password, password):
             login_user(user)
-            return jsonify({'success': True, 'redirect': url_for('account.account')})
+            return jsonify({'success': True, 'redirect': url_for('dashboard')})
         else:
             return jsonify({'success': False, 'message': 'Invalid username or password'})
 
@@ -88,7 +88,7 @@ def register():
         login_user(new_user)
 
         # Redirect to account page after registration
-        return redirect(url_for('account.account'))
+        return redirect(url_for('dashboard'))
 
     return render_template('signup.html')
 
