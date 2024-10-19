@@ -24,19 +24,28 @@
 			<h1>🎉 Welcome to Keyword Filter Pro</h1>
 		
 			<!-- Delete Account Button -->
+			 <br>
+			 <br>
+			 <br>
+			 <br>
 			<div class="delete-account">
 				<button class="logout" onclick="confirmDelete()">🗑️ Delete Account</button>
 			</div>
+			<br>
+			<br>
+			<br>
+			<br>
 		</div>
-		  <div class="footer">
-			<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
-			<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
-			<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
-		  </div>
-		</div>
-	  </div>
+			<!-- Footer -->
+			<div class="footer">
+				<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
+				<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+				<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+			</div>
+        </div>
+    </div>
 
-	<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+	<script src="{{ url_for('static', filename='js/filter.js') }}"></script>
 
-	</body>
+</body>
 </html>
