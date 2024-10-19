@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('keyword-filter-form');
     const statsDiv = document.getElementById('stats');
     const matchesBox = document.getElementById('filteredResults'); // Matches output
-    const nonMatchesBox = document.getElementById('non_matches'); // Non-matches output
 
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form from submitting the traditional way
@@ -21,12 +20,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             // Update the stats and output sections with the results
             statsDiv.innerHTML = `<h3>Filter Results</h3>
-                <p>Positive Match: ${data.match_count} lines match</p>
-                <p>Negative Match: ${data.non_match_count} lines don't match</p>`;
+                <p>Positive Match: ${data.match_count} lines match</p>`;
 
             // Display the results in the text areas
             matchesBox.value = data.matches;
-            nonMatchesBox.value = data.non_matches;
         })
         .catch(error => {
             console.error('Error:', error);

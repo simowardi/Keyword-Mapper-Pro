@@ -19,7 +19,6 @@ def keyword_filter():
     if request.method == 'POST':
         kw_list = request.form.get('keys_to_be_matched', '').splitlines()
         positive_kw = request.form.get('keys_to_match', '').splitlines()
-        negative_kw = request.form.get('keys_to_filter_match', '').splitlines()
 
         def matches_pattern(keyword, pattern):
             if pattern.startswith('[') and pattern.endswith(']'):
@@ -30,24 +29,12 @@ def keyword_filter():
                 return all(word.lower() in keyword.lower() for word in pattern.split())
 
         # Find matches based on positive keywords
-        match = [keyword for keyword in kw_list if any(matches_pattern(keyword, pattern) for pattern in positive_kw)]
-        
-        # Find negative matches
-        negative_matches = [keyword for keyword in match if any(matches_pattern(keyword, pattern) for pattern in negative_kw)]
-        
-        # Final matches exclude negative matches
-        final_matches = [keyword for keyword in match if keyword not in negative_matches]
-        
-        # Non-matches include unmatched keywords and negative matches
-        not_match = [keyword for keyword in kw_list if keyword not in match]
-        not_match.extend(negative_matches)
+        matched_keywords = [keyword for keyword in kw_list if any(matches_pattern(keyword, pattern) for pattern in positive_kw)]
 
         # Prepare the response data
         response_data = {
-            'matches': '\n'.join(final_matches),
-            'non_matches': '\n'.join(not_match),
-            'match_count': len(final_matches),
-            'non_match_count': len(not_match)
+            'matches': '\n'.join(matched_keywords),
+            'match_count': len(matched_keywords)
         }
 
         # Check for AJAX request
