@@ -30,18 +30,20 @@
 			 <br>
 			 <br>
 			 <br>
-			<div class="delete-account">
-				<button class="logout" onclick="confirmDelete()">🗑️ Delete Account</button>
-			</div>
-
-			<!-- Footer -->
-			<section class="delete-account">
+			 <section class="delete-account">
 				<h3>Delete Account</h3>
 				<p>Warning: This action cannot be undone. All your data will be permanently deleted.</p>
 				<form action="{{ url_for('account.delete_account') }}" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
-					<button type="submit" class="delete-account-btn">Delete My Account</button>
+					<button type="submit" class="delete-account-btn">🗑️ Delete Account</button>
 				</form>
 			</section>
+
+			<!-- Footer -->
+			<div class="footer">
+				<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
+				<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+				<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+			</div>
 
 		</div>
       </div>
