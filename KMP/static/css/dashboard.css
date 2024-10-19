@@ -256,33 +256,31 @@ body, html {
 }
 
 
+
 .keyword-filter-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 20px;
-  }
-
-  .filter-box {
-    background-color: white;
-    border-radius: 4px;
-    padding: 20px;
-    box-shadow: var(--box-shadow);
-    position: relative;
-  }
-
-  .filter-box h2 {
-    margin-top: 0;
-    color: var(--primary-color);
-    font-size: 18px;
-    font-weight: bold;
     display: flex;
-    align-items: center;
-  }
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
 
-  .filter-box h2 i {
-    margin-right: 10px;
-  }
+.filter-box {
+    margin-right: 20px;
+    flex-basis: 30%; /* Adjust width as necessary */
+}
+
+.filter-box h2 {
+    margin-bottom: 10px;
+}
+
+#filteredResults {
+    height: 400px; /* Double the height */
+    width: 100%; /* Full width */
+}
+
+.keyword-count {
+    margin-top: 10px;
+}
 
   textarea {
     width: 100%;
