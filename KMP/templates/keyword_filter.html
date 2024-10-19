@@ -3,50 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Keyword Filter Pro™</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/css/filter.css') }}">
+    <title>Keyword Filter Pro - Dashboard</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/filter.css') }}">
 </head>
 <body>
-<div class="container">
-    <h1>🔍✂️ Advanced Keyword Filter</h1>
-    <form method="POST" id="keyword-filter-form">
-        <div class="keyword-input">
-            <div class="keyword-column">
-                <label for="keys_to_be_matched"><span class="emoji">🔑</span>Keyword List:</label>
-                <textarea name="keys_to_be_matched" id="keys_to_be_matched" placeholder="Enter keywords, one per line"></textarea>
-                <button type="button" class="copy-btn" onclick="copyToClipboard('keys_to_be_matched')">Copy</button>
-            </div>
-            <div class="keyword-column">
-                <label for="keys_to_match"><span class="emoji">✅</span>Positive Keywords:</label>
-                <textarea name="keys_to_match" id="keys_to_match" placeholder="Enter positive keywords, one per line"></textarea>
-                <button type="button" class="copy-btn" onclick="copyToClipboard('keys_to_match')">Copy</button>
-            </div>
-            <div class="keyword-column">
-                <label for="keys_to_filter_match"><span class="emoji">❌</span>Negative Keywords:</label>
-                <textarea name="keys_to_filter_match" id="keys_to_filter_match" placeholder="Enter negative keywords, one per line"></textarea>
-                <button type="button" class="copy-btn" onclick="copyToClipboard('keys_to_filter_match')">Copy</button>
-            </div>
-        </div>
-        <button class="filter-button" type="submit"><span class="emoji">🔍</span>Filter Text</button>
-    </form>
+    <header>
+        <h1>Keyword Filter Pro - Dashboard 🚀</h1>
+        <nav>
+            <ul>
+				<a href="{{ url_for('dashboard') }}" class="logo">🚀 KeywordPro</a>
+				<a href="{{ url_for('dashboard') }}" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
+				<a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item"><span class="menu-item-icon">🌍</span>Keyword Explorer</a>
+				<a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
+				<a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
+				<a href="{{ url_for('keyword.keyword_intent') }}" class="menu-item"><span class="menu-item-icon">🧠</span>Intent Analyzer</a>
+				<a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
+				<a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
+					  <li><button onclick="toggleNightMode()">🌓 Toggle Night Mode</button></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div id="stats"></div>
+    <main>
+        <section>
+            <h2>🔍✂️ Advanced Keyword Filter</h2>
+            <form method="POST" action="/keyword_filter">
+                <label for="keywords_to_match">Keyword List:</label>
+                <textarea id="keywords_to_match" name="keys_to_match" rows="4" placeholder="Enter keywords to match..."></textarea>
+				<button class="copy-btn" onclick="copyToClipboard('negativeMatch')"><i class="fas fa-copy"></i></button>
 
-    <div class="keyword-input results-area">
-        <div class="keyword-column">
-            <label for="matches" class="results-label"><span class="emoji">✅</span>Matches:</label>
-            <textarea id="matches" class="matches-textarea" readonly></textarea>
-            <button type="button" class="copy-btn" onclick="copyToClipboard('matches')">Copy</button>
-        </div>
-        <div class="keyword-column">
-            <label for="non_matches" class="results-label"><span class="emoji">❌</span>Non-Matches:</label>
-            <textarea id="non_matches" class="non-matches-textarea" readonly></textarea>
-            <button type="button" class="copy-btn" onclick="copyToClipboard('non_matches')">Copy</button>
-        </div>
-    </div>
 
-</div>
+                <label for="positive_keywords">Positive Keywords:</label>
+                <textarea id="positive_keywords" name="keys_to_filter_match" rows="4" placeholder="Enter positive keywords..."></textarea>
+				<button class="copy-btn" onclick="copyToClipboard('negativeMatch')"><i class="fas fa-copy"></i></button>
 
-<script src="{{ url_for('static', filename='/js/filter.js') }}"></script>
-</body>
+
+                <label for="negative_keywords">Negative Keywords:</label>
+                <textarea id="negative_keywords" name="keys_to_be_matched" rows="4" placeholder="Enter negative keywords..."></textarea>
+				<button class="copy-btn" onclick="copyToClipboard('negativeMatch')"><i class="fas fa-copy"></i></button>
+
+
+                <button type="submit">Filter Text</button>
+            </form>
+        </section>
+
+        <section>
+            <h3>✅ Matches:</h3>
+			<button class="copy-btn" onclick="copyToClipboard('negativeMatch')"><i class="fas fa-copy"></i></button>
+            <pre id="matches">{{ matches }}</pre>
+
+            <h3>❌ Non-Matches:</h3>
+			<button class="copy-btn" onclick="copyToClipboard('negativeMatch')"><i class="fas fa-copy"></i></button>
+            <pre id="non_matches">{{ non_matches }}</pre>
+        </section>
+
+        <section>
+            <footer>
+                <p>🎉 Welcome to Keyword Filter Pro</p>
+				<a href="{{ url_for('terms') }}" target="_blank">Terms of Service</a>
+				<a href="{{ url_for('privacy') }}" target="_blank">Privacy Policy</a>
+                <p>© 2024 Keyword Filter Pro. All rights reserved.</p>
+            </footer>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/filter.js') }}"></script>
+
+	</body>
 </html>

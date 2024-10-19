@@ -56,3 +56,17 @@ function copyToClipboard(elementId) {
         console.error('Failed to copy text');
     }
 }
+
+
+function toggleNightMode() {
+	// Toggle night mode functionality
+	document.body.classList.toggle('night-mode');
+}
+
+
+function copyToClipboard(elementId) {
+	const element = document.getElementById(elementId);
+	element.select();
+	document.execCommand('copy');
+	alert('Copied to clipboard!');
+  }
