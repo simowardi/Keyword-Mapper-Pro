@@ -1,41 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>account</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f4f4f4;
-        }
-        .button {
-            display: inline-block;
-            padding: 15px 30px;
-            margin: 10px;
-            font-size: 18px;
-            color: white;
-            background-color: #007BFF;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            transition: background-color 0.3s;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <h1>Welcome to the Dashboard</h1>
-    <p>Select an option to proceed:</p>
-    <a href="{{ url_for('keyword.keyword_explorer') }}" class="button">Keyword Explore</a>
-    <a href="{{ url_for('keyword.keyword_filter') }}" class="button">Filter</a>
-    <a href="{{ url_for('keyword.keyword_grouper') }}" class="button">Grouper</a>
-    <a href="{{ url_for('keyword.keyword_intent') }}" class="button">Intent Analyzer</a>
-	<a href="{{ url_for('keyword.seokeyword') }}" class="button">seo keyword</a>
-</body>
+	<head>
+	<meta charset="UTF-8">
+	<title>Keyword Filter Pro - Dashboard 🚀</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+	</head>
+
+	<body>
+	  <div class="container">
+		<div class="sidebar">
+		  <a href="{{ url_for('dashboard') }}" class="logo">🚀 KeywordPro</a>
+		  <a href="/" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
+		  <a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item"><span class="menu-item-icon">🌍</span>Keyword Explorer</a>
+		  <a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
+		  <a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
+		  <a href="{{ url_for('keyword.keyword_intent') }}" class="menu-item"><span class="menu-item-icon">🧠</span>Intent Analyzer</a>
+		  <a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
+		  <a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
+		</div>
+		<div class="main-content">
+			<button class="theme-toggle">🌓 Toggle Night Mode</button>
+			<h1>🎉 Welcome to Keyword Filter Pro</h1>
+		
+			<!-- Delete Account Button -->
+			<div class="delete-account">
+				<button class="logout" onclick="confirmDelete()">🗑️ Delete Account</button>
+			</div>
+		</div>
+		  <div class="footer">
+			<a href="{{ url_for('tos') }}" target="_blank">📜 Terms of Service</a>
+			<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+			<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+		  </div>
+		</div>
+	  </div>
+
+	<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+	</body>
 </html>
