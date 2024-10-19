@@ -8,8 +8,6 @@ import requests
 import json
 import string
 from concurrent.futures import ThreadPoolExecutor
-from models.filter import filter_keywords
-
 
 keyword_bp = Blueprint('keyword', __name__)
 
@@ -18,36 +16,47 @@ keyword_bp = Blueprint('keyword', __name__)
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
 def keyword_filter():
-    """
-    Handle GET and POST requests for keyword filtering.
-    Returns:
-        Response: A rendered HTML template for GET requests or JSON data for AJAX POST requests.
-    """
     if request.method == 'POST':
-        # Retrieve the keyword patterns from the form data.
-        positive_keyword_list = request.form.get('keys_to_match', '').splitlines()
-        negative_keyword_list = request.form.get('keys_to_filter_match', '').splitlines()
-        keywords_to_match = request.form.get('keys_to_be_matched', '').splitlines()
+        kw_list = request.form.get('keys_to_be_matched', '').splitlines()
+        positive_kw = request.form.get('keys_to_match', '').splitlines()
+        negative_kw = request.form.get('keys_to_filter_match', '').splitlines()
 
-        # Call the filtering function to get matched and not matched keywords.
-        matched_keywords, not_matched_keywords = filter_keywords(positive_keyword_list, negative_keyword_list, keywords_to_match)
+        def matches_pattern(keyword, pattern):
+            if pattern.startswith('[') and pattern.endswith(']'):
+                return keyword.lower() == pattern[1:-1].lower()
+            elif pattern.startswith('"') and pattern.endswith('"'):
+                return pattern[1:-1].lower() in keyword.lower()
+            else:
+                return all(word.lower() in keyword.lower() for word in pattern.split())
 
-        # Prepare the response data.
+        # Find matches based on positive keywords
+        match = [keyword for keyword in kw_list if any(matches_pattern(keyword, pattern) for pattern in positive_kw)]
+        
+        # Find negative matches
+        negative_matches = [keyword for keyword in match if any(matches_pattern(keyword, pattern) for pattern in negative_kw)]
+        
+        # Final matches exclude negative matches
+        final_matches = [keyword for keyword in match if keyword not in negative_matches]
+        
+        # Non-matches include unmatched keywords and negative matches
+        not_match = [keyword for keyword in kw_list if keyword not in match]
+        not_match.extend(negative_matches)
+
+        # Prepare the response data
         response_data = {
-            'matches': '\n'.join(matched_keywords),  # Join matched keywords into a single string.
-            'non_matches': '\n'.join(not_matched_keywords),  # Join not matched keywords into a single string.
-            'match_count': len(matched_keywords),  # Count of matched keywords.
-            'non_match_count': len(not_matched_keywords)  # Count of not matched keywords.
+            'matches': '\n'.join(final_matches),
+            'non_matches': '\n'.join(not_match),
+            'match_count': len(final_matches),
+            'non_match_count': len(not_match)
         }
 
-        # Check if the request is an AJAX request.
+        # Check for AJAX request
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return jsonify(response_data)  # Return JSON response for AJAX.
+            return jsonify(response_data)  # Return JSON for AJAX requests
         else:
-            return render_template('keyword_filter.html', **response_data)  # Render HTML for regular requests.
+            return render_template('keyword_filter.html', **response_data)  # Render the HTML template for normal requests
 
-    # Render the HTML template for GET requests.
-    return render_template('keyword_filter.html')
+    return render_template('keyword_filter.html')  # Render for GET requests
 
 
 

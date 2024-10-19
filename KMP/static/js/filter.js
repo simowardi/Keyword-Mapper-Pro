@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('keyword-filter-form');
     const statsDiv = document.getElementById('stats');
-    const matchesBox = document.getElementById('matches');
-    const nonMatchesBox = document.getElementById('non_matches');
+    const matchesBox = document.getElementById('filteredResults'); // Matches output
+    const nonMatchesBox = document.getElementById('non_matches'); // Non-matches output
 
     form.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form from submitting the traditional way
