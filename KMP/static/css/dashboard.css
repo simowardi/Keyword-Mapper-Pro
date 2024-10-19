@@ -303,45 +303,18 @@ body, html {
 
 /* Copy button styles */
 .copy-btn {
-    background-color: transparent; /* Transparent background */
-    color: var(--primary-color); /* Icon color */
-    border: none; /* No border */
-    border-radius: 50%; /* Circular shape */
-    padding: 5px; /* Small padding for a compact look */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s; /* Smooth transition */
-    position: relative; /* Relative positioning for tooltip */
-}
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
 
-/* Hover effect for copy button */
-.copy-btn:hover {
-    background-color: rgba(41, 128, 185, 0.2); /* Light background on hover */
-}
-
-/* Tooltip styles */
-.tooltip {
-    visibility: hidden; /* Hidden by default */
-    background-color: #555; /* Dark background */
-    color: #fff; /* Text color */
-    text-align: center; /* Centered text */
-    border-radius: 4px; /* Rounded corners */
-    padding: 5px; /* Padding for tooltip */
-    position: absolute; /* Absolute positioning */
-    z-index: 1; /* On top of other elements */
-    bottom: 125%; /* Position above the button */
-    left: 50%; /* Center it */
-    margin-left: -30px; /* Adjust for width */
-    opacity: 0; /* Transparent by default */
-    transition: opacity 0.3s; /* Smooth transition */
-}
-
-/* Show tooltip */
-.copy-btn:hover .tooltip {
-    visibility: visible; /* Show on hover */
-    opacity: 1; /* Fully visible */
-}
-
-/* Icon size adjustment */
-.copy-btn i {
-    font-size: 16px; /* Adjust icon size */
-}
+  .copy-btn:hover {
+    background-color: #2980b9;
+  }
