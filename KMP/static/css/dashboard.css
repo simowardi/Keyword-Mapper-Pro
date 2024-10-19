@@ -302,20 +302,35 @@ body, html {
 
 
 /* Copy button styles */
-.copy-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
+/* Container for the copy button and label */
+.copy-container {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+}
 
-  .copy-btn:hover {
-    background-color: #2980b9;
-  }
+/* Small Copy Button Styles */
+.small-copy-btn {
+    position: relative; /* Position relative for tooltip or other elements */
+    background-color: var(--primary-color); /* Primary background color */
+    color: white; /* Text/icon color */
+    border: none; /* No border for a cleaner look */
+    border-radius: 50%; /* Circular shape for the button */
+    padding: 5px; /* Small padding for compact design */
+    cursor: pointer; /* Pointer cursor for better UX */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+    width: 30px; /* Fixed width for small size */
+    height: 30px; /* Fixed height for small size */
+}
+
+/* Hover effect for the small copy button */
+.small-copy-btn:hover {
+    background-color: #2980b9; /* Darker shade on hover for visual feedback */
+}
+
+/* Label for the copy button */
+.copy-label {
+    margin-left: 8px; /* Space between the button and the label */
+    font-size: 14px; /* Font size for the label */
+    color: #333; /* Color for the label text */
+}
 
