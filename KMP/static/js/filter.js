@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('keyword-filter-form');
-    const statsDiv = document.getElementById('stats');
+    const form = document.getElementById('keyword-filter-form'); // Ensure you have a form element
+    const statsDiv = document.getElementById('stats'); // This needs to exist in your HTML
     const matchesBox = document.getElementById('filteredResults'); // Matches output
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form from submitting the traditional way
+    document.querySelector('.filter-btn').addEventListener('click', function() {
+        const kwList = document.getElementById('keys_to_be_matched').value.split('\n');
+        const positiveKw = document.getElementById('keys_to_match').value.split('\n');
 
-        const formData = new FormData(form);
+        const formData = new FormData();
+        formData.append('keys_to_be_matched', kwList.join('\n'));
+        formData.append('keys_to_match', positiveKw.join('\n'));
 
         // Send form data to the Flask route via AJAX
         fetch('/keyword/keyword_filter', {
@@ -22,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
             statsDiv.innerHTML = `<h3>Filter Results</h3>
                 <p>Positive Match: ${data.match_count} lines match</p>`;
 
-            // Display the results in the text areas
+            // Display the results in the text area
             matchesBox.value = data.matches;
         })
         .catch(error => {

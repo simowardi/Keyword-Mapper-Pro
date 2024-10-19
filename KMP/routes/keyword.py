@@ -12,7 +12,6 @@ from concurrent.futures import ThreadPoolExecutor
 keyword_bp = Blueprint('keyword', __name__)
 
 
-
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
 def keyword_filter():
@@ -21,15 +20,10 @@ def keyword_filter():
         positive_kw = request.form.get('keys_to_match', '').splitlines()
 
         def matches_pattern(keyword, pattern):
-            if pattern.startswith('[') and pattern.endswith(']'):
-                return keyword.lower() == pattern[1:-1].lower()
-            elif pattern.startswith('"') and pattern.endswith('"'):
-                return pattern[1:-1].lower() in keyword.lower()
-            else:
-                return all(word.lower() in keyword.lower() for word in pattern.split())
+            return any(word.lower() in keyword.lower() for word in pattern)
 
         # Find matches based on positive keywords
-        matched_keywords = [keyword for keyword in kw_list if any(matches_pattern(keyword, pattern) for pattern in positive_kw)]
+        matched_keywords = [keyword for keyword in kw_list if matches_pattern(keyword, positive_kw)]
 
         # Prepare the response data
         response_data = {
