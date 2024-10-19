@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<title>Keyword Filter Pro - Dashboard 🚀</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/filter.css') }}">
 	</head>
 
 	<body>
@@ -19,6 +19,8 @@
 		  <a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
 		  <a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
 		</div>
+	
+		<!-- Main Content -->
 		<div class="main-content">
 			<button class="theme-toggle">🌓 Toggle Night Mode</button>
 			<h1>🎉 Welcome to Keyword Filter Pro</h1>
@@ -31,21 +33,18 @@
 			<div class="delete-account">
 				<button class="logout" onclick="confirmDelete()">🗑️ Delete Account</button>
 			</div>
-			<br>
-			<br>
-			<br>
-			<br>
-		</div>
+
 			<!-- Footer -->
 			<div class="footer">
 				<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
 				<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
 				<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
 			</div>
-        </div>
-    </div>
 
-	<script src="{{ url_for('static', filename='js/filter.js') }}"></script>
+		</div>
+      </div>
+
+	<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
 
 </body>
 </html>
