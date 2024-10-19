@@ -41,15 +41,32 @@
 				</div>
 				<div class="filter-box">
 					<h2><i class="fas fa-filter"></i> Filtered Results</h2>
-					<textarea id="filteredResults" readonly></textarea>
+					<textarea id="filteredResults" readonly placeholder="Matched keywords will appear here"></textarea>
 					<div class="keyword-count">
 						<span id="matchCount">0 keywords match</span>
 						<span id="noMatchCount" style="float: right;">0 keywords don't match</span>
 					</div>
 					<button class="copy-btn" onclick="copyToClipboard('filteredResults')"><i class="fas fa-copy"></i></button>
 				</div>
+				<div class="filter-box">
+					<h2><i class="fas fa-check-circle"></i> Matches</h2>
+					<textarea id="matches" readonly placeholder="Matched keywords will appear here"></textarea>
+					<div class="keyword-count">
+						<span id="matchCount">0 keywords match</span>
+					</div>
+					<button class="copy-btn" onclick="copyToClipboard('matches')"><i class="fas fa-copy"></i></button>
+				</div>
+				<div class="filter-box">
+					<h2><i class="fas fa-times-circle"></i> Non-Matches</h2>
+					<textarea id="non_matches" readonly placeholder="Non-matched keywords will appear here"></textarea>
+					<div class="keyword-count">
+						<span id="noMatchCount">0 keywords don't match</span>
+					</div>
+					<button class="copy-btn" onclick="copyToClipboard('non_matches')"><i class="fas fa-copy"></i></button>
+				</div>
 			</div>
 			<button class="filter-btn" onclick="filterKeywords()">Filter Keywords 🔍</button>
+			
 			<div class="footer">
 				<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
 				<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
