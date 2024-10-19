@@ -51,16 +51,10 @@ function copyToClipboard(textareaId) {
     const button = event.target;
     button.style.backgroundColor = 'green';
 
-    // Show tooltip
-    const tooltip = button.querySelector('.tooltip');
-    tooltip.textContent = 'Copied!';
-    tooltip.style.visibility = 'visible';
-
+    // Reset the background color after half a second
     setTimeout(() => {
         button.style.backgroundColor = ''; // Reset to original
-        tooltip.style.visibility = 'hidden'; // Hide tooltip after some time
-        tooltip.textContent = 'Copy'; // Reset tooltip text
-    }, 1000);
+    }, 500); // Change to 500 milliseconds (half a second)
 }
 
 
