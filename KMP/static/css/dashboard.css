@@ -343,48 +343,6 @@ body, html {
 
 
 /* new css for grouper results*/
-/* Styles for the grouped results section */
-.grouped-results-container {
-    background-color: #f9f9f9; /* Light background for better contrast */
-    border: 1px solid #ddd; /* Subtle border to define the section */
-    border-radius: 8px; /* Rounded corners for a softer look */
-    padding: 15px; /* Space inside the container */
-    margin-top: 15px; /* Space above the container */
-    max-height: 400px; /* Limit the height for overflow */
-    overflow-y: auto; /* Add scroll if content exceeds max height */
-}
-
-/* Styles for each keyword group */
-.keyword-group {
-    margin-bottom: 10px; /* Space between keyword groups */
-}
-
-/* Styles for the keyword list */
-.keyword-group ul {
-    list-style-type: none; /* Remove default list styling */
-    padding-left: 0; /* Remove left padding */
-}
-
-/* Styles for each keyword item */
-.keyword-group li {
-    padding: 5px; /* Space around each keyword item */
-    border-bottom: 1px solid #eee; /* Subtle separator between items */
-}
-
-/* Make the last item in the list have no border */
-.keyword-group li:last-child {
-    border-bottom: none; /* Remove border from the last item */
-}
-
-/* Styles for the keyword count */
-.keyword-count {
-    font-weight: bold; /* Bold text for emphasis */
-    margin-top: 10px; /* Space above the count text */
-    color: #333; /* Darker color for contrast */
-}
-
-
-
 /* Grouped results container */
 .grouped-results-container {
 	display: flex;
