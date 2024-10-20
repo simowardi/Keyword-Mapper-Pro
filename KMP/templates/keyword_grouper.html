@@ -6,21 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 </head>
-
 <body>
-	<div class="container">
-	  <div class="sidebar">
-		<a href="{{ url_for('dashboard') }}" class="logo">🚀 KMP</a>
-		<a href="{{ url_for('dashboard') }}" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
-		<a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item"><span class="menu-item-icon">🌍</span>Keyword Explorer</a>
-		<a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
-		<a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
-		<a href="{{ url_for('keyword.keyword_intent') }}" class="menu-item"><span class="menu-item-icon">🧠</span>Intent Analyzer</a>
-		<a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
-		<a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
-	  </div>
+    <div class="container">
+        <div class="sidebar">
+			<a href="{{ url_for('dashboard') }}" class="logo">🚀 KMP</a>
+			<a href="{{ url_for('dashboard') }}" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
+			<a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item"><span class="menu-item-icon">🌍</span>Keyword Explorer</a>
+			<a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
+			<a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
+			<a href="{{ url_for('keyword.keyword_intent') }}" class="menu-item"><span class="menu-item-icon">🧠</span>Intent Analyzer</a>
+			<a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
+			<a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
+        </div>
 
         <div class="main-content">
+			<button class="theme-toggle">🌓 Night Mode</button>
+
             <div class="keyword-filter-container">
                 <form id="keywordForm" method="POST">
                     <div class="filter-box">
@@ -55,6 +56,7 @@
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ url_for('static', filename='js/group.js') }}"></script> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <script src="{{ url_for('static', filename='js/group.js') }}"></script> <!-- Link to the new JavaScript file -->
+</body>
 </html>
