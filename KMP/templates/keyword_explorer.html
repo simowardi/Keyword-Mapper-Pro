@@ -34,19 +34,18 @@
 							<div class="keyword-count" id="keywordCount">0 keywords</div>
 						</div>
 						
+
 						<div class="filter-box">
-							<h2><i class="fas fa-font"></i> Select Character Sets</h2>
+							<h2><i class="fas fa-filter"></i> Filter Options</h2>
+							<label for="character-sets">Select Character Sets:</label>
 							<select name="character-sets" id="character-sets" multiple required>
 								<option value="a-z">a-z</option>
 								<option value="A-Z">A-Z</option>
 								<option value="0-9">0-9</option>
 								<option value="questions">Questions</option>
 							</select>
-							<input type="hidden" name="fetch_delay" value="1">
-						</div>
 						
-						<div class="filter-box">
-							<h2><i class="fas fa-globe"></i> Language and Country</h2>
+
 							<label for="language">Select Language:</label>
 							<select name="language" required>
 								<option value="en">English</option>
@@ -84,7 +83,12 @@
 								<option value="FI">Finland</option>
 								<option value="SG">Singapore</option>
 							</select>
+
+							<label for="fetch_delay">Fetch Delay:</label>
+							<input type="number" id="fetch_delay" name="fetch_delay" value="1" min="1" style="width: 50px;">
+	
 						</div>
+
 						
 						<button type="submit" class="filter-btn">Get Suggestions 🔍</button>
 					</form>

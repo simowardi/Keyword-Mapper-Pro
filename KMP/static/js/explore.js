@@ -1,10 +1,8 @@
-document.querySelector('form').addEventListener('submit', function(event) {
-    const keywordInput = document.querySelector('input[name="keyword"]');
-    if (!keywordInput.value.includes('*')) {
-        alert('Please include a "*" in the keyword.');
-        event.preventDefault(); // Prevent form submission
-    }
+document.getElementById('keys_to_be_matched').addEventListener('input', function() {
+	var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
+	document.getElementById('keywordCount').textContent = keywordCount + ' keywords';
 });
+
 
 
 /**
