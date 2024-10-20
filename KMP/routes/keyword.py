@@ -183,7 +183,6 @@ def keyword_grouper():
         num_keywords = len(keyword_list)
         num_groups = len(grouped_keywords)
 
-    # Return JSON response
         return jsonify({
             'grouped_keywords': grouped_keywords,
             'num_groups': num_groups,
@@ -192,7 +191,6 @@ def keyword_grouper():
 
     # Render the HTML template for GET requests
     return render_template('keyword_grouper.html', keyword_list=[], min_group_length=1, grouped_keywords={}, num_keywords=0, num_groups=0)
-
 
 
 @keyword_bp.route('/export_csv', methods=['POST'])
