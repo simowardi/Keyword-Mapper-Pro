@@ -161,20 +161,21 @@ def keyword_grouper():
 
     :return: rendered keyword_grouper.html template
     """
-    grouped_keywords = []
+    grouped_keywords = {}
     num_keywords = 0
     num_groups = 0
+    keyword_list = []
+    min_group_length = 1
+    excluded_words = []
 
     if request.method == 'POST':
         keyword_list = request.form.get('keyword_list', '').splitlines()
         min_group_length = int(request.form.get('min_group_length', 1))
         excluded_words = set(request.form.get('excluded_words', '').splitlines())
 
-		# Group keywords based on individual words
+        # Group keywords based on individual words
         for keyword in keyword_list:
-            # Exclude keywords based on length and excluded words
             if len(keyword.split()) >= min_group_length and not any(excluded in keyword for excluded in excluded_words):
-                # Split the keyword into individual words
                 words = keyword.split()
                 for word in words:
                     if word not in grouped_keywords:
@@ -184,16 +185,13 @@ def keyword_grouper():
         num_keywords = len(keyword_list)
         num_groups = len(grouped_keywords)
 
-
-        return render_template('keyword_grouper.html',
-                               keyword_list=keyword_list,
-                               min_group_length=min_group_length,
-                               excluded_words=excluded_words,
-                               grouped_keywords=grouped_keywords,
-                               num_keywords=num_keywords,
-                               num_groups=num_groups)
-
-    return render_template('keyword_grouper.html')
+    return render_template('keyword_grouper.html',
+                           keyword_list=keyword_list,
+                           min_group_length=min_group_length,
+                           excluded_words=excluded_words,
+                           grouped_keywords=grouped_keywords,
+                           num_keywords=num_keywords,
+                           num_groups=num_groups)
 
 @keyword_bp.route('/export_csv', methods=['POST'])
 @login_required
