@@ -42,30 +42,23 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 
 // Handle the keyword exploration process
 
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('suggestionsForm');
-    const resultsSection = document.querySelector('.results-section');
-    const filteredResults = document.getElementById('filteredResults');
-    const suggestedKeywordCount = document.getElementById('suggestedKeywordCount');
+$(document).ready(function() {
+    $('#suggestionsForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent the navigation default form submission
 
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            filteredResults.value = data.suggestions.join('\n');
-            suggestedKeywordCount.textContent = `${data.suggestions.length} keywords suggested`;
-            resultsSection.style.display = 'flex'; // Show results section
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            resultsSection.style.display = 'none'; // Hide results section on error
+        $.ajax({
+            url: '{{ url_for("keyword.keyword_explorer") }}',
+            type: 'POST',
+            data: $(this).serialize(), // Serialize the form data
+            success: function(response) {
+                // Display the suggested keywords in the results section
+                $('#filteredResults').val(response.suggestions.join('\n'));
+                $('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
+                $('.results-section').show(); // Show the results section
+            },
+            error: function() {
+                alert('An error occurred while processing your request.'); // Error handling
+            }
         });
     });
 });
