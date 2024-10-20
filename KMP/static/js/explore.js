@@ -1,6 +1,6 @@
 document.getElementById('keys_to_be_matched').addEventListener('input', function() {
-	var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
-	document.getElementById('keywordCount').textContent = keywordCount + ' keywords';
+    var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
+    document.getElementById('keywordCount').textContent = keywordCount + ' keywords suggested';
 });
 
 

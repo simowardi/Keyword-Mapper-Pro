@@ -35,6 +35,8 @@
 						</div>
 						
 
+						<button type="submit" class="filter-btn">Get Suggestions 🔍</button>
+
 						<div class="filter-box">
 							<h2><i class="fas fa-filter"></i> Filter Options</h2>
 							<label for="character-sets">Select Character Sets:</label>
@@ -89,8 +91,6 @@
 	
 						</div>
 
-						
-						<button type="submit" class="filter-btn">Get Suggestions 🔍</button>
 					</form>
 				</div>
 				
@@ -99,12 +99,13 @@
 						<h2><i class="fas fa-filter"></i> Explored Results</h2>
 						<textarea id="filteredResults" readonly placeholder="Filtered keywords will appear here" rows="15">{{ suggestions | join('\n') }}</textarea>
 						<div class="keyword-count">
-							<span id="matchCount">{{ suggestions | length }} keywords Suggested</span>
+							<span id="keywordCount">{{ suggestions | length }} keywords suggested</span>
 						</div>
 						<button class="simple-copy-btn" onclick="copyToClipboard('filteredResults')" aria-label="Copy to clipboard">
 							📋 Copy
 						</button>
 					</div>
+				</div>
 					
 					<div id="stats" class="filter-box">
 
