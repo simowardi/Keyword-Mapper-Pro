@@ -252,8 +252,6 @@ body, html {
     margin-right: 20px;
     flex-basis: 30%; /* Adjust width as necessary */
 	border-radius: 12px; /* Rounded corners */
-    padding: 25px; /* Padding inside box */
-    box-shadow: var(--box-shadow); /* Shadow from variables */
 }
 
 .filter-box h2 {
