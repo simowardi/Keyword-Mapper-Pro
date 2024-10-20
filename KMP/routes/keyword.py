@@ -105,10 +105,11 @@ def keyword_explorer():
                 for kw in expanded_keywords:
                     suggestions.extend(get_google_suggestions(kw, language, country))
 
-        return jsonify(suggestions=suggestions)  # Return JSON response
+        # Returning JSON as the AJAX call expects it
+        return jsonify(suggestions=suggestions)
 
+    # Render the HTML template for GET requests
     return render_template('keyword_explorer.html')
-
 
 
 
