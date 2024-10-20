@@ -95,12 +95,9 @@ def keyword_explorer():
     suggestions = []
     if request.method == 'POST':
         # Extract parameters from the request
-        keyword = request.form.get('keyword')
+        keywords = request.form.get('keyword').strip().splitlines()  # Split by lines
         language = request.form.get('language','en')
         country = request.form.get('country', 'us')
-
-        # Get the time delay for fetching suggestions (default to 1 second)
-        fetch_delay = float(request.form.get('fetch_delay', '1'))
 
         # Get selected options for prefixes
         selected_prefixes = request.form.getlist('prefixes')
@@ -108,8 +105,11 @@ def keyword_explorer():
         # Process the keyword to expand based on selected prefixes
         expanded_keywords = expand_keyword(keyword, selected_prefixes)
 
-        for kw in expanded_keywords:
-            suggestions.extend(get_google_suggestions(kw, language, country))
+        for keyword in keywords:
+            if keyword:  # Ensure it's not empty
+                expanded_keywords = expand_keyword(keyword.strip(), selected_prefixes)
+                for kw in expanded_keywords:
+                    suggestions.extend(get_google_suggestions(kw, language, country))
 
     return render_template('keyword_explorer.html', suggestions=suggestions)
 
