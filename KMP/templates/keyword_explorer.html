@@ -99,21 +99,21 @@
             <button type="button" class="simple-copy-btn" onclick="copyToClipboard('filteredResults')" aria-label="Copy to clipboard">
                 📋 Copy
             </button>
-        </div>
-					<!-- Footer -->
-					<div class="footer">
-						<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
-						<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
-						<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+						<!-- Footer -->
+						<div class="footer">
+							<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
+							<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+							<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+						</div>
 					</div>
 				</div>
-			</div>
+        </div>
     </div>
     {% endif %}
     </div>
 </div>
 
-		
+
 	<script src="{{ url_for('static', filename='/js/explore.js') }}"></script>
 
 </body>
