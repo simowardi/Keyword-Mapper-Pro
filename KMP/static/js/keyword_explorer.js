@@ -32,11 +32,14 @@ themeToggle.addEventListener('click', function() {
     this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
 });
 
+
 // Count keywords based on input
 document.getElementById('mainkeywords').addEventListener('input', function() {
     var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
     document.getElementById('keywordCount').textContent = keywordCount + ' keywords';
 });
+
+
 
 // Handle the keyword exploration process
 $(document).ready(function() {
@@ -47,7 +50,7 @@ $(document).ready(function() {
         $('.loader').show();
 
         $.ajax({
-            url: '/keyword_explorer',  // Ensure the route is correct
+            url: '/keyword/keyword_explorer',  // Ensure the route is correct
             type: 'POST',
             data: $(this).serialize(), // Serialize form data
             success: function(response) {
@@ -57,21 +60,30 @@ $(document).ready(function() {
                 // Clear the previous results
                 $('#resultKeywords').val(''); 
 
+                // Extract the suggestions from the JSON response
                 let suggestions = response.suggestions || [];
 
-                // Display the suggested keywords
-                suggestions.forEach(function(keyword) {
-                    $('#resultKeywords').val(function(i, text) {
-                        return text + keyword + "\n";
+                // Check if there are any suggestions and display them
+                if (suggestions.length > 0) {
+                    // Append each suggested keyword to the textarea
+                    suggestions.forEach(function(keyword) {
+                        $('#resultKeywords').val(function(i, text) {
+                            return text + keyword + "\n"; // Append each keyword on a new line
+                        });
                     });
-                });
 
-                // Update the keyword count
-                $('#suggestedKeywordCount').text(`${suggestions.length} keywords suggested`);
-
-                // Make sure the results section is visible
-                $('.results-section').show();  // Ensure the results section is shown
+                    // Update the keyword count
+                    $('#suggestedKeywordCount').text(`${suggestions.length} keywords suggested`);
+                } else {
+                    $('#resultKeywords').val('No suggestions found.');
+                    $('#suggestedKeywordCount').text('0 keywords suggested');
+                }
             },
+			success: function(response) {
+				console.log(response); // Log the response to ensure it's JSON
+				// Rest of the success function...
+			}
+			
             error: function() {
                 // Hide the loader in case of error
                 $('.loader').hide();
