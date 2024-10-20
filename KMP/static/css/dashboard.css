@@ -55,6 +55,7 @@ body, html {
 
 /* Logo styles */
 .logo {
+	color: black;
     font-size: 24px; /* Logo size */
     font-weight: bold; /* Bold text */
     margin-bottom: 30px; /* Space below logo */
