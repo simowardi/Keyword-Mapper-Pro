@@ -22,7 +22,7 @@
 
         <div class="main-content">
             <div class="keyword-filter-container">
-                <form id="keywordForm" method="POST">
+                <form id="keywordForm" method="POST" action="{{ url_for('keyword.keyword_grouper') }}">
                     <div class="filter-box">
                         <h2><i class="fas fa-list"></i> Keyword List</h2>
                         <textarea name="keyword_list" id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line" required>{{ keyword_list | join('\n') }}</textarea>
@@ -61,7 +61,7 @@
                 event.preventDefault(); // Prevent the default form submission
 
                 $.ajax({
-                    url: "{{ url_for('keyword.keyword_grouper') }}", // The target URL
+                    url: "{{ url_for('keyword.keyword_grouper') }}", // The target URL for the AJAX request
                     type: 'POST',
                     data: $(this).serialize(), // Serialize the form data
                     success: function(response) {
