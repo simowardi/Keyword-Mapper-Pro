@@ -53,35 +53,29 @@ $(document).ready(function() {
             url: '/keyword/keyword_explorer',  // Ensure the route is correct
             type: 'POST',
             data: $(this).serialize(), // Serialize form data
-            success: function(response) {
-                // Hide the loader
-                $('.loader').hide();
-
-                // Clear the previous results
-                $('#resultKeywords').val(''); 
-
-                // Extract the suggestions from the JSON response
-                let suggestions = response.suggestions || [];
-
-                // Check if there are any suggestions and display them
-                if (suggestions.length > 0) {
-                    // Append each suggested keyword to the textarea
-                    suggestions.forEach(function(keyword) {
-                        $('#resultKeywords').val(function(i, text) {
-                            return text + keyword + "\n"; // Append each keyword on a new line
-                        });
-                    });
-
-                    // Update the keyword count
-                    $('#suggestedKeywordCount').text(`${suggestions.length} keywords suggested`);
-                } else {
-                    $('#resultKeywords').val('No suggestions found.');
-                    $('#suggestedKeywordCount').text('0 keywords suggested');
-                }
-            },
 			success: function(response) {
-				console.log(response); // Log the response to ensure it's JSON
-				// Rest of the success function...
+				// Clear the previous results
+				$('.grouped-results-container').empty(); // Clear previous results
+			
+				if (response.suggestions.length > 0) {
+					// Populate the suggested keywords
+					response.suggestions.forEach(function(keyword) {
+						const groupHtml = `
+							<div class="keyword-group">
+								<button class="copy-button" onclick="copyToClipboard('${keyword}')">
+									<i class="fas fa-copy"></i> Copy
+								</button>
+								<strong>${keyword}</strong>
+							</div>
+						`;
+						$('.grouped-results-container').append(groupHtml);
+					});
+					$('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
+					$('.results-section').show(); // Show the results section
+				} else {
+					// Display a message when no keywords are found
+					$('.grouped-results-container').append('<p>No keywords found.</p>');
+				}
 			}
 			
             error: function() {

@@ -106,7 +106,9 @@
         <button type="button" class="simple-copy-btn" onclick="copyToClipboard('resultKeywords')" aria-label="Copy to clipboard">
             📋 Copy
         </button>
-        <textarea id="resultKeywords" rows="10" placeholder="Generated keywords will appear here..." readonly></textarea>
+        <div class="keyword-list-container">
+            <div class="grouped-results-container"></div>
+        </div>
         <div class="keyword-count">
             <span id="suggestedKeywordCount">0 keywords suggested</span>
         </div>
