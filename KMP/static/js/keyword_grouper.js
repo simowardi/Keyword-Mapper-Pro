@@ -1,11 +1,15 @@
 /**
- * Copies the text from the textarea with the given ID to the clipboard.
- * @param {string} textareaId - The ID of the textarea from which to copy the text.
+ * Copies the text from the given string to the clipboard.
+ * @param {string} text - The text to copy to the clipboard.
  */
-function copyToClipboard(textareaId) {
-    const textarea = document.getElementById(textareaId);
+function copyToClipboard(text) {
+    // Create a temporary textarea element
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    document.body.appendChild(textarea);
     textarea.select();
     document.execCommand('copy');
+    document.body.removeChild(textarea); // Remove the textarea
 
     // Flash effect
     const button = event.target;
@@ -15,6 +19,34 @@ function copyToClipboard(textareaId) {
     setTimeout(() => {
         button.style.backgroundColor = ''; // Reset to original
     }, 500); // Change to 500 milliseconds (half a second)
+}
+
+
+success: function(response) {
+    // Clear previous results
+    $('.grouped-results-container').empty();
+
+    if (response.num_groups > 0) {
+        // Populate the grouped results
+        $.each(response.grouped_keywords, function(phrase, keywords) {
+            $('.grouped-results-container').append(
+                `<div class="keyword-group">
+                    <strong>${phrase} (${keywords.length})</strong>
+                    <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
+                    <button class="copy-button" onclick="copyToClipboard('${phrase}')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                </div>`
+            );
+        });
+    } else {
+        // Display a message when no groups are found
+        $('.grouped-results-container').append('<p>No groups found that meet the minimum length requirement.</p>');
+    }
+
+    // Update counts
+    $('#matchCount').text(`${response.num_groups} groups found`);
+    $('#keywordCount').text(`${response.num_keywords} keywords`);
 }
 
 
