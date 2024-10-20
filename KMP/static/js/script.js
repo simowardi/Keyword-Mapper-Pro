@@ -115,11 +115,37 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 
 // Handle the keyword grouping process
 
-document.getElementById('keys_to_be_matched').addEventListener('input', function() {
-	var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
-	document.getElementById('keywordCount').textContent = keywordCount + ' keywords';
-});
+$(document).ready(function() {
+    $('#keywordForm').on('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
 
+        $.ajax({
+            url: "{{ url_for('keyword.keyword_grouper') }}", // The target URL for the AJAX request
+            type: 'POST',
+            data: $(this).serialize(), // Serialize the form data
+            success: function(response) {
+                // Clear previous results
+                $('.grouped-results-container').empty();
+
+                // Populate the grouped results
+                $.each(response.grouped_keywords, function(phrase, keywords) {
+                    $('.grouped-results-container').append(
+                        `<div class="keyword-group">
+                            <strong>${phrase} (${keywords.length})</strong>
+                            <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
+                        </div>`
+                    );
+                });
+
+                // Update group count
+                $('#matchCount').text(`${response.num_groups} groups found`);
+            },
+            error: function() {
+                alert('An error occurred while processing your request.'); // Error handling
+            }
+        });
+    });
+});
 
 
 

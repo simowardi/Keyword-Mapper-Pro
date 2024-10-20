@@ -5,7 +5,6 @@
     <title>Keyword Mapper Pro - Keyword Grouper</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
 </head>
 <body>
     <div class="container">
@@ -22,7 +21,7 @@
 
         <div class="main-content">
             <div class="keyword-filter-container">
-                <form id="keywordForm" method="POST" action="{{ url_for('keyword.keyword_grouper') }}">
+                <form method="POST" action="{{ url_for('keyword.keyword_grouper') }}">
                     <div class="filter-box">
                         <h2><i class="fas fa-list"></i> Keyword List</h2>
                         <textarea name="keyword_list" id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line" required>{{ keyword_list | join('\n') }}</textarea>
@@ -38,11 +37,20 @@
 
             <div class="filter-box">
                 <h2><i class="fas fa-filter"></i> Grouped Results</h2>
-                <div class="grouped-results-container" id="groupedResultsContainer">
-                    <!-- Grouped results will be dynamically inserted here -->
+                <div class="grouped-results-container">
+                    {% for phrase, keywords in grouped_keywords.items() %}
+                        <div class="keyword-group">
+                            <strong>{{ phrase }} ({{ keywords | length }})</strong>
+                            <ul>
+                                {% for kw in keywords %}
+                                    <li>{{ kw }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
                 </div>
-                <div class="keyword-count" id="matchCount">
-                    <!-- Keyword count will be updated here -->
+                <div class="keyword-count">
+                    <span id="matchCount">{{ num_groups }} groups found</span>
                 </div>
             </div>
 
@@ -55,33 +63,7 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('#keywordForm').on('submit', function(event) {
-                event.preventDefault(); // Prevent the default form submission
+	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-                $.ajax({
-                    url: "{{ url_for('keyword.keyword_grouper') }}", // The target URL for the AJAX request
-                    type: 'POST',
-                    data: $(this).serialize(), // Serialize the form data
-                    success: function(response) {
-                        $('#groupedResultsContainer').empty(); // Clear previous results
-                        $.each(response.grouped_keywords, function(phrase, keywords) {
-                            $('#groupedResultsContainer').append(
-                                `<div class="keyword-group">
-                                    <strong>${phrase} (${keywords.length})</strong>
-                                    <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
-                                </div>`
-                            );
-                        });
-                        $('#matchCount').text(`${response.num_groups} groups found`); // Update group count
-                    },
-                    error: function() {
-                        alert('An error occurred while processing your request.'); // Error handling
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
