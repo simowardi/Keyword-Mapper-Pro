@@ -22,33 +22,6 @@ function copyToClipboard(text) {
 }
 
 
-success: function(response) {
-    // Clear previous results
-    $('.grouped-results-container').empty();
-
-    if (response.num_groups > 0) {
-        // Populate the grouped results
-        $.each(response.grouped_keywords, function(phrase, keywords) {
-            $('.grouped-results-container').append(
-                `<div class="keyword-group">
-                    <strong>${phrase} (${keywords.length})</strong>
-                    <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
-                    <button class="copy-button" onclick="copyToClipboard('${phrase}')">
-                        <i class="fas fa-copy"></i> Copy
-                    </button>
-                </div>`
-            );
-        });
-    } else {
-        // Display a message when no groups are found
-        $('.grouped-results-container').append('<p>No groups found that meet the minimum length requirement.</p>');
-    }
-
-    // Update counts
-    $('#matchCount').text(`${response.num_groups} groups found`);
-    $('#keywordCount').text(`${response.num_keywords} keywords`);
-}
-
 
 document.querySelector('.logout').addEventListener('click', function() {
 	if (confirm('Are you sure you want to logout?')) {
