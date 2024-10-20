@@ -51,17 +51,13 @@ $(document).ready(function() {
             type: 'POST',
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
-                // Clear the previous results
-                $('.results-section .keyword-list').empty();
-
-                // Display the suggested keywords in the results section
-                var $keywordList = $('.results-section .keyword-list');
-                response.suggestions.forEach(function(keyword) {
-                    $keywordList.append($('<div>').text(keyword));
-                });
-                $('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
-                $('.results-section').show(); // Show the results section
-            },
+				$('.results-section .keyword-list').empty();
+				response.suggestions.forEach(function(keyword) {
+					$keywordList.append($('<div>').text(keyword));
+				});
+				$('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
+				$('.results-section').show(); // Show the results section
+			}
             error: function() {
                 alert('An error occurred while processing your request.'); // Error handling
             }
