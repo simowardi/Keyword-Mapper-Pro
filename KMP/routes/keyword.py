@@ -170,15 +170,15 @@ def keyword_grouper():
         
         # Iterate through the keyword list and group them
         for keyword in keyword_list:
-            found_group = False
-            for phrase, keywords in grouped_keywords.items():
-                if len(keywords) >= min_group_length and all(kw in keyword.split() for kw in keywords):
-                    grouped_keywords[phrase].append(keyword)
-                    found_group = True
+            keyword_parts = keyword.split()
+            for i in range(len(keyword_parts), 0, -1):
+                phrase = ' '.join(keyword_parts[:i])
+                if phrase not in grouped_keywords:
+                    grouped_keywords[phrase] = []
+                grouped_keywords[phrase].append(keyword)
+                if len(grouped_keywords[phrase]) >= min_group_length:
                     break
-            if not found_group:
-                grouped_keywords[' '.join(keyword.split()[:min_group_length])] = [keyword]
-
+        
         # Filter out groups that don't meet the minimum length requirement
         grouped_keywords = {k: v for k, v in grouped_keywords.items() if len(v) >= min_group_length}
 
