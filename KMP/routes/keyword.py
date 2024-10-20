@@ -62,7 +62,7 @@ def expand_keyword(keyword, prefixes):
         char_sets = {
             'a-z': 'abcdefghijklmnopqrstuvwxyz',
             'A-Z': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            '0-9': '0123456789'
+            '0-9': '0123456789',
             'questions': ['how', 'why', 'where', 'what', 'when', 'who', 'which', 'can', 'do', 'is', 'are'],
         }
 
