@@ -251,7 +251,6 @@ body, html {
 .filter-box {
     margin-right: 20px;
     flex-basis: 30%; /* Adjust width as necessary */
-	border-radius: 12px; /* Rounded corners */
 }
 
 .filter-box h2 {
