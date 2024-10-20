@@ -44,23 +44,53 @@
 
 	<div class="filter-box">
 		<h2><i class="fas fa-filter"></i> Grouped Results</h2>
-		<div class="grouped-results-container"> <!-- New class added here -->
-			{% for phrase, keywords in grouped_keywords.items() %}
-				<div class="keyword-group"> <!-- Existing class -->
-					<strong>{{ phrase }} ({{ keywords | length }})</strong>
-					<ul>
-						{% for kw in keywords %}
-							<li>{{ kw }}</li>
-						{% endfor %}
-					</ul>
-				</div>
-			{% endfor %}
+		<div class="grouped-results-container" id="groupedResultsContainer"> <!-- ID for AJAX update -->
+			<!-- Grouped results will be dynamically inserted here -->
 		</div>
-		<div class="keyword-count">
-			<span id="matchCount">{{ num_groups }} groups found</span>
+		<div class="keyword-count" id="matchCount">
+			<!-- Keyword count will be updated here -->
 		</div>
 	</div>
 
+	<div class="filter-box">
+		<h2><i class="fas fa-filter"></i> Grouped Results</h2>
+		<div class="grouped-results-container" id="groupedResultsContainer"> <!-- ID for AJAX update -->
+			<!-- Grouped results will be dynamically inserted here -->
+		</div>
+		<div class="keyword-count" id="matchCount">
+			<!-- Keyword count will be updated here -->
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('form').on('submit', function(event) {
+				event.preventDefault(); // Prevent the default form submission
+	
+				$.ajax({
+					url: "{{ url_for('keyword.keyword_grouper') }}", // The target URL
+					type: 'POST',
+					data: $(this).serialize(), // Serialize the form data
+					success: function(response) {
+						$('#groupedResultsContainer').empty(); // Clear previous results
+						$.each(response.grouped_keywords, function(phrase, keywords) {
+							$('#groupedResultsContainer').append(
+								`<div class="keyword-group">
+									<strong>${phrase} (${keywords.length})</strong>
+									<ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
+								</div>`
+							);
+						});
+						$('#matchCount').text(`${response.num_groups} groups found`); // Update group count
+					},
+					error: function() {
+						alert('An error occurred while processing your request.'); // Error handling
+					}
+				});
+			});
+		});
+	</script>
 
     <!-- Footer -->
     <div class="footer">
@@ -70,8 +100,6 @@
     </div>
 </div>
 
-
-	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 </html>
