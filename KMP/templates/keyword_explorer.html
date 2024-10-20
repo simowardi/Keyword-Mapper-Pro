@@ -37,7 +37,7 @@
                 <h2><i class="fas fa-filter"></i> Filter Options</h2>
                 <label for="character-sets">Select Character Sets:</label>
                 <select name="prefixes" id="character-sets" required>
-                    <option value="a-z">a-z</option>
+                    <option value="a-z" selected>a-z</option>
                     <option value="A-Z">A-Z</option>
                     <option value="0-9">0-9</option>
                     <option value="questions">Questions</option>
@@ -89,18 +89,21 @@
         </form>
     </div>
 
+    <!-- Results Section -->
+    {% if suggestions %}
     <div class="results-section">
         <div class="filter-box">
             <h2><i class="fas fa-filter"></i> Explored Results</h2>
             <textarea id="filteredResults" readonly placeholder="Filtered keywords will appear here" rows="15">{{ suggestions | join('\n') }}</textarea>
             <div class="keyword-count">
-                <span id="keywordCount">{{ suggestions | length }} keywords suggested</span>
+                <span id="suggestedKeywordCount">{{ suggestions | length }} keywords suggested</span>
             </div>
             <button type="button" class="simple-copy-btn" onclick="copyToClipboard('filteredResults')" aria-label="Copy to clipboard">
                 📋 Copy
             </button>
         </div>
     </div>
+    {% endif %}
     
     <div id="stats" class="filter-box">
         <!-- Stats content can be added here -->

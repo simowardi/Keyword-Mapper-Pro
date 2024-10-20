@@ -18,6 +18,7 @@ document.getElementById('suggestionsForm').addEventListener('submit', function(e
 });
 
 
+
 document.getElementById('mainkeywords').addEventListener('input', function() {
 	var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
 	document.getElementById('keywordCount').textContent = keywordCount + ' keywords';
