@@ -20,57 +20,56 @@
 		  <a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
 		</div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <button class="theme-toggle">🌓 Night Mode</button>
+<!-- Main Content -->
+<div class="main-content">
+    <button class="theme-toggle">🌓 Night Mode</button>
 
-            <!-- Filters -->
-            <div class="keyword-filter-container">
-                <form method="POST" action="{{ url_for('keyword.keyword_grouper') }}">
-                    <div class="filter-box">
-                        <h2><i class="fas fa-list"></i> Keyword List</h2>
-                        <textarea name="keyword_list" id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line" required>{{ keyword_list | join('\n') }}</textarea>
-                        <div class="keyword-count" id="keywordCount">{{ num_keywords }} keywords</div>
-                    </div>
-                    <div class="filter-box">
-                        <h2><i class="fas fa-plus-circle"></i> Excluded Words</h2>
-                        <textarea name="excluded_words" id="excludedWords" placeholder="Enter words to exclude, one per line">{{ excluded_words | join('\n') }}</textarea>
-                    </div>
-                    <div class="filter-box">
-                        <h2><i class="fas fa-filter"></i> Minimum Group Length</h2>
-                        <input type="number" name="min_group_length" value="{{ min_group_length }}" min="1" required>
-                    </div>
-                    <button type="submit" class="filter-btn" style="padding: 15px; margin-top: 20px;">Group Keywords 🔍</button>
-                </form>
-            </div>
-
+    <!-- Filters -->
+    <div class="keyword-filter-container">
+        <form method="POST" action="{{ url_for('keyword.keyword_grouper') }}">
             <div class="filter-box">
-                <h2><i class="fas fa-filter"></i> Grouped Results</h2>
-                <div class="grouped-results">
-                    {% for group, keywords in grouped_keywords.items() %}
-                        <div class="keyword-group">
-                            <h3>{{ group }}</h3>
-                            <ul>
-                                {% for kw in keywords %}
-                                    <li>{{ kw }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="keyword-count">
-                    <span id="matchCount">{{ num_groups }} groups found</span>
-                </div>
+                <h2><i class="fas fa-list"></i> Keyword List</h2>
+                <textarea name="keyword_list" id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line" required>{{ keyword_list | join('\n') }}</textarea>
+                <div class="keyword-count" id="keywordCount">{{ num_keywords }} keywords</div>
             </div>
+            <div class="filter-box">
+                <h2><i class="fas fa-plus-circle"></i> Excluded Words</h2>
+                <textarea name="excluded_words" id="excludedWords" placeholder="Enter words to exclude, one per line">{{ excluded_words | join('\n') }}</textarea>
+            </div>
+            <div class="filter-box">
+                <h2><i class="fas fa-filter"></i> Minimum Group Length</h2>
+                <input type="number" name="min_group_length" value="{{ min_group_length }}" min="1" required>
+            </div>
+            <button type="submit" class="filter-btn" style="padding: 15px; margin-top: 20px;">Group Keywords 🔍</button>
+        </form>
+    </div>
 
-            <!-- Footer -->
-            <div class="footer">
-                <a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
-                <a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
-                <p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
-            </div>
+    <div class="filter-box">
+        <h2><i class="fas fa-filter"></i> Grouped Results</h2>
+        <div class="grouped-results">
+            {% for phrase, keywords in grouped_keywords.items() %}
+                <div class="keyword-group">
+                    <strong>{{ phrase }} ({{ keywords | length }})</strong>
+                    <ul>
+                        {% for kw in keywords %}
+                            <li>{{ kw }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="keyword-count">
+            <span id="matchCount">{{ num_groups }} groups found</span>
         </div>
     </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
+        <a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+        <p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+    </div>
+</div>
 
 
 	<script src="{{ url_for('static', filename='js/script.js') }}"></script>

@@ -173,14 +173,16 @@ def keyword_grouper():
         min_group_length = int(request.form.get('min_group_length', 1))
         excluded_words = set(request.form.get('excluded_words', '').splitlines())
 
-        # Group keywords based on individual words
+        # Group keywords based on phrases
         for keyword in keyword_list:
-            if len(keyword.split()) >= min_group_length and not any(excluded in keyword for excluded in excluded_words):
-                words = keyword.split()
-                for word in words:
-                    if word not in grouped_keywords:
-                        grouped_keywords[word] = []
-                    grouped_keywords[word].append(keyword)
+            if keyword not in excluded_words:
+                # Count how many times the phrase appears
+                if keyword not in grouped_keywords:
+                    grouped_keywords[keyword] = []
+                grouped_keywords[keyword].append(keyword)
+
+        # Filter out groups that don't meet the minimum length requirement
+        grouped_keywords = {k: v for k, v in grouped_keywords.items() if len(v) >= min_group_length}
 
         num_keywords = len(keyword_list)
         num_groups = len(grouped_keywords)
@@ -192,6 +194,7 @@ def keyword_grouper():
                            grouped_keywords=grouped_keywords,
                            num_keywords=num_keywords,
                            num_groups=num_groups)
+
 
 @keyword_bp.route('/export_csv', methods=['POST'])
 @login_required
