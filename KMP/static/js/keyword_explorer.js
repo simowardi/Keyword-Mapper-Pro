@@ -42,8 +42,8 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 $(document).ready(function() {
     $('#suggestionsForm').on('submit', function(event) {
         event.preventDefault(); // Prevent default form submission
-        
-        // Show the loader
+
+        // Show the loader (if there is one in the HTML)
         $('.loader').show();
 
         $.ajax({
@@ -58,7 +58,7 @@ $(document).ready(function() {
                 $('#resultKeywords').val(''); 
 
                 let suggestions = response.suggestions || [];
-                
+
                 // Display the suggested keywords
                 suggestions.forEach(function(keyword) {
                     $('#resultKeywords').val(function(i, text) {
@@ -70,13 +70,13 @@ $(document).ready(function() {
                 $('#suggestedKeywordCount').text(`${suggestions.length} keywords suggested`);
 
                 // Make sure the results section is visible
-                $('.results-section').show();
+                $('.results-section').show();  // Ensure the results section is shown
             },
             error: function() {
+                // Hide the loader in case of error
                 $('.loader').hide();
                 alert('An error occurred while processing your request.');
             }
         });
     });
 });
-
