@@ -54,9 +54,10 @@ $(document).ready(function () {
                     $.each(response.grouped_keywords, function (phrase, keywords) {
                         const keywordCount = keywords.length;
                         const keywordList = keywords.map(kw => `<li>${kw}</li>`).join('');
+                        const allKeywords = keywords.join(', '); // Join keywords for copying
                         const groupHtml = `
                             <div class="keyword-group">
-                                <button class="copy-button" onclick="copyToClipboard('${phrase}')">
+                                <button class="copy-button" onclick="copyToClipboard('${allKeywords}')">
                                     <i class="fas fa-copy"></i> Copy
                                 </button>
                                 <strong>${phrase} (${keywordCount})</strong>
