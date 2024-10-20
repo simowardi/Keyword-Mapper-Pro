@@ -21,15 +21,15 @@
 
         <div class="main-content">
             <div class="keyword-filter-container">
-                <form method="POST" action="{{ url_for('keyword.keyword_grouper') }}">
+                <form id="keywordForm" method="POST">
                     <div class="filter-box">
                         <h2><i class="fas fa-list"></i> Keyword List</h2>
-                        <textarea name="keyword_list" id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line" required>{{ keyword_list | join('\n') }}</textarea>
-                        <div class="keyword-count" id="keywordCount">{{ num_keywords }} keywords</div>
+                        <textarea name="keyword_list" id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line" required></textarea>
+                        <div class="keyword-count" id="keywordCount">0 keywords</div>
                     </div>
                     <div class="filter-box">
                         <h2><i class="fas fa-filter"></i> Minimum Group Length</h2>
-                        <input type="number" name="min_group_length" value="{{ min_group_length }}" min="1" required>
+                        <input type="number" name="min_group_length" value="1" min="1" required>
                     </div>
                     <button type="submit" class="filter-btn" style="padding: 15px; margin-top: 20px;">Group Keywords 🔍</button>
                 </form>
@@ -38,19 +38,10 @@
             <div class="filter-box">
                 <h2><i class="fas fa-filter"></i> Grouped Results</h2>
                 <div class="grouped-results-container">
-                    {% for phrase, keywords in grouped_keywords.items() %}
-                        <div class="keyword-group">
-                            <strong>{{ phrase }} ({{ keywords | length }})</strong>
-                            <ul>
-                                {% for kw in keywords %}
-                                    <li>{{ kw }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endfor %}
+                    <!-- Grouped results will be dynamically inserted here -->
                 </div>
                 <div class="keyword-count">
-                    <span id="matchCount">{{ num_groups }} groups found</span>
+                    <span id="matchCount">0 groups found</span>
                 </div>
             </div>
 
@@ -63,7 +54,7 @@
         </div>
     </div>
 
-	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script> <!-- Link to the new JavaScript file -->
 </body>
 </html>

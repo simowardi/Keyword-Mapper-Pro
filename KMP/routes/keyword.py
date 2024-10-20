@@ -183,12 +183,15 @@ def keyword_grouper():
         num_keywords = len(keyword_list)
         num_groups = len(grouped_keywords)
 
-    return render_template('keyword_grouper.html',
-                           keyword_list=keyword_list,
-                           min_group_length=min_group_length,
-                           grouped_keywords=grouped_keywords,
-                           num_keywords=num_keywords,
-                           num_groups=num_groups)
+    # Return JSON response
+        return jsonify({
+            'grouped_keywords': grouped_keywords,
+            'num_groups': num_groups,
+            'num_keywords': num_keywords
+        })
+
+    # Render the HTML template for GET requests
+    return render_template('keyword_grouper.html', keyword_list=[], min_group_length=1, grouped_keywords={}, num_keywords=0, num_groups=0)
 
 
 
