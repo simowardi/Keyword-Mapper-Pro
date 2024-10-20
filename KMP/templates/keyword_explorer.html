@@ -84,7 +84,14 @@
             </div>
 
             <button type="submit" class="filter-btn">Get Suggestions 🔍</button>
+			
         </form>
+				<!-- Footer -->
+				<div class="footer">
+					<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
+					<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+				<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+				</div>
     </div>
 
     <!-- Results Section -->
@@ -99,14 +106,6 @@
             <button type="button" class="simple-copy-btn" onclick="copyToClipboard('filteredResults')" aria-label="Copy to clipboard">
                 📋 Copy
             </button>
-						<!-- Footer -->
-						<div class="footer">
-							<a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
-							<a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
-							<p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
-						</div>
-					</div>
-				</div>
         </div>
     </div>
     {% endif %}
