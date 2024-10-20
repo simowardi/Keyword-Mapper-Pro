@@ -190,6 +190,8 @@ def keyword_grouper():
                            num_keywords=num_keywords,
                            num_groups=num_groups)
 
+
+
 @keyword_bp.route('/export_csv', methods=['POST'])
 @login_required
 def export_csv():
