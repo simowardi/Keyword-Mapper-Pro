@@ -166,20 +166,16 @@ def keyword_grouper():
     num_groups = 0
     keyword_list = []
     min_group_length = 1
-    excluded_words = []
 
     if request.method == 'POST':
         keyword_list = request.form.get('keyword_list', '').splitlines()
         min_group_length = int(request.form.get('min_group_length', 1))
-        excluded_words = set(request.form.get('excluded_words', '').splitlines())
 
         # Group keywords based on phrases
         for keyword in keyword_list:
-            if keyword not in excluded_words:
-                # Count how many times the phrase appears
-                if keyword not in grouped_keywords:
-                    grouped_keywords[keyword] = []
-                grouped_keywords[keyword].append(keyword)
+            if keyword not in grouped_keywords:
+                grouped_keywords[keyword] = []
+            grouped_keywords[keyword].append(keyword)
 
         # Filter out groups that don't meet the minimum length requirement
         grouped_keywords = {k: v for k, v in grouped_keywords.items() if len(v) >= min_group_length}
@@ -190,7 +186,6 @@ def keyword_grouper():
     return render_template('keyword_grouper.html',
                            keyword_list=keyword_list,
                            min_group_length=min_group_length,
-                           excluded_words=excluded_words,
                            grouped_keywords=grouped_keywords,
                            num_keywords=num_keywords,
                            num_groups=num_groups)
