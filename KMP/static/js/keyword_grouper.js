@@ -57,7 +57,7 @@ $(document).ready(function () {
                         const allKeywords = keywords.join('\n'); // Join keywords with new line
                         const groupHtml = `
                             <div class="keyword-group">
-                                <button class="copy-button" onclick="copyToClipboard('${allKeywords.replace(/'/g, "\\'")}')">
+                                <button class="copy-button" onclick="copyToClipboard(\`${allKeywords}\`)">
                                     <i class="fas fa-copy"></i> Copy
                                 </button>
                                 <strong>${phrase} (${keywordCount})</strong>
