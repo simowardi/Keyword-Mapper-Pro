@@ -52,13 +52,9 @@ document.querySelector('.logout').addEventListener('click', function() {
   });
 
 
-document.getElementById('theme-toggle').addEventListener('click', function() {
-    document.body.classList.toggle('night-mode');
-    
-    // Update button text based on the mode
-    if (document.body.classList.contains('night-mode')) {
-        this.textContent = '🌞 Day Mode'; // Change to Day Mode
-    } else {
-        this.textContent = '🌓 Night Mode'; // Change to Night Mode
-    }
+
+const themeToggle = document.querySelector('.theme-toggle');
+themeToggle.addEventListener('click', function() {
+  document.body.classList.toggle('dark-mode');
+  this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
 });
