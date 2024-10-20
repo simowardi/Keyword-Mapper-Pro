@@ -390,3 +390,28 @@ body, html {
   #matchCount {
 	font-weight: bold;
   }
+
+/* Copy button styles of grouper results*/
+  .keyword-group {
+    position: relative; /* Allow absolute positioning of child elements */
+}
+
+.copy-button {
+    position: absolute; /* Position the button absolutely */
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    background-color: transparent; /* No background for a minimal look */
+    color: #007bff; /* Bootstrap primary color */
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: color 0.3s;
+}
+
+.copy-button:hover {
+    color: #0056b3; /* Darker shade on hover */
+}
+
+.copy-button i {
+    margin-right: 5px; /* Space between icon and text */
+}
