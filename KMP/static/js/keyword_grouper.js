@@ -11,7 +11,7 @@ function copyToClipboard(text) {
     document.execCommand('copy');
     document.body.removeChild(textarea); // Remove the textarea
 
-    // Flash effect
+    // Flash effect for the button
     const button = event.target;
     button.style.backgroundColor = 'green';
 
@@ -21,26 +21,23 @@ function copyToClipboard(text) {
     }, 500); // Change to 500 milliseconds (half a second)
 }
 
-
-
+// Logout confirmation
 document.querySelector('.logout').addEventListener('click', function() {
-	if (confirm('Are you sure you want to logout?')) {
-	  // Perform logout action here
-	  alert('Logged out successfully');
-	}
+    if (confirm('Are you sure you want to logout?')) {
+        // Perform logout action here
+        alert('Logged out successfully');
+    }
 });
 
-
+// Theme toggle functionality
 const themeToggle = document.querySelector('.theme-toggle');
 themeToggle.addEventListener('click', function() {
-  document.body.classList.toggle('dark-mode');
-  this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
+    document.body.classList.toggle('dark-mode');
+    this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
 });
-
 
 
 // Handle the keyword grouping process
-
 $(document).ready(function() {
     $('#keywordForm').on('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
@@ -53,15 +50,23 @@ $(document).ready(function() {
                 // Clear previous results
                 $('.grouped-results-container').empty();
 
-                // Populate the grouped results
-                $.each(response.grouped_keywords, function(phrase, keywords) {
-                    $('.grouped-results-container').append(
-                        `<div class="keyword-group">
-                            <strong>${phrase} (${keywords.length})</strong>
-                            <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
-                        </div>`
-                    );
-                });
+                if (response.num_groups > 0) {
+                    // Populate the grouped results
+                    $.each(response.grouped_keywords, function(phrase, keywords) {
+                        $('.grouped-results-container').append(
+                            `<div class="keyword-group">
+                                <strong>${phrase} (${keywords.length})</strong>
+                                <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
+                                <button class="copy-button" onclick="copyToClipboard('${phrase}')">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                            </div>`
+                        );
+                    });
+                } else {
+                    // Display a message when no groups are found
+                    $('.grouped-results-container').append('<p>No groups found that meet the minimum length requirement.</p>');
+                }
 
                 // Update counts
                 $('#matchCount').text(`${response.num_groups} groups found`);
