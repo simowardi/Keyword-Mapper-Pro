@@ -97,19 +97,23 @@
         </form>
     </div>
 
-    <!-- Results Section -->
-    <div class="results-section" style="display: none; flex-direction: column; gap: 20px;">
-        <div class="filter-box">
-            <h2><i class="fas fa-filter"></i> Explored Results</h2>
-            <textarea id="filteredResults" readonly placeholder="Filtered keywords will appear here" rows="15"></textarea>
+
+<!-- Results Section -->
+<div class="results-section" style="display: none; flex-direction: column; gap: 20px;">
+    <div class="filter-box">
+        <h2><i class="fas fa-filter"></i> Explored Results</h2>
+        <div class="result-container">
+            <div class="keyword-list"></div>
             <div class="keyword-count">
                 <span id="suggestedKeywordCount">0 keywords suggested</span>
             </div>
-            <button type="button" class="simple-copy-btn" onclick="copyToClipboard('filteredResults')" aria-label="Copy to clipboard">
-                📋 Copy
-            </button>
         </div>
+        <button type="button" class="simple-copy-btn" onclick="copyToClipboard('.keyword-list')" aria-label="Copy to clipboard">
+            📋 Copy
+        </button>
     </div>
+</div>
+
 
     <div id="stats" class="filter-box">
         <!-- Stats content can be added here -->

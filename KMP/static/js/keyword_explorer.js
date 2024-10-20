@@ -51,8 +51,14 @@ $(document).ready(function() {
             type: 'POST',
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
+                // Clear the previous results
+                $('.results-section .keyword-list').empty();
+
                 // Display the suggested keywords in the results section
-                $('#filteredResults').val(response.suggestions.join('\n'));
+                var $keywordList = $('.results-section .keyword-list');
+                response.suggestions.forEach(function(keyword) {
+                    $keywordList.append($('<div>').text(keyword));
+                });
                 $('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
                 $('.results-section').show(); // Show the results section
             },
