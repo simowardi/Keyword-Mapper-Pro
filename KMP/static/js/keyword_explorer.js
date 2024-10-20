@@ -33,6 +33,11 @@ themeToggle.addEventListener('click', function() {
 });
 
 
+// handle the geting the keywords 
+document.getElementById('mainkeywords').addEventListener('input', function() {
+	var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
+	document.getElementById('keywordCount').textContent = keywordCount + ' keywords';
+});
 
 
 // Handle the keyword exploration process
@@ -60,11 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .catch(error => {
             console.error('Error:', error);
+            resultsSection.style.display = 'none'; // Hide results section on error
         });
     });
-});
-
-document.getElementById('mainkeywords').addEventListener('input', function() {
-	var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
-	document.getElementById('keywordCount').textContent = keywordCount + ' keywords';
 });
