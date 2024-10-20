@@ -149,12 +149,11 @@ def keyword_filter():
 @login_required
 def keyword_grouper():
     """
-    Endpoint to group keywords based on a minimum length and excluded words
+    Endpoint to group keywords based on a minimum length.
 
     If the request is a POST, filters and groups the given keywords
-    based on the given minimum length and excluded words, then renders
-    the keyword_grouper.html template with the grouped keywords and
-    keyword count.
+    based on the given minimum length, then renders the keyword_grouper.html
+    template with the grouped keywords and keyword count.
 
     If the request is a GET, renders the keyword_grouper.html template
     with empty variables.
@@ -166,11 +165,19 @@ def keyword_grouper():
         keyword_list = request.form.get('keyword_list', '').splitlines()
         min_group_length = int(request.form.get('min_group_length', 1))
         
+        # Create a dictionary to store the grouped keywords
         grouped_keywords = {}
+        
+        # Iterate through the keyword list and group them
         for keyword in keyword_list:
-            if keyword not in grouped_keywords:
-                grouped_keywords[keyword] = []
-            grouped_keywords[keyword].append(keyword)
+            found_group = False
+            for phrase, keywords in grouped_keywords.items():
+                if len(keywords) >= min_group_length and all(kw in keyword.split() for kw in keywords):
+                    grouped_keywords[phrase].append(keyword)
+                    found_group = True
+                    break
+            if not found_group:
+                grouped_keywords[' '.join(keyword.split()[:min_group_length])] = [keyword]
 
         # Filter out groups that don't meet the minimum length requirement
         grouped_keywords = {k: v for k, v in grouped_keywords.items() if len(v) >= min_group_length}
@@ -187,6 +194,7 @@ def keyword_grouper():
 
     # Render the HTML template for GET requests
     return render_template('keyword_grouper.html', keyword_list=[], min_group_length=1, grouped_keywords={}, num_keywords=0, num_groups=0)
+
 
 @keyword_bp.route('/export_csv', methods=['POST'])
 @login_required
