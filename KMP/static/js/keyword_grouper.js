@@ -22,7 +22,7 @@ function copyToClipboard(text) {
 }
 
 // Logout confirmation
-document.querySelector('.logout').addEventListener('click', function() {
+document.querySelector('.logout').addEventListener('click', function () {
     if (confirm('Are you sure you want to logout?')) {
         // Perform logout action here
         alert('Logged out successfully');
@@ -31,37 +31,41 @@ document.querySelector('.logout').addEventListener('click', function() {
 
 // Theme toggle functionality
 const themeToggle = document.querySelector('.theme-toggle');
-themeToggle.addEventListener('click', function() {
+themeToggle.addEventListener('click', function () {
     document.body.classList.toggle('dark-mode');
     this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
 });
 
-
 // Handle the keyword grouping process
-$(document).ready(function() {
-    $('#keywordForm').on('submit', function(event) {
+$(document).ready(function () {
+    $('#keywordForm').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
 
         $.ajax({
-            url: "/keyword/keyword_grouper", // The target URL for the AJAX request
+            url: '/keyword/keyword_grouper', // The target URL for the AJAX request
             type: 'POST',
             data: $(this).serialize(), // Serialize the form data
-            success: function(response) {
+            success: function (response) {
                 // Clear previous results
                 $('.grouped-results-container').empty();
 
                 if (response.num_groups > 0) {
                     // Populate the grouped results
-                    $.each(response.grouped_keywords, function(phrase, keywords) {
-                        $('.grouped-results-container').append(
-                            `<div class="keyword-group">
-                                <strong>${phrase} (${keywords.length})</strong>
-                                <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
+                    $.each(response.grouped_keywords, function (phrase, keywords) {
+                        const keywordCount = keywords.length;
+                        const keywordList = keywords.map(kw => `<li>${kw}</li>`).join('');
+                        const groupHtml = `
+                            <div class="keyword-group">
                                 <button class="copy-button" onclick="copyToClipboard('${phrase}')">
                                     <i class="fas fa-copy"></i> Copy
                                 </button>
-                            </div>`
-                        );
+                                <strong>${phrase} (${keywordCount})</strong>
+                                <div class="keyword-list">
+                                    <ul>${keywordList}</ul>
+                                </div>
+                            </div>
+                        `;
+                        $('.grouped-results-container').append(groupHtml);
                     });
                 } else {
                     // Display a message when no groups are found
@@ -72,7 +76,7 @@ $(document).ready(function() {
                 $('#matchCount').text(`${response.num_groups} groups found`);
                 $('#keywordCount').text(`${response.num_keywords} keywords`);
             },
-            error: function() {
+            error: function () {
                 alert('An error occurred while processing your request.'); // Error handling
             }
         });
