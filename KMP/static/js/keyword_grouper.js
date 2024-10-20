@@ -55,13 +55,11 @@ $(document).ready(function() {
                     $.each(response.grouped_keywords, function(phrase, keywords) {
                         $('.grouped-results-container').append(
                             `<div class="keyword-group">
+                                <strong>${phrase} (${keywords.length})</strong>
+                                <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
                                 <button class="copy-button" onclick="copyToClipboard('${phrase}')">
                                     <i class="fas fa-copy"></i> Copy
                                 </button>
-                                <strong>${phrase} (${keywords.length})</strong>
-                                <div class="keyword-list">
-                                    <ul>${keywords.slice(0, 10).map(kw => `<li>${kw}</li>`).join('')}</ul>
-                                </div>
                             </div>`
                         );
                     });
