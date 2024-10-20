@@ -103,7 +103,7 @@ def keyword_explorer():
         fetch_delay = float(request.form.get('fetch_delay', '1'))
 
         # Get selected options for prefixes
-        selected_prefixes = request.form.getlist('prefixes')
+        selected_prefixes = request.form.getlist('prefixes' 'a-z')
 
         # Process the keyword to expand based on selected prefixes
         expanded_keywords = expand_keyword(keyword, selected_prefixes)
