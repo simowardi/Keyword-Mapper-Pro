@@ -110,8 +110,6 @@ def keyword_explorer():
 
         for kw in expanded_keywords:
             suggestions.extend(get_google_suggestions(kw, language, country))
-            # Sleep for the specified delay before fetching suggestions
-            time.sleep(fetch_delay)
 
     return render_template('keyword_explorer.html', suggestions=suggestions)
 
