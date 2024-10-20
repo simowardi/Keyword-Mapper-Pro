@@ -126,7 +126,7 @@ def keyword_filter():
 
         # Find matches based on positive keywords
         matched_keywords = [keyword for keyword in kw_list if matches_pattern(keyword, positive_kw)]
-
+        
         # Prepare the response data
         response_data = {
             'matches': '\n'.join(matched_keywords),
@@ -170,13 +170,20 @@ def keyword_grouper():
         min_group_length = int(request.form.get('min_group_length', 1))
         excluded_words = set(request.form.get('excluded_words', '').splitlines())
 
-        # Filter and group keywords
+		# Group keywords based on individual words
         for keyword in keyword_list:
+            # Exclude keywords based on length and excluded words
             if len(keyword.split()) >= min_group_length and not any(excluded in keyword for excluded in excluded_words):
-                grouped_keywords.append(keyword)
+                # Split the keyword into individual words
+                words = keyword.split()
+                for word in words:
+                    if word not in grouped_keywords:
+                        grouped_keywords[word] = []
+                    grouped_keywords[word].append(keyword)
 
         num_keywords = len(keyword_list)
         num_groups = len(grouped_keywords)
+
 
         return render_template('keyword_grouper.html',
                                keyword_list=keyword_list,
@@ -195,7 +202,7 @@ def export_csv():
     Endpoint to export grouped keywords as a CSV file
     """
     grouped_keywords = request.form.getlist('grouped_keywords')
-    
+
     # Create CSV response
     def generate():
         yield 'Keyword\n'  # CSV header
