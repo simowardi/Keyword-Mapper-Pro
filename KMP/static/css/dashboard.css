@@ -415,3 +415,18 @@ body, html {
 .copy-button i {
     margin-right: 5px; /* Space between icon and text */
 }
+
+.keyword-list {
+    max-height: 150px; /* Set a maximum height for the list */
+    overflow-y: auto; /* Enable vertical scrolling */
+    margin-top: 10px; /* Space between the title and list */
+    border: 1px solid #ccc; /* Optional: Add a border for better visibility */
+    padding: 5px; /* Optional: Add some padding */
+    background-color: #f9f9f9; /* Optional: Background color */
+}
+
+.keyword-list ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+}
