@@ -36,6 +36,7 @@ themeToggle.addEventListener('click', function() {
     this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
 });
 
+
 // Handle the keyword grouping process
 $(document).ready(function() {
     $('#keywordForm').on('submit', function(event) {
