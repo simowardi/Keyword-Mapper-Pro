@@ -151,7 +151,6 @@ $(document).ready(function() {
 
 
 
-
 // handle the keyword intent analyzer
 
 
