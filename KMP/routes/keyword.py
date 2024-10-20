@@ -64,7 +64,7 @@ def expand_keyword(keyword, prefixes):
             'A-Z': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
             '0-9': '0123456789',
             'questions': ['how', 'why', 'where', 'what', 'when', 'who', 'which', 'can', 'do', 'is', 'are'],
-        }
+		}
 
         # Generate keywords with selected prefixes
         for prefix in prefixes:
