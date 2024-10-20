@@ -98,8 +98,12 @@
     </div>
 
 
+
 <!-- Results Section -->
-<div class="results-section">
+<div class="results-section" style="display: none;"> <!-- Initially hidden -->
+	<div class="loader" style="display: none;">
+		<i class="fas fa-spinner fa-spin"></i> Loading...
+	</div>	
     <div class="filter-box">
         <h2><i class="fas fa-filter"></i> Explored Results</h2>
         <button type="button" class="simple-copy-btn" onclick="copyToClipboard('resultKeywords')" aria-label="Copy to clipboard">
@@ -111,6 +115,7 @@
         </div>
     </div>
 </div>
+
 
 
     <div id="stats" class="filter-box">

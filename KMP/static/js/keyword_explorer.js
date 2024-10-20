@@ -41,35 +41,42 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 // Handle the keyword exploration process
 $(document).ready(function() {
     $('#suggestionsForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
+        event.preventDefault(); // Prevent default form submission
+        
+        // Show the loader
+        $('.loader').show();
 
         $.ajax({
-            url: '{{ url_for("keyword.keyword_explorer") }}',
+            url: '/keyword_explorer',  // Ensure the route is correct
             type: 'POST',
-            data: $(this).serialize(), // Serialize the form data
+            data: $(this).serialize(), // Serialize form data
             success: function(response) {
+                // Hide the loader
+                $('.loader').hide();
+
                 // Clear the previous results
-                $('#resultKeywords').val(''); // Clear the text area
+                $('#resultKeywords').val(''); 
 
-                // Ensure response is properly parsed if needed
                 let suggestions = response.suggestions || [];
-
-                // Display the suggested keywords in the text area
+                
+                // Display the suggested keywords
                 suggestions.forEach(function(keyword) {
                     $('#resultKeywords').val(function(i, text) {
-                        return text + keyword + "\n"; // Append each keyword on a new line
+                        return text + keyword + "\n";
                     });
                 });
 
                 // Update the keyword count
                 $('#suggestedKeywordCount').text(`${suggestions.length} keywords suggested`);
-                
+
                 // Make sure the results section is visible
                 $('.results-section').show();
             },
             error: function() {
-                alert('An error occurred while processing your request.'); // Error handling
+                $('.loader').hide();
+                alert('An error occurred while processing your request.');
             }
         });
     });
 });
+

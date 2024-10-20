@@ -339,9 +339,6 @@ body, html {
 }
 
 
-
-
-
 /* new css for grouper results*/
 /* Styles for the grouped results section */
 /* Grouped results container */
@@ -438,3 +435,10 @@ body, html {
     padding: 0; /* Remove padding */
     margin: 0; /* Remove margin */
 }
+
+
+/* explorer results */ 
+.results-section {
+    display: none; /* Hidden initially */
+}
+
