@@ -39,7 +39,7 @@ themeToggle.addEventListener('click', function () {
 // Handle the keyword grouping process
 $(document).ready(function () {
     $('#keywordForm').on('submit', function (event) {
-        event.preventDefault(); // Prevent the default form submission
+        event.preventDefault(); // Prevent the navigation default form submission
 
         $.ajax({
             url: '/keyword/keyword_grouper', // The target URL for the AJAX request

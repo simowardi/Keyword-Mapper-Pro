@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 	</head>
 
-	<body>
+<body>
 	  <div class="container">
 		<div class="sidebar">
 		  <a href="{{ url_for('dashboard') }}" class="logo">🚀 KMP</a>
@@ -26,7 +26,7 @@
 
     <!-- Keyword Explorer -->
     <div class="keyword-filter-container">
-        <form method="POST" action="{{ url_for('keyword.keyword_explorer') }}">
+        <form id="suggestionsForm" method="POST" action="{{ url_for('keyword.keyword_explorer') }}">
             <div class="filter-box">
                 <h2><i class="fas fa-list"></i> Keyword Input</h2>
                 <textarea name="keyword" id="mainkeywords" placeholder="Enter your main keyword list here, one per line" required></textarea>
@@ -54,16 +54,16 @@
                     <option value="ru">Russian</option>
                     <option value="ja">Japanese</option>
                     <option value="ar">Arabic</option>
-					<option value="ko">Korean</option>
-					<option value="zh">Chinese</option>
-					<option value="hi">Hindi</option>
-					<option value="nl">Dutch</option>
-					<option value="pl">Polish</option>
-					<option value="tr">Turkish</option>
-					<option value="sv">Swedish</option>
-					<option value="fi">Finnish</option>
-					<option value="id">Indonesian</option>
-					<option value="th">Thai</option>
+                    <option value="ko">Korean</option>
+                    <option value="zh">Chinese</option>
+                    <option value="hi">Hindi</option>
+                    <option value="nl">Dutch</option>
+                    <option value="pl">Polish</option>
+                    <option value="tr">Turkish</option>
+                    <option value="sv">Swedish</option>
+                    <option value="fi">Finnish</option>
+                    <option value="id">Indonesian</option>
+                    <option value="th">Thai</option>
                 </select>
 
                 <label for="country">Select Country:</label>
@@ -76,23 +76,10 @@
                     <option value="FR">France</option>
                     <option value="ES">Spain</option>
                     <option value="EG">Egypt</option>
-					<option value="PH">Philippines</option>
-					<option value="BR">Brazil</option>
-					<option value="IN">India</option>
-					<option value="JP">Japan</option>
-					<option value="MX">Mexico</option>
-					<option value="MA">Morocco</option>
-					<option value="IT">Italy</option>
-					<option value="SA">Saudi Arabia</option>
-					<option value="RU">Russia</option>
-					<option value="NL">Netherlands</option>
-					<option value="SE">Sweden</option>
-					<option value="NO">Norway</option>
-					<option value="FI">Finland</option>
-					<option value="SG">Singapore</option>
+                    <option value="PH">Philippines</option>
+                    <option value="BR">Brazil</option>
                     <option value="IN">India</option>
                     <option value="JP">Japan</option>
-                    <option value="BR">Brazil</option>
                     <option value="MX">Mexico</option>
                     <option value="MA">Morocco</option>
                     <option value="IT">Italy</option>
@@ -104,32 +91,25 @@
                     <option value="FI">Finland</option>
                     <option value="SG">Singapore</option>
                 </select>
-
             </div>
-		</br>
-	</br>
+
             <button type="submit" class="filter-btn">Get Suggestions 🔍</button>
-			
         </form>
     </div>
 
     <!-- Results Section -->
-    {% if suggestions %}
-    <div class="results-section" style="display: flex; flex-direction: column; gap: 20px;">
+    <div class="results-section" style="display: none; flex-direction: column; gap: 20px;">
         <div class="filter-box">
             <h2><i class="fas fa-filter"></i> Explored Results</h2>
-            <textarea id="filteredResults" readonly placeholder="Filtered keywords will appear here" rows="15">{{ suggestions | join('\n') }}</textarea>
+            <textarea id="filteredResults" readonly placeholder="Filtered keywords will appear here" rows="15"></textarea>
             <div class="keyword-count">
-                <span id="suggestedKeywordCount">{{ suggestions | length }} keywords suggested</span>
+                <span id="suggestedKeywordCount">0 keywords suggested</span>
             </div>
             <button type="button" class="simple-copy-btn" onclick="copyToClipboard('filteredResults')" aria-label="Copy to clipboard">
                 📋 Copy
             </button>
-		</br>
-	</br>
         </div>
     </div>
-    {% endif %}
 
     <div id="stats" class="filter-box">
         <!-- Stats content can be added here -->
@@ -142,7 +122,6 @@
         <p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
     </div>
 </div>
-
 
 	<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 

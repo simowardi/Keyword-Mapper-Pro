@@ -80,37 +80,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-
-
-// Handle the keyword exploration process
-
-document.getElementById('suggestionsForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    var formData = new FormData(this); // Gather form data
-
-    fetch(this.action, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.text())
-    .then(html => {
-        // Update the results section with the new content
-        document.querySelector('.results-section').innerHTML = html;
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-});
-
-
-document.getElementById('mainkeywords').addEventListener('input', function() {
-	var keywordCount = this.value.split('\n').filter(line => line.trim() !== '').length;
-	document.getElementById('keywordCount').textContent = keywordCount + ' keywords';
-});
-
-
-
-
-

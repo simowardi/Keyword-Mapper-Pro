@@ -94,21 +94,22 @@ def keyword_explorer():
     """
     suggestions = []
     if request.method == 'POST':
-        # Extract parameters from the request
-        keywords = request.form.get('keyword').strip().splitlines()  # Split by lines
-        language = request.form.get('language','en')
+        keywords = request.form.get('keyword').strip().splitlines()
+        language = request.form.get('language', 'en')
         country = request.form.get('country', 'us')
-
-        # Get selected options for prefixes
         selected_prefixes = request.form.getlist('prefixes')
 
         for keyword in keywords:
-            if keyword:  # Ensure it's not empty
+            if keyword:
                 expanded_keywords = expand_keyword(keyword.strip(), selected_prefixes)
                 for kw in expanded_keywords:
                     suggestions.extend(get_google_suggestions(kw, language, country))
 
-    return render_template('keyword_explorer.html', suggestions=suggestions)
+        return jsonify(suggestions=suggestions)  # Return JSON response
+
+    return render_template('keyword_explorer.html')
+
+
 
 
 
@@ -140,6 +141,8 @@ def keyword_filter():
             return render_template('keyword_filter.html', **response_data)  # Render the HTML template for normal requests
 
     return render_template('keyword_filter.html')  # Render for GET requests
+
+
 
 
 
@@ -211,6 +214,9 @@ def export_csv():
             yield f"{keyword}\n"
 
     return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": "attachment;filename=grouped_keywords.csv"})
+
+
+
 
 
 
@@ -305,6 +311,8 @@ def analyze_intent(keyword):
         return "Advice"
     
     return "Unclassified"
+
+
 
 
 
