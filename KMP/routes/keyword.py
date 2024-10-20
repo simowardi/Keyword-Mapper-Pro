@@ -102,9 +102,6 @@ def keyword_explorer():
         # Get selected options for prefixes
         selected_prefixes = request.form.getlist('prefixes')
 
-        # Process the keyword to expand based on selected prefixes
-        expanded_keywords = expand_keyword(keyword, selected_prefixes)
-
         for keyword in keywords:
             if keyword:  # Ensure it's not empty
                 expanded_keywords = expand_keyword(keyword.strip(), selected_prefixes)
