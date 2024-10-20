@@ -1,105 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-	<meta charset="UTF-8">
-	<title>Keyword Mapper Pro - Dashboard 🚀</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
-	</head>
+<head>
+    <meta charset="UTF-8">
+    <title>Keyword Mapper Pro - Keyword Grouper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <a href="{{ url_for('dashboard') }}" class="logo">🚀 KMP</a>
+            <a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item">🌍 Keyword Explorer</a>
+            <a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item">🔍 Keyword Filter</a>
+            <a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item active">🔠 Keyword Grouper</a>
+            <a href="{{ url_for('keyword.intent_analyzer') }}" class="menu-item">🧠 Intent Analyzer</a>
+            <a href="{{ url_for('account') }}" class="menu-item">⚙️ Account</a>
+            <a href="{{ url_for('auth.logout') }}" class="logout">🚪 Logout</a>
+            <button class="theme-toggle">🌓 Night Mode</button>
+        </div>
 
-	<body>
-	  <div class="container">
-		<div class="sidebar">
-		  <a href="{{ url_for('dashboard') }}" class="logo">🚀 KMP</a>
-		  <a href="{{ url_for('dashboard') }}" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
-		  <a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item"><span class="menu-item-icon">🌍</span>Keyword Explorer</a>
-		  <a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
-		  <a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
-		  <a href="{{ url_for('keyword.keyword_intent') }}" class="menu-item"><span class="menu-item-icon">🧠</span>Intent Analyzer</a>
-		  <a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
-		  <a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
-		</div>
-
-<!-- Main Content -->
-<div class="main-content">
-    <button class="theme-toggle">🌓 Night Mode</button>
-
-    <!-- Filters -->
-    <div class="keyword-filter-container">
-        <form method="POST" action="{{ url_for('keyword.keyword_grouper') }}">
-            <div class="filter-box">
-                <h2><i class="fas fa-list"></i> Keyword List</h2>
-                <textarea name="keyword_list" id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line" required>{{ keyword_list | join('\n') }}</textarea>
-                <div class="keyword-count" id="keywordCount">{{ num_keywords }} keywords</div>
+        <div class="main-content">
+            <div class="keyword-filter-container">
+                <form id="keywordForm" method="POST">
+                    <div class="filter-box">
+                        <h2><i class="fas fa-list"></i> Keyword List</h2>
+                        <textarea name="keyword_list" id="keys_to_be_matched" placeholder="Enter your main keyword list here, one per line" required>{{ keyword_list | join('\n') }}</textarea>
+                        <div class="keyword-count" id="keywordCount">{{ num_keywords }} keywords</div>
+                    </div>
+                    <div class="filter-box">
+                        <h2><i class="fas fa-filter"></i> Minimum Group Length</h2>
+                        <input type="number" name="min_group_length" value="{{ min_group_length }}" min="1" required>
+                    </div>
+                    <button type="submit" class="filter-btn" style="padding: 15px; margin-top: 20px;">Group Keywords 🔍</button>
+                </form>
             </div>
 
             <div class="filter-box">
-                <h2><i class="fas fa-filter"></i> Minimum Group Length</h2>
-                <input type="number" name="min_group_length" value="{{ min_group_length }}" min="1" required>
+                <h2><i class="fas fa-filter"></i> Grouped Results</h2>
+                <div class="grouped-results-container" id="groupedResultsContainer">
+                    <!-- Grouped results will be dynamically inserted here -->
+                </div>
+                <div class="keyword-count" id="matchCount">
+                    <!-- Keyword count will be updated here -->
+                </div>
             </div>
-		</br>
-            <button type="submit" class="filter-btn" style="padding: 15px; margin-top: 20px;">Group Keywords 🔍</button>
-        </form>
+
+            <!-- Footer -->
+            <div class="footer">
+                <a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
+                <a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
+                <p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
+            </div>
+        </div>
     </div>
 
-	<div class="filter-box">
-		<h2><i class="fas fa-filter"></i> Grouped Results</h2>
-		<div class="grouped-results-container" id="groupedResultsContainer"> <!-- ID for AJAX update -->
-			<!-- Grouped results will be dynamically inserted here -->
-		</div>
-		<div class="keyword-count" id="matchCount">
-			<!-- Keyword count will be updated here -->
-		</div>
-	</div>
+    <script>
+        $(document).ready(function() {
+            $('#keywordForm').on('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
 
-	<div class="filter-box">
-		<h2><i class="fas fa-filter"></i> Grouped Results</h2>
-		<div class="grouped-results-container" id="groupedResultsContainer"> <!-- ID for AJAX update -->
-			<!-- Grouped results will be dynamically inserted here -->
-		</div>
-		<div class="keyword-count" id="matchCount">
-			<!-- Keyword count will be updated here -->
-		</div>
-	</div>
-
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(function() {
-			$('form').on('submit', function(event) {
-				event.preventDefault(); // Prevent the default form submission
-	
-				$.ajax({
-					url: "{{ url_for('keyword.keyword_grouper') }}", // The target URL
-					type: 'POST',
-					data: $(this).serialize(), // Serialize the form data
-					success: function(response) {
-						$('#groupedResultsContainer').empty(); // Clear previous results
-						$.each(response.grouped_keywords, function(phrase, keywords) {
-							$('#groupedResultsContainer').append(
-								`<div class="keyword-group">
-									<strong>${phrase} (${keywords.length})</strong>
-									<ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
-								</div>`
-							);
-						});
-						$('#matchCount').text(`${response.num_groups} groups found`); // Update group count
-					},
-					error: function() {
-						alert('An error occurred while processing your request.'); // Error handling
-					}
-				});
-			});
-		});
-	</script>
-
-    <!-- Footer -->
-    <div class="footer">
-        <a href="{{ url_for('terms') }}" target="_blank">📜 Terms of Service</a>
-        <a href="{{ url_for('privacy') }}" target="_blank">🔒 Privacy Policy</a>
-        <p>&copy; 2024 Keyword Filter Pro. All rights reserved.</p>
-    </div>
-</div>
-
-
+                $.ajax({
+                    url: "{{ url_for('keyword.keyword_grouper') }}", // The target URL
+                    type: 'POST',
+                    data: $(this).serialize(), // Serialize the form data
+                    success: function(response) {
+                        $('#groupedResultsContainer').empty(); // Clear previous results
+                        $.each(response.grouped_keywords, function(phrase, keywords) {
+                            $('#groupedResultsContainer').append(
+                                `<div class="keyword-group">
+                                    <strong>${phrase} (${keywords.length})</strong>
+                                    <ul>${keywords.map(kw => `<li>${kw}</li>`).join('')}</ul>
+                                </div>`
+                            );
+                        });
+                        $('#matchCount').text(`${response.num_groups} groups found`); // Update group count
+                    },
+                    error: function() {
+                        alert('An error occurred while processing your request.'); // Error handling
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
