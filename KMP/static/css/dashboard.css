@@ -320,7 +320,6 @@ body, html {
 }
 
 
-
 /* Delete Account Button Style */
 .delete-account-btn {
     background-color: red; /* Red background */
@@ -336,4 +335,79 @@ body, html {
 /* Button Hover Effect */
 .delete-account-btn:hover {
     background-color: darkred; /* Darker red on hover */
+}
+
+
+
+/* Style for the overall form container */
+form {
+    max-width: 600px; /* Limit the width of the form */
+    margin: auto; /* Center the form on the page */
+    padding: 20px; /* Padding inside the form */
+    background-color: #f9f9f9; /* Light background color for the form */
+    border: 1px solid #ccc; /* Light gray border around the form */
+    border-radius: 8px; /* Rounded corners for a softer look */
+}
+
+/* Style for each filter box within the form */
+.filter-box {
+    margin-bottom: 20px; /* Space below each filter box */
+    padding: 15px; /* Padding inside the filter box */
+    border: 1px solid #ddd; /* Light gray border for each box */
+    border-radius: 5px; /* Rounded corners for each box */
+    background-color: #fff; /* White background for each box */
+}
+
+/* Style for the headings inside filter boxes */
+.filter-box h2 {
+    font-size: 18px; /* Font size for headings */
+    margin-bottom: 10px; /* Space below the heading */
+    color: #333; /* Dark text color for visibility */
+}
+
+/* Style for text inputs, number inputs, and select dropdowns */
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; /* Full width of the container */
+    padding: 10px; /* Padding for user comfort */
+    margin-top: 5px; /* Space above the input elements */
+    border: 1px solid #ccc; /* Light border around inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+    transition: border-color 0.3s; /* Smooth transition for border color on focus */
+}
+
+/* Change border color when inputs are focused */
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #007bff; /* Blue border on focus for better visibility */
+}
+
+/* Style for checkboxes */
+input[type="checkbox"] {
+    margin-right: 5px; /* Space between checkbox and label */
+}
+
+/* Style for labels */
+label {
+    display: block; /* Each label on a new line */
+    margin-bottom: 5px; /* Space below labels */
+}
+
+/* Style for buttons */
+button {
+    background-color: #007bff; /* Button color */
+    color: white; /* White text color for contrast */
+    border: none; /* No border for the button */
+    border-radius: 4px; /* Rounded corners for the button */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    padding: 10px 15px; /* Padding inside the button */
+    font-size: 16px; /* Font size for button text */
+    transition: background-color 0.3s; /* Smooth transition for background color */
+}
+
+/* Change button color on hover */
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover for interactivity */
 }

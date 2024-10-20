@@ -4,6 +4,7 @@ from flask_login import login_required, current_user, LoginManager, login_user, 
 from datetime import datetime
 import csv
 import os
+import time
 import requests
 import json
 import string
@@ -11,6 +12,112 @@ from concurrent.futures import ThreadPoolExecutor
 
 keyword_bp = Blueprint('keyword', __name__)
 
+
+
+# keyword explorer keyword route
+
+def get_google_suggestions(keyword, language, country):
+    """
+    Get Google suggestions based on the given keyword, language and country.
+
+    Parameters:
+    keyword (str): The keyword to get suggestions for
+    language (str): The language of the keyword
+    country (str): The country to get suggestions for
+
+    Returns:
+    list: A list of suggestions for the given keyword
+    """
+    url = f"https://suggestqueries.google.com/complete/search?client=firefox&q={keyword}&hl={language}&gl={country}"
+    response = requests.get(url)
+    if response.status_code == 200:
+        return response.json()[1]
+    return []
+
+def expand_keyword(keyword, prefixes):
+    """
+    Expand a keyword by replacing '*' with characters from the selected prefixes.
+
+    This function takes a keyword with a '*' placeholder 
+    and a list of character sets (prefixes).
+    It generates variations of the keyword by replacing '*' 
+    with each character from the selected prefixes.
+
+    Parameters:
+    keyword (str): The input keyword containing a '*' placeholder.
+    prefixes (list): A list of character sets (e.g., 'a-z', 'A-Z', '0-9') to use as prefixes.
+
+    Returns:
+    list: A list of expanded keywords with '*' replaced by each character from the selected prefixes.
+          If no '*' is found in the keyword, returns the original keyword in a list.
+    """
+    expanded_keywords = []
+
+    if '*' in keyword:
+        parts = keyword.split('*')
+        keyword_part = parts[0]
+        suffix_part = parts[1] if len(parts) > 1 else ''
+
+        # Mapping for character sets
+        char_sets = {
+            'a-z': 'abcdefghijklmnopqrstuvwxyz',
+            'A-Z': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            '0-9': '0123456789'
+            'questions': ['how', 'why', 'where', 'what', 'when', 'who', 'which', 'can', 'do', 'is', 'are'],
+        }
+
+        # Generate keywords with selected prefixes
+        for prefix in prefixes:
+            if prefix in char_sets:
+                for char in char_sets[prefix]:
+                    expanded_keywords.append(f"{keyword_part}{char}{suffix_part}")
+            else:
+                expanded_keywords.append(f"{keyword_part}{prefix}{suffix_part}")
+
+        return expanded_keywords
+    return [keyword]
+
+@keyword_bp.route('/keyword_explorer', methods=['GET', 'POST'])
+@login_required
+def keyword_explorer():
+    """
+    The keyword explorer page allows users to input a keyword 
+    and select language and country to generate related keywords based on Google suggestions.
+
+    Parameters:
+    keyword (str): The keyword to generate suggestions for
+    language (str): The language to generate suggestions in
+    country (str): The country to generate suggestions in
+
+    Returns:
+    A rendered template with suggestions
+    """
+    suggestions = []
+    if request.method == 'POST':
+        # Extract parameters from the request
+        keyword = request.form.get('keyword')
+        language = request.form.get('language','en')
+        country = request.form.get('country', 'us')
+
+        # Get the time delay for fetching suggestions (default to 1 second)
+        fetch_delay = float(request.form.get('fetch_delay', '1'))
+
+        # Get selected options for prefixes
+        selected_prefixes = request.form.getlist('prefixes')
+
+        # Process the keyword to expand based on selected prefixes
+        expanded_keywords = expand_keyword(keyword, selected_prefixes)
+
+        for kw in expanded_keywords:
+            suggestions.extend(get_google_suggestions(kw, language, country))
+            # Sleep for the specified delay before fetching suggestions
+            time.sleep(fetch_delay)
+
+    return render_template('keyword_explorer.html', suggestions=suggestions)
+
+
+
+# Keyword Filter keyword route
 
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
@@ -39,6 +146,9 @@ def keyword_filter():
 
     return render_template('keyword_filter.html')  # Render for GET requests
 
+
+
+# Keyword Grouper keyword route
 
 @keyword_bp.route('/keyword_grouper', methods=['GET', 'POST'])
 @login_required
@@ -100,60 +210,8 @@ def export_csv():
     return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": "attachment;filename=grouped_keywords.csv"})
 
 
-@keyword_bp.route('/keyword_explorer', methods=['GET', 'POST'])
-@login_required
-def keyword_explorer():
-    suggestions = []
-    if request.method == 'POST':
-        keyword = request.form.get('keyword')
-        language = request.form.get('language')
-        country = request.form.get('country')
-        depth = request.form.get('depth')
 
-        # Get selected options for prefixes
-        selected_prefixes = request.form.getlist('prefixes')
-
-        # Process the keyword to expand based on selected prefixes
-        expanded_keywords = expand_keyword(keyword, selected_prefixes)
-
-        for kw in expanded_keywords:
-            suggestions.extend(get_google_suggestions(kw, language, country, depth))
-
-    return render_template('keyword_explorer.html', suggestions=suggestions)
-
-def expand_keyword(keyword, prefixes):
-    expanded_keywords = []
-    if '*' in keyword:
-        parts = keyword.split('*')
-        base_prefix = parts[0]
-        base_suffix = parts[1] if len(parts) > 1 else ''
-
-        # Mapping for character sets
-        char_sets = {
-            'a-z': 'abcdefghijklmnopqrstuvwxyz',
-            'A-Z': 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            '0-9': '0123456789'
-        }
-
-        # Generate keywords with selected prefixes
-        for prefix in prefixes:
-            if prefix in char_sets:
-                for char in char_sets[prefix]:
-                    expanded_keywords.append(f"{char}{base_prefix}{base_suffix}")
-            else:
-                expanded_keywords.append(f"{prefix}{base_prefix}{base_suffix}")
-
-        return expanded_keywords
-    return [keyword]
-
-def get_google_suggestions(keyword, language, country, depth):
-    url = f"https://suggestqueries.google.com/complete/search?client=firefox&q={keyword}&hl={language}&gl={country}"
-    response = requests.get(url)
-    if response.status_code == 200:
-        return response.json()[1][:int(depth)]  # Return the suggestions limited by depth
-    return []
-
-
+# intent analyzer keyword route
 
 @keyword_bp.route('/keyword_intent', methods=['GET', 'POST'])
 @login_required
@@ -247,6 +305,7 @@ def analyze_intent(keyword):
 
 
 
+# seo keyword route
 def generate_search_queries(query, increment_option):
     base_query = query.replace('+', ' ').replace('*', '')
 
@@ -281,6 +340,20 @@ def fetch_google_suggestions(query):
 @keyword_bp.route('/keyword/seokeyword', methods=['GET', 'POST'])
 @login_required
 def seokeyword():
+    """
+    Handle the SEO keyword exploration.
+
+    This route handles both GET and POST requests for exploring SEO keywords.
+    When accessed via POST, it takes a search term and an increment option from
+    the form. If the search term contains '*', it generates variations of the 
+    search term by replacing '*' with characters specified by the increment option,
+    and fetches Google suggestions for each variation. Returns these suggestions 
+    to the `seokeyword.html` template. If the search term does not contain '*',
+    it returns a message indicating the search term is invalid.
+
+    Returns:
+        str: Rendered HTML template with the list of suggestions or an error message.
+    """
     all_suggestions = []
 
     if request.method == 'POST':
@@ -299,4 +372,7 @@ def seokeyword():
             all_suggestions.append(("Invalid search term", ["No '*' found in the search term."]))
 
     return render_template('seokeyword.html', suggestions=all_suggestions)
+
+
+
 
