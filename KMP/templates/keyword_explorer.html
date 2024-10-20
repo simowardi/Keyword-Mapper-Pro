@@ -102,16 +102,14 @@
 <div class="results-section" style="display: none; flex-direction: column; gap: 20px;">
     <div class="filter-box">
         <h2><i class="fas fa-filter"></i> Explored Results</h2>
-        <div class="result-container">
-            <div class="keyword-list"></div>
-            <div class="keyword-count">
-                <span id="suggestedKeywordCount">0 keywords suggested</span>
-            </div>
+        <textarea id="resultKeywords" rows="10" placeholder="Generated keywords will appear here..." readonly></textarea>
+        <div class="keyword-count">
+            <span id="suggestedKeywordCount">0 keywords suggested</span>
         </div>
-        <button type="button" class="simple-copy-btn" onclick="copyToClipboard('.keyword-list')" aria-label="Copy to clipboard">
-            📋 Copy
-        </button>
     </div>
+    <button type="button" class="simple-copy-btn" onclick="copyToClipboard('resultKeywords')" aria-label="Copy to clipboard">
+        📋 Copy
+    </button>
 </div>
 
 

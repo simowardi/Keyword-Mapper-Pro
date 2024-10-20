@@ -51,9 +51,14 @@ $(document).ready(function() {
             type: 'POST',
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
-				$('.results-section .keyword-list').empty();
+				// Clear the previous results
+				$('#resultKeywords').val(''); // Clear text area
+			
+				// Display the suggested keywords in the text area
 				response.suggestions.forEach(function(keyword) {
-					$keywordList.append($('<div>').text(keyword));
+					$('#resultKeywords').val(function(i, text) {
+						return text + keyword + "\n"; // Append each keyword on a new line
+					});
 				});
 				$('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
 				$('.results-section').show(); // Show the results section
