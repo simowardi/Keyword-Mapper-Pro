@@ -51,19 +51,10 @@ $(document).ready(function() {
             type: 'POST',
             data: $(this).serialize(), // Serialize the form data
             success: function(response) {
-                // Clear the previous results
-                $('.results-section .filter-box').empty();
-
-                // Create the new results elements
-                var $resultsBox = $('<div>').addClass('filter-box');
-                var $heading = $('<h2>').html('<i class="fas fa-filter"></i> Explored Results');
-                var $textarea = $('<textarea>').attr('id', 'filteredResults').attr('readonly', true).attr('placeholder', 'Filtered keywords will appear here').attr('rows', '15').val(response.suggestions.join('\n'));
-                var $keywordCountDiv = $('<div>').addClass('keyword-count');
-                var $keywordCountSpan = $('<span>').attr('id', 'suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
-                var $copyButton = $('<button>').addClass('simple-copy-btn').attr('type', 'button').attr('onclick', 'copyToClipboard(\'filteredResults\')').attr('aria-label', 'Copy to clipboard').html('<i class="fas fa-copy"></i> Copy');
-
-                $resultsBox.append($heading, $textarea, $keywordCountDiv.append($keywordCountSpan), $copyButton);
-                $('.results-section').show().append($resultsBox); // Show the results section and append the new elements
+                // Display the suggested keywords in the results section
+                $('#filteredResults').val(response.suggestions.join('\n'));
+                $('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
+                $('.results-section').show(); // Show the results section
             },
             error: function() {
                 alert('An error occurred while processing your request.'); // Error handling
