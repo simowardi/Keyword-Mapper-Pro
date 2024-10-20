@@ -161,17 +161,12 @@ def keyword_grouper():
 
     :return: rendered keyword_grouper.html template
     """
-    grouped_keywords = {}
-    num_keywords = 0
-    num_groups = 0
-    keyword_list = []
-    min_group_length = 1
-
     if request.method == 'POST':
+        # Handle AJAX request for keyword grouping
         keyword_list = request.form.get('keyword_list', '').splitlines()
         min_group_length = int(request.form.get('min_group_length', 1))
-
-        # Group keywords based on phrases
+        
+        grouped_keywords = {}
         for keyword in keyword_list:
             if keyword not in grouped_keywords:
                 grouped_keywords[keyword] = []
@@ -183,6 +178,7 @@ def keyword_grouper():
         num_keywords = len(keyword_list)
         num_groups = len(grouped_keywords)
 
+        # Return JSON response
         return jsonify({
             'grouped_keywords': grouped_keywords,
             'num_groups': num_groups,
