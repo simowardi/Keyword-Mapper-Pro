@@ -42,32 +42,42 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 
 
 // Handle the keyword exploration process
+// Handle the keyword exploration process
 $(document).ready(function() {
     $('#suggestionsForm').on('submit', function(event) {
         // Prevent default form submission
         event.preventDefault();
-
         // Serialize form data
         var formData = $(this).serialize();
-        $('#resultKeywords').val(''); // Clear previous results
-        $('#suggestedKeywordCount').text('0 keywords suggested');
-        $('.results-section').show(); // Show results section
 
         $.ajax({
             url: "/keyword/keyword_explorer",
             type: "POST",
             data: formData,
             success: function(response) {
-                // Assuming response.suggestions is an array of keywords
+                // Clear previous results/textarea
+                $('#resultKeywords').val(''); 
+                $('#suggestedKeywordCount').text('0 keywords suggested');
+                $('.results-section').show(); // Show results section
+
                 if (response.suggestions && response.suggestions.length > 0) {
-                    response.suggestions.forEach(function(keyword, index) {
-                        setTimeout(function() {
-                            // Append each keyword with a delay
+                    let suggestions = response.suggestions;
+                    let index = 0;
+
+                    function displayNextSuggestion() {
+                        if (index < suggestions.length) {
+                            // Append the next suggestion
                             var currentText = $('#resultKeywords').val();
-                            $('#resultKeywords').val(currentText + keyword + '\n');
+                            $('#resultKeywords').val(currentText + suggestions[index] + '\n');
                             $('#suggestedKeywordCount').text((index + 1) + ' keywords suggested');
-                        }, index * 500); // Delay of 500ms for each keyword
-                    });
+                            index++;
+
+                            // Call this function again after 500ms
+                            setTimeout(displayNextSuggestion, 500);
+                        }
+                    }
+
+                    displayNextSuggestion(); // Start displaying suggestions
                 } else {
                     $('#resultKeywords').val('No keywords found.');
                     $('#suggestedKeywordCount').text('0 keywords suggested');

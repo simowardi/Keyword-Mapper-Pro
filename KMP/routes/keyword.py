@@ -105,7 +105,6 @@ def keyword_explorer():
                 for kw in expanded_keywords:
                     suggestions.extend(get_google_suggestions(kw, language, country))
                     # Delay for half a second for each keyword
-                    time.sleep(0.5)
 
 
         # Corrected to return a JSON object instead of a string
