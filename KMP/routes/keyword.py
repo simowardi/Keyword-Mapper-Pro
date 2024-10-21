@@ -105,10 +105,18 @@ def keyword_explorer():
                 for kw in expanded_keywords:
                     suggestions.extend(get_google_suggestions(kw, language, country))
 
-        # Returning JSON as the AJAX call expects it
-        return jsonify({'suggestions': suggestions})  # Corrected to return a JSON object
+        # Prepare the response data
+        response_data = {'suggestions': suggestions}
 
-    # Render the HTML template for GET requests
+        # Check for AJAX request
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            # Return JSON for AJAX requests
+            return jsonify(response_data)
+        else:
+            # Render the HTML template for normal requests
+            return render_template('keyword_explorer.html', **response_data)
+
+    # Render for GET requests
     return render_template('keyword_explorer.html')
 
 
@@ -137,11 +145,13 @@ def keyword_filter():
 
         # Check for AJAX request
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return jsonify(response_data)  # Return JSON for AJAX requests
+            # Return JSON for AJAX requests
+            return jsonify(response_data)
         else:
-            return render_template('keyword_filter.html', **response_data)  # Render the HTML template for normal requests
-
-    return render_template('keyword_filter.html')  # Render for GET requests
+            # Render the HTML template for normal requests
+            return render_template('keyword_filter.html', **response_data)
+	# Render for GET requests
+    return render_template('keyword_filter.html')
 
 
 

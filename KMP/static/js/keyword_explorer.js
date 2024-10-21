@@ -44,41 +44,52 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 // Handle the keyword exploration process
 $(document).ready(function() {
     $('#suggestionsForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
+        // Prevent default form submission
+        event.preventDefault();
 
-        // Show the loader (if there is one in the HTML)
-        $('.loader').show();
+        // Collect form data
+        const keywords = new keywords(this);
 
-		$.ajax({
-			url: '{{ url_for("keyword.keyword_explorer") }}',
-			type: 'POST',
-			data: $(this).serialize(),
-			dataType: 'json', // Ensure you expect a JSON response
-			success: function(response) {
-				$('.grouped-results-container').empty(); // Clear previous results
-		
-				if (response.suggestions.length > 0) {
-					response.suggestions.forEach(function(keyword) {
-						const groupHtml = `
-							<div class="keyword-group">
-								<button class="copy-button" onclick="copyToClipboard('${keyword}')">
-									<i class="fas fa-copy"></i> Copy
-								</button>
-								<strong>${keyword}</strong>
-							</div>
-						`;
-						$('.grouped-results-container').append(groupHtml);
-					});
-					$('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
-					$('.results-section').show();
-				} else {
-					$('.grouped-results-container').append('<p>No keywords found.</p>');
-				}
-			},
-			error: function(xhr, status, error) {
-				console.error('AJAX Error:', status, error);
-				alert('An error occurred: ' + error);
-			}
-		});
+        // Send form data to the Flask route via AJAX
+        fetch('{{ url_for("keyword.keyword_explorer") }}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest' // Indicate AJAX request
+            }
+        })
+        .then(response => {
+            // Check if the response is OK (status in the range 200-299)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json(); // Parse JSON from the response
+        })
+        .then(data => {
+            // Clear previous results
+            $('.grouped-results-container').empty();
+
+            if (data.suggestions.length > 0) {
+                data.suggestions.forEach(function(keyword) {
+                    const groupHtml = `
+                        <div class="keyword-group">
+                            <button class="copy-button" onclick="copyToClipboard('${keyword}')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                            <strong>${keyword}</strong>
+                        </div>
+                    `;
+                    $('.grouped-results-container').append(groupHtml);
+                });
+                $('#suggestedKeywordCount').text(`${data.suggestions.length} keywords suggested`);
+                $('.results-section').show();
+            } else {
+                $('.grouped-results-container').append('<p>No keywords found.</p>');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            $('#stats').html(`<p>Error occurred: ${error.message}</p>`);
+        });
     });
 });
