@@ -49,16 +49,15 @@ $(document).ready(function() {
         // Show the loader (if there is one in the HTML)
         $('.loader').show();
 
-        $.ajax({
-            url: '/keyword/keyword_explorer',  // Ensure the route is correct
-            type: 'POST',
-            data: $(this).serialize(), // Serialize form data
+		$.ajax({
+			url: '{{ url_for("keyword.keyword_explorer") }}',
+			type: 'POST',
+			data: $(this).serialize(),
+			dataType: 'json', // Ensure you expect a JSON response
 			success: function(response) {
-				// Clear the previous results
 				$('.grouped-results-container').empty(); // Clear previous results
-			
+		
 				if (response.suggestions.length > 0) {
-					// Populate the suggested keywords
 					response.suggestions.forEach(function(keyword) {
 						const groupHtml = `
 							<div class="keyword-group">
@@ -71,18 +70,15 @@ $(document).ready(function() {
 						$('.grouped-results-container').append(groupHtml);
 					});
 					$('#suggestedKeywordCount').text(`${response.suggestions.length} keywords suggested`);
-					$('.results-section').show(); // Show the results section
+					$('.results-section').show();
 				} else {
-					// Display a message when no keywords are found
 					$('.grouped-results-container').append('<p>No keywords found.</p>');
 				}
+			},
+			error: function(xhr, status, error) {
+				console.error('AJAX Error:', status, error);
+				alert('An error occurred: ' + error);
 			}
-			
-            error: function() {
-                // Hide the loader in case of error
-                $('.loader').hide();
-                alert('An error occurred while processing your request.');
-            }
-        });
+		});
     });
 });

@@ -106,7 +106,7 @@ def keyword_explorer():
                     suggestions.extend(get_google_suggestions(kw, language, country))
 
         # Returning JSON as the AJAX call expects it
-        return jsonify(suggestions=suggestions)
+        return jsonify({'suggestions': suggestions})  # Corrected to return a JSON object
 
     # Render the HTML template for GET requests
     return render_template('keyword_explorer.html')
