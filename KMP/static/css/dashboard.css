@@ -442,3 +442,9 @@ body, html {
     display: none; /* Hidden initially */
 }
 
+
+/* space between button stop & clean button */
+    .button-container {
+        display: flex;
+        gap: 10px; /* Adjust the value as needed */
+    }

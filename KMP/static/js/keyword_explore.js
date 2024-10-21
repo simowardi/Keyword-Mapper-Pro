@@ -40,6 +40,15 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 });
 
 
+// handle textarea clear
+$(document).ready(function() {
+    // Handle clear textarea button click
+    $('#clearButton').on('click', function() {
+        $('#resultKeywords').val(''); // Clear the textarea
+        $('#suggestedKeywordCount').text('0 keywords suggested'); // Reset the count
+    });
+});
+
 
 // Handle the keyword exploration process
 // Handle the keyword exploration process
@@ -76,8 +85,8 @@ $(document).ready(function() {
                             $('#suggestedKeywordCount').text((index + 1) + ' keywords suggested');
                             index++;
 
-                            // Call this function again after 500ms
-                            setTimeout(displayNextSuggestion, 500);
+                            // Call this function again after 150ms
+                            setTimeout(displayNextSuggestion, 150);
                         }
                     }
 
