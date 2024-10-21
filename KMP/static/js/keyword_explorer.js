@@ -48,7 +48,7 @@ $(document).ready(function() {
         event.preventDefault();
 
         // Collect form data
-        const keywords = new keywords(this);
+        const formData = new FormData(this); // Automatically gather all form fields
 
         // Send form data to the Flask route via AJAX
         fetch('{{ url_for("keyword.keyword_explorer") }}', {
@@ -66,25 +66,18 @@ $(document).ready(function() {
             return response.json(); // Parse JSON from the response
         })
         .then(data => {
-            // Clear previous results
-            $('.grouped-results-container').empty();
+            // Clear previous results in the text area
+            $('#resultKeywords').val('');
 
             if (data.suggestions.length > 0) {
-                data.suggestions.forEach(function(keyword) {
-                    const groupHtml = `
-                        <div class="keyword-group">
-                            <button class="copy-button" onclick="copyToClipboard('${keyword}')">
-                                <i class="fas fa-copy"></i> Copy
-                            </button>
-                            <strong>${keyword}</strong>
-                        </div>
-                    `;
-                    $('.grouped-results-container').append(groupHtml);
-                });
+                // Populate the text area with the generated keywords
+                const keywords = data.suggestions.join('\n'); // Join keywords with new line
+                $('#resultKeywords').val(keywords); // Set the value of the text area
                 $('#suggestedKeywordCount').text(`${data.suggestions.length} keywords suggested`);
-                $('.results-section').show();
+                $('.results-section').show(); // Show the results section
             } else {
-                $('.grouped-results-container').append('<p>No keywords found.</p>');
+                $('#resultKeywords').val('No keywords found.'); // Indicate no keywords found
+                $('#suggestedKeywordCount').text('0 keywords suggested');
             }
         })
         .catch(error => {
