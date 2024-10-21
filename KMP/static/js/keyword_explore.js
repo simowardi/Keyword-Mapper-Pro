@@ -44,24 +44,30 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 // Handle the keyword exploration process
 $(document).ready(function() {
     $('#suggestionsForm').on('submit', function(event) {
-		// Prevent default form submission
+        // Prevent default form submission
         event.preventDefault();
+
         // Serialize form data
         var formData = $(this).serialize();
+        $('#resultKeywords').val(''); // Clear previous results
+        $('#suggestedKeywordCount').text('0 keywords suggested');
+        $('.results-section').show(); // Show results section
 
         $.ajax({
             url: "/keyword/keyword_explorer",
             type: "POST",
             data: formData,
             success: function(response) {
-			    // Clear previous results
-				$('.grouped-results-container').empty();
-
+                // Assuming response.suggestions is an array of keywords
                 if (response.suggestions && response.suggestions.length > 0) {
-                    var keywords = response.suggestions.join('\n');
-                    $('#resultKeywords').val(keywords);
-                    $('#suggestedKeywordCount').text(response.suggestions.length + ' keywords suggested');
-                    $('.results-section').show();
+                    response.suggestions.forEach(function(keyword, index) {
+                        setTimeout(function() {
+                            // Append each keyword with a delay
+                            var currentText = $('#resultKeywords').val();
+                            $('#resultKeywords').val(currentText + keyword + '\n');
+                            $('#suggestedKeywordCount').text((index + 1) + ' keywords suggested');
+                        }, index * 500); // Delay of 500ms for each keyword
+                    });
                 } else {
                     $('#resultKeywords').val('No keywords found.');
                     $('#suggestedKeywordCount').text('0 keywords suggested');
