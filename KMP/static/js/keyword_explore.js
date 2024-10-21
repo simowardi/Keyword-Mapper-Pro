@@ -44,12 +44,13 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 // Handle the keyword exploration process
 $(document).ready(function() {
     $('#suggestionsForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-        
-        var formData = $(this).serialize(); // Serialize form data
+		// Prevent default form submission
+        event.preventDefault();
+        // Serialize form data
+        var formData = $(this).serialize();
         
         $.ajax({
-            url: "{{ url_for('keyword.keyword_explorer') }}",
+            url: "/keyword/keyword_explorer",
             type: "POST",
             data: formData,
             success: function(response) {

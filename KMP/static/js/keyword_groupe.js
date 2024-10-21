@@ -42,7 +42,8 @@ $(document).ready(function () {
         event.preventDefault(); // Prevent the navigation default form submission
 
         $.ajax({
-            url: '/keyword/keyword_grouper', // The target URL for the AJAX request
+			// The target URL for the AJAX request
+            url: '/keyword/keyword_grouper',
             type: 'POST',
             data: $(this).serialize(), // Serialize the form data
             success: function (response) {
@@ -54,7 +55,8 @@ $(document).ready(function () {
                     $.each(response.grouped_keywords, function (phrase, keywords) {
                         const keywordCount = keywords.length;
                         const keywordList = keywords.map(kw => `<li>${kw}</li>`).join('');
-                        const allKeywords = keywords.join('\n'); // Join keywords with new line
+						// Join keywords with new line
+                        const allKeywords = keywords.join('\n');
                         const groupHtml = `
                             <div class="keyword-group">
                                 <button class="copy-button" onclick="copyToClipboard(\`${allKeywords}\`)">
