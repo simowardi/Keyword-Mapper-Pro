@@ -48,12 +48,15 @@ $(document).ready(function() {
         event.preventDefault();
         // Serialize form data
         var formData = $(this).serialize();
-        
+
         $.ajax({
             url: "/keyword/keyword_explorer",
             type: "POST",
             data: formData,
             success: function(response) {
+			    // Clear previous results
+				$('.grouped-results-container').empty();
+
                 if (response.suggestions && response.suggestions.length > 0) {
                     var keywords = response.suggestions.join('\n');
                     $('#resultKeywords').val(keywords);
