@@ -85,8 +85,8 @@ $(document).ready(function() {
                             $('#suggestedKeywordCount').text((index + 1) + ' keywords suggested');
                             index++;
 
-                            // Call this function again after 150ms
-                            setTimeout(displayNextSuggestion, 150);
+                            // Call this function again after 250ms
+                            setTimeout(displayNextSuggestion, 250);
                         }
                     }
 
