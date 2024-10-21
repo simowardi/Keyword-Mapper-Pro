@@ -44,28 +44,32 @@ document.getElementById('mainkeywords').addEventListener('input', function() {
 // Handle the keyword exploration process
 // Handle the keyword exploration process
 $(document).ready(function() {
+    let isStopped = false; // Flag to track if the process is stopped
+    let index = 0; // Index for suggestions
+
     $('#suggestionsForm').on('submit', function(event) {
         // Prevent default form submission
         event.preventDefault();
         // Serialize form data
         var formData = $(this).serialize();
 
+        // Clear previous results
+        $('#resultKeywords').val('');
+        $('#suggestedKeywordCount').text('0 keywords suggested');
+        $('.results-section').show();
+
         $.ajax({
             url: "/keyword/keyword_explorer",
             type: "POST",
             data: formData,
             success: function(response) {
-                // Clear previous results/textarea
-                $('#resultKeywords').val(''); 
-                $('#suggestedKeywordCount').text('0 keywords suggested');
-                $('.results-section').show(); // Show results section
-
                 if (response.suggestions && response.suggestions.length > 0) {
                     let suggestions = response.suggestions;
-                    let index = 0;
+                    index = 0; // Reset index
+                    isStopped = false; // Reset stop flag
 
                     function displayNextSuggestion() {
-                        if (index < suggestions.length) {
+                        if (index < suggestions.length && !isStopped) {
                             // Append the next suggestion
                             var currentText = $('#resultKeywords').val();
                             $('#resultKeywords').val(currentText + suggestions[index] + '\n');
@@ -87,5 +91,10 @@ $(document).ready(function() {
                 console.log("Error:", error);
             }
         });
+    });
+
+    // Handle stop button click
+    $('#stopButton').on('click', function() {
+        isStopped = true; // Set the stop flag to true
     });
 });
