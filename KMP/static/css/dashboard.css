@@ -55,24 +55,54 @@ body, html {
 }
 
 /* Position the toggle button */
-.sidebar-toggle {
-	position: fixed; /* Fixed position relative to viewport */
-	top: 1rem; /* Space from top */
-	width: 2rem; /* Button width */
-	height: 2rem; /* Button height */ 
-	border: none; /* Remove border */
-	background: #333; /* Dark background */
-	color: #fff; /* White text */
-	cursor: pointer; /* Clickable pointer */
-	display: grid; /* Center content */
+/* Updated CSS */
+.sidebar {
+	width: 200px;
+	transition: width 0.3s ease;
+  }
+  
+  .sidebar.collapsed {
+	width: 50px;
+  }
+  
+  .menu-item {
+	display: flex;
+	align-items: center;
+  }
+  
+  .menu-item-icon {
+	font-size: 1.5em;
+	margin-right: 10px;
+  }
+  
+  .menu-item-text {
+	transition: opacity 0.3s ease;
+  }
+  
+  .sidebar.collapsed .menu-item-text {
+	opacity: 0;
+	visibility: hidden;
+	width: 0;
+	margin: 0;
+	white-space: nowrap;
+  }
+  
+  .sidebar-toggle {
+	position: fixed;
+	top: 1rem;
+	width: 2rem;
+	height: 2rem;
+	border: none;
+	background: #333;
+	color: #fff;
+	cursor: pointer;
+	display: grid;
 	place-items: center;
-   }
+	z-index: 1000; /* Ensure toggle button is above the sidebar */
+  }
+  
 
 
-/* when sidebar is collapsed the menu items only show icon */
-.sidebar.collapsed .menu-item {
-	display: none;
-}
 
 
 
