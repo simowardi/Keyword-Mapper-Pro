@@ -58,16 +58,14 @@ body, html {
 .sidebar-toggle {
 	position: fixed; /* Fixed position relative to viewport */
 	top: 1rem; /* Space from top */
-	right: -0.5rem; /* Slight overlap with edge */
-	width: 2rem; /* Width of the circular button */
-	height: 2rem; /* Height of the circular button */
-	border: none; /* Remove default button border */
-	border-radius: 50%; /* Makes the button perfectly circular */
-	background: #333; /* Dark background color */
-	color: #fff; /* White color for icon/content */
-	cursor: pointer; /* Shows clickable pointer on hover */
-	display: grid; /* Uses grid layout */
-	place-items: center; /* Centers content both horizontally and vertically */
+	width: 2rem; /* Button width */
+	height: 2rem; /* Button height */ 
+	border: none; /* Remove border */
+	background: #333; /* Dark background */
+	color: #fff; /* White text */
+	cursor: pointer; /* Clickable pointer */
+	display: grid; /* Center content */
+	place-items: center;
    }
 
 /* Main content area styles */
