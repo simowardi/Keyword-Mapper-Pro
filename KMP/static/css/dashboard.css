@@ -424,3 +424,23 @@ textarea {
 .footer a:hover {
     text-decoration: underline; /* Underline on hover */
 }
+
+
+/* Video container styles all */
+/* Video container styles */
+.video-container {
+    position: relative; /* Position for absolute child */
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0; /* No height */
+    overflow: hidden; /* Hide overflow */
+    max-width: 100%; /* Responsive width */
+}
+
+/* Styles for iframe in video container */
+.video-container iframe {
+    position: absolute; /* Absolute positioning */
+    top: 0; /* Align to top */
+    left: 0; /* Align to left */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+}
