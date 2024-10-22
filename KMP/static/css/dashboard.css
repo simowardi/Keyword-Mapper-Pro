@@ -488,35 +488,25 @@ textarea {
 /* Responsive styles for mobile devices */
 /* Responsive styles for mobile devices */
 @media (max-width: 768px) {
-    /* Make sidebar a bottom navigation bar on mobile */
+    /* Sidebar styles */
     .sidebar {
-        width: 100%; /* Full width */
-        height: 60px; /* Height for bottom nav */
-        position: fixed; /* Fixed at the bottom */
-        bottom: 0; /* Position at bottom */
-        left: 0;
+        width: 80px; /* Narrow width for mobile */
+        height: 100%; /* Full height */
+        position: fixed; /* Fixed at the side */
+        left: 0; /* Position on the left */
+        top: 0; /* Align to the top */
         background-color: var(--secondary-color); /* Background color */
         z-index: 1000;
         display: flex; /* Flex layout */
-        justify-content: space-around; /* Space icons evenly */
-        align-items: center; /* Center icons vertically */
-        padding: 0;
-        transition: transform 0.3s ease;
+        flex-direction: column; /* Stack items vertically */
+        align-items: center; /* Center items */
+        padding-top: 20px; /* Space at the top */
+        transition: width 0.3s ease; /* Smooth transition for width */
     }
 
-    /* Hide the toggle button in mobile mode */
-    .sidebar-toggle {
-        display: none;
-    }
-
-    /* Logo stays at the top on mobile */
-    .logo {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0.5rem 0;
-        width: 100%;
-        background-color: var(--secondary-color);
+    /* Expanded sidebar with text */
+    .sidebar.expanded {
+        width: 250px; /* Full width when expanded */
     }
 
     /* Menu items only show icons */
@@ -525,7 +515,7 @@ textarea {
         flex-direction: column; /* Stack icon and text vertically */
         justify-content: center;
         align-items: center;
-        width: auto; /* Adjust width */
+        width: 100%; /* Full width */
         padding: 10px;
         color: white;
         text-align: center; /* Center text */
@@ -541,26 +531,30 @@ textarea {
         font-size: 1.5rem;
     }
 
+    /* Toggle button styles */
+    .toggle-button {
+        position: absolute; /* Position toggle button */
+        top: 20px; /* Position from top */
+        right: -40px; /* Position outside the sidebar */
+        background-color: var(--primary-color); /* Toggle button color */
+        color: white; /* Text color */
+        border: none; /* No border */
+        border-radius: 50%; /* Circular shape */
+        width: 30px; /* Button size */
+        height: 30px; /* Button size */
+        cursor: pointer; /* Pointer cursor */
+        transition: right 0.3s ease; /* Smooth transition */
+    }
+
+    /* Show toggle button when sidebar is expanded */
+    .sidebar.expanded .toggle-button {
+        right: -40px; /* Position outside the expanded sidebar */
+    }
+
     /* Logout button styles for mobile (can be at the bottom like other menu items) */
     .logout {
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    /* Show menu items on click */
-    .menu {
-        display: none; /* Initially hide menu */
-        flex-direction: column; /* Stack vertically */
-        background-color: var(--secondary-color); /* Match sidebar color */
-        position: absolute; /* Overlap content */
-        bottom: 60px; /* Position above the nav bar */
-        width: 100%; /* Full width */
-        z-index: 999; /* Ensure it appears above other content */
-    }
-
-    /* Show menu items when active */
-    .menu.active {
-        display: flex; /* Show menu */
     }
 }
