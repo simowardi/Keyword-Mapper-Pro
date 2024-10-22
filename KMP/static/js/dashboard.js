@@ -5,12 +5,34 @@ document.querySelector('.logout').addEventListener('click', function() {
   }
 });
 
+
 // Theme toggle between dark mode and light mode
 const themeToggle = document.querySelector('.theme-toggle');
+// Check localStorage for saved theme preference
+if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark-mode');
+    themeToggle.innerHTML = '☀️ Day Mode'; // Set button text for dark mode
+}
+// Add event listener for theme toggle
 themeToggle.addEventListener('click', function() {
-  document.body.classList.toggle('dark-mode');
-  this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
+    document.body.classList.toggle('dark-mode');
+    
+    // Update localStorage based on the current theme
+    if (document.body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        this.innerHTML = '☀️ Day Mode'; // Change button text
+    } else {
+        localStorage.setItem('theme', 'light');
+        this.innerHTML = '🌙 Night Mode'; // Change button text
+    }
 });
+
+
+// Sidebar toggle
+document.querySelector('.sidebar-toggle').addEventListener('click', () => {
+    document.querySelector('.sidebar').classList.toggle('collapsed');
+});
+
 
 // Scroll animations for sections and anchor links 
 document.addEventListener('DOMContentLoaded', () => {
