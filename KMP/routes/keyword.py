@@ -217,39 +217,3 @@ def keyword_grouper():
     # Render the HTML template for GET requests
     return render_template('keyword_grouper.html', keyword_list=[], min_group_length=1, grouped_keywords={}, num_keywords=0, num_groups=0)
 
-
-
-
-
-
-
-
-# seo keyword route
-# Set your SerpApi key here
-SERPAPI_API_KEY = 'your_serpapi_api_key'
-
-@keyword_bp.route("/keyword_seo", methods=["GET", "POST"])
-def keyword_seo():
-    data = {}
-    if request.method == "POST":
-        userInput = request.form.get("keyword")
-        if userInput:
-            # Create an instance of the SeoKeywordResearch class
-            keyword_research = SeoKeywordResearch(
-                query=userInput,
-                api_key=SERPAPI_API_KEY,
-                lang='en',
-                country='us',
-                domain='google.com'
-            )
-
-            # Extract data from API
-            data['auto_complete'] = keyword_research.get_auto_complete()
-            data['related_searches'] = keyword_research.get_related_searches()
-            data['related_questions'] = keyword_research.get_related_questions(depth_limit=1)
-
-    return render_template("index.html", data=data)
-
-
-
-
