@@ -1,3 +1,4 @@
+// Handle logout button click event and confirmation
 document.querySelector('.logout').addEventListener('click', function() {
   if (confirm('Are you sure you want to logout?')) {
 	// Perform logout action here
@@ -28,10 +29,25 @@ themeToggle.addEventListener('click', function() {
 });
 
 
-// Sidebar toggle
-document.querySelector('.sidebar-toggle').addEventListener('click', function() {
-	document.querySelector('.sidebar').classList.toggle('collapsed');
+
+// Sidebar toggle for collapsed sidebar
+document.addEventListener('DOMContentLoaded', function () {
+	// Check if sidebar state is saved in localStorage
+	const sidebar = document.querySelector('.sidebar');
+	const isCollapsed = localStorage.getItem('sidebar-collapsed');
+	// Apply the saved state on page load
+	if (isCollapsed === 'true') {
+	  sidebar.classList.add('collapsed');
+	}
+	// Add event listener to the toggle button
+	document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+	  sidebar.classList.toggle('collapsed');
+	  // Save the sidebar state in localStorage
+	  const collapsed = sidebar.classList.contains('collapsed');
+	  localStorage.setItem('sidebar-collapsed', collapsed);
+	});
   });
+
   
   
 
@@ -47,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     });
-
     // Scroll animations for sections
     const sections = document.querySelectorAll('.section');
     const observer = new IntersectionObserver(entries => {
@@ -57,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, { threshold: 0.1 });
-
     sections.forEach(section => {
         observer.observe(section);
     });
