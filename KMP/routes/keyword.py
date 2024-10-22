@@ -9,6 +9,8 @@ import requests
 import json
 import string
 from concurrent.futures import ThreadPoolExecutor
+from SeoKeywordResearch import SeoKeywordResearch
+
 
 keyword_bp = Blueprint('keyword', __name__)
 
@@ -121,6 +123,18 @@ def keyword_explorer():
 @keyword_bp.route('/keyword_filter', methods=['GET', 'POST'])
 @login_required
 def keyword_filter():
+    """
+    The keyword filter page allows users to input a list of keywords 
+    and a list of positive keywords to filter out the keywords 
+    that do not contain any of the positive keywords.
+
+    Parameters:
+    keys_to_be_matched (str): The list of keywords to be filtered, separated by newlines
+    keys_to_match (str): The list of positive keywords to filter with, separated by newlines
+
+    Returns:
+    A rendered template with the filtered keywords and their count
+    """
     if request.method == 'POST':
         kw_list = request.form.get('keys_to_be_matched', '').splitlines()
         positive_kw = request.form.get('keys_to_match', '').splitlines()
@@ -204,190 +218,37 @@ def keyword_grouper():
     return render_template('keyword_grouper.html', keyword_list=[], min_group_length=1, grouped_keywords={}, num_keywords=0, num_groups=0)
 
 
-@keyword_bp.route('/export_csv', methods=['POST'])
-@login_required
-def export_csv():
-    """
-    Endpoint to export grouped keywords as a CSV file
-    """
-    grouped_keywords = request.form.getlist('grouped_keywords')
 
-    # Create CSV response
-    def generate():
-        yield 'Keyword\n'  # CSV header
-        for keyword in grouped_keywords:
-            yield f"{keyword}\n"
-
-    return Response(generate(), mimetype='text/csv', headers={"Content-Disposition": "attachment;filename=grouped_keywords.csv"})
-
-
-
-
-
-
-# intent analyzer keyword route
-
-@keyword_bp.route('/keyword_intent', methods=['GET', 'POST'])
-@login_required
-def keyword_intent():
-    intent = ""
-    if request.method == 'POST':
-        keyword = request.form.get('keyword')
-        # Analyze the intent of the keyword
-        intent = analyze_intent(keyword)
-
-    return render_template('keyword_intent.html', intent=intent)
-
-def analyze_intent(keyword):
-    informational_keywords = [
-        'what', 'how', 'define', 'explain', 'learn', 'who', 'where', 'when',
-        'details', 'info', 'facts', 'history', 'meaning', 'overview', 'guide',
-        'sources', 'data', 'research', 'statistics', 'examples', 'concept',
-        'news', 'updates', 'trends', 'benefits', 'features', 'methods', 'process'
-    ]
-    
-    transactional_keywords = [
-        'buy', 'purchase', 'order', 'discount', 'deal', 'price', 'sale',
-        'shop', 'checkout', 'payment', 'subscription', 'register', 'enroll',
-        'offer', 'coupon', 'gift', 'cost', 'invoice', 'transaction', 'cart',
-        'save', 'best', 'compare', 'free', 'trial', 'shipping', 'delivery', 
-        'availability', 'warranty', 'return'
-    ]
-    
-    navigational_keywords = [
-        'login', 'home', 'contact', 'about', 'site', 'page', 'find', 'search',
-        'navigate', 'map', 'location', 'directory', 'help', 'support', 
-        'resources', 'portfolio', 'services', 'products', 'team', 'reviews',
-        'testimonials', 'social', 'forum', 'blog', 'community', 'events', 
-        'news', 'updates', 'profile', 'settings'
-    ]
-    
-    local_keywords = [
-        'near me', 'in', 'around', 'locations', 'nearby', 'local', 
-        'address', 'city', 'region', 'district', 'village', 'town', 
-        'state', 'area', 'zip code', 'suburb', 'community', 'locality', 
-        'map', 'geolocation', 'directions', 'public transport', 'services', 
-        'businesses', 'shops', 'restaurants', 'attractions', 'activities'
-    ]
-    
-    comparative_keywords = [
-        'vs', 'compare', 'better', 'worse', 'best', 'worst', 'similar', 
-        'differences', 'advantages', 'disadvantages', 'evaluate', 
-        'assess', 'contrast', 'choose', 'select', 'options', 'alternatives', 
-        'preference', 'recommend', 'suggest', 'pros and cons', 'which', 
-        'either', 'or', 'decision', 'choice', 'ranking', 'top', 'list', 
-        'match', 'score'
-    ]
-    
-    advice_keywords = [
-        'tips', 'advice', 'suggestions', 'recommendations', 'how to', 
-        'ways to', 'methods', 'strategies', 'guidance', 'counsel', 
-        'insights', 'help', 'improve', 'enhance', 'boost', 'achieve', 
-        'overcome', 'solve', 'manage', 'handle', 'navigate', 'address', 
-        'prepare', 'plan', 'organize', 'execute', 'approach', 
-        'learn', 'develop', 'cultivate', 'foster', 'nurture', 'maintain'
-    ]
-
-    # Lowercase for uniformity
-    keyword_lower = keyword.lower()
-
-    # Check for informational intent
-    if any(keyword_lower.startswith(kw) for kw in informational_keywords):
-        return "Informational"
-    
-    # Check for transactional intent
-    if any(kw in keyword_lower for kw in transactional_keywords):
-        return "Transactional"
-    
-    # Check for navigational intent
-    if any(kw in keyword_lower for kw in navigational_keywords):
-        return "Navigational"
-    
-    # Check for local intent
-    if any(kw in keyword_lower for kw in local_keywords):
-        return "Local"
-    
-    # Check for comparative intent
-    if any(kw in keyword_lower for kw in comparative_keywords):
-        return "Comparative"
-    
-    # Check for advice intent
-    if any(kw in keyword_lower for kw in advice_keywords):
-        return "Advice"
-    
-    return "Unclassified"
 
 
 
 
 
 # seo keyword route
-def generate_search_queries(query, increment_option):
-    base_query = query.replace('+', ' ').replace('*', '')
+# Set your SerpApi key here
+SERPAPI_API_KEY = 'your_serpapi_api_key'
 
-    if increment_option == 'a-z':
-        characters = string.ascii_lowercase
-    elif increment_option == 'A-Z':
-        characters = string.ascii_uppercase
-    elif increment_option == '0-9':
-        characters = string.digits
-    else:
-        characters = []
+@keyword_bp.route("/", methods=["GET", "POST"])
+def index():
+    data = {}
+    if request.method == "POST":
+        userInput = request.form.get("keyword")
+        if userInput:
+            # Create an instance of the SeoKeywordResearch class
+            keyword_research = SeoKeywordResearch(
+                query=userInput,
+                api_key=SERPAPI_API_KEY,
+                lang='en',
+                country='us',
+                domain='google.com'
+            )
 
-    # Create queries by adding characters in place of *
-    queries = [f"{base_query}{char}" for char in characters]
-    
-    return queries
+            # Extract data from API
+            data['auto_complete'] = keyword_research.get_auto_complete()
+            data['related_searches'] = keyword_research.get_related_searches()
+            data['related_questions'] = keyword_research.get_related_questions(depth_limit=1)
 
-def fetch_google_suggestions(query):
-    url = f"https://suggestqueries.google.com/complete/search?output=toolbar&hl=en&q={query}"
-    response = requests.get(url)
-
-    suggestions = []
-    if response.status_code == 200:
-        from xml.etree import ElementTree as ET
-        root = ET.fromstring(response.content)
-
-        for suggestion in root.findall('.//suggestion'):
-            suggestions.append(suggestion.attrib['data'])
-
-    return suggestions
-
-@keyword_bp.route('/keyword/seokeyword', methods=['GET', 'POST'])
-@login_required
-def seokeyword():
-    """
-    Handle the SEO keyword exploration.
-
-    This route handles both GET and POST requests for exploring SEO keywords.
-    When accessed via POST, it takes a search term and an increment option from
-    the form. If the search term contains '*', it generates variations of the 
-    search term by replacing '*' with characters specified by the increment option,
-    and fetches Google suggestions for each variation. Returns these suggestions 
-    to the `seokeyword.html` template. If the search term does not contain '*',
-    it returns a message indicating the search term is invalid.
-
-    Returns:
-        str: Rendered HTML template with the list of suggestions or an error message.
-    """
-    all_suggestions = []
-
-    if request.method == 'POST':
-        search_term = request.form.get('search_term')
-        increment_option = request.form.get('increment_option')
-
-        # If * is in the search term, generate variations
-        if '*' in search_term:
-            queries = generate_search_queries(search_term, increment_option)
-
-            # For each generated query, get Google suggestions
-            for query in queries:
-                google_suggestions = fetch_google_suggestions(query)
-                all_suggestions.append((query, google_suggestions))
-        else:
-            all_suggestions.append(("Invalid search term", ["No '*' found in the search term."]))
-
-    return render_template('seokeyword.html', suggestions=all_suggestions)
+    return render_template("index.html", data=data)
 
 
 
