@@ -68,6 +68,14 @@ body, html {
 	place-items: center;
    }
 
+
+/* when sidebar is collapsed the menu items only show icon */
+.sidebar.collapsed .menu-item {
+	display: none;
+}
+
+
+
 /* Main content area styles */
 .main-content {
     flex-grow: 1; /* Take up remaining space */
