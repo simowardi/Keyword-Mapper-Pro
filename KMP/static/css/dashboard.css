@@ -427,39 +427,6 @@ textarea {
     color: #0056b3;
 }
 
-/* Responsive styles for mobile devices */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Stack items vertically */
-    }
-
-    .sidebar {
-        width: 100%; /* Full width for sidebar */
-        order: 2; /* Position sidebar below main content */
-    }
-
-    .sidebar.collapsed {
-        width: 100%; /* Keep full width even when collapsed */
-        padding: 10px;
-    }
-
-    .sidebar-toggle {
-        display: none; /* Hide toggle on mobile */
-    }
-
-    .main-content {
-        order: 1; /* Position main content above sidebar */
-    }
-
-    .theme-toggle {
-        top: 10px; /* Adjust position for smaller screens */
-        right: 10px; /* Adjust position for smaller screens */
-    }
-
-    .grouped-results-container {
-        grid-template-columns: 1fr; /* Single column for mobile */
-    }
-}
 
 /* Button container spacing */
 .button-container {
@@ -516,3 +483,68 @@ textarea {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
 }
+
+
+/* Responsive styles for mobile devices */
+/* Responsive styles for mobile devices */
+@media (max-width: 768px) {
+    /* Make sidebar a bottom navigation bar on mobile */
+    .sidebar {
+        width: 100%; /* Full width */
+        height: 60px; /* Height for bottom nav */
+        position: fixed; /* Fixed at the bottom */
+        bottom: 0; /* Position at bottom */
+        left: 0;
+        background-color: var(--secondary-color); /* Background color */
+        z-index: 1000;
+        display: flex; /* Flex layout */
+        justify-content: space-around; /* Space icons evenly */
+        align-items: center; /* Center icons vertically */
+        padding: 0;
+        transition: transform 0.3s ease;
+    }
+
+    /* Hide the toggle button in mobile mode */
+    .sidebar-toggle {
+        display: none;
+    }
+
+    /* Logo stays at the top on mobile */
+    .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem 0;
+        width: 100%;
+        background-color: var(--secondary-color);
+    }
+
+    /* Menu items only show icons */
+    .menu-item {
+        display: flex;
+        flex-direction: column; /* Stack icon and text vertically */
+        justify-content: center;
+        align-items: center;
+        width: auto; /* Adjust width */
+        padding: 10px;
+        color: white;
+    }
+
+    /* Menu item text is hidden on mobile */
+    .menu-item-text {
+        display: none; /* Hide text */
+    }
+
+    /* Icon size adjustment for mobile */
+    .menu-item-icon {
+        font-size: 1.5rem;
+    }
+
+    /* Logout button styles for mobile (can be at the bottom like other menu items) */
+    .logout {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
