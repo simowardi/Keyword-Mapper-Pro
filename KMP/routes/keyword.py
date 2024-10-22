@@ -9,7 +9,6 @@ import requests
 import json
 import string
 from concurrent.futures import ThreadPoolExecutor
-from SeoKeywordResearch import SeoKeywordResearch
 
 
 keyword_bp = Blueprint('keyword', __name__)

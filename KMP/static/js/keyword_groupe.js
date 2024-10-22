@@ -21,22 +21,10 @@ function copyToClipboard(text) {
     }, 500); // Change to 500 milliseconds (half a second)
 }
 
-// Logout confirmation
-document.querySelector('.logout').addEventListener('click', function () {
-    if (confirm('Are you sure you want to logout?')) {
-        // Perform logout action here
-        alert('Logged out successfully');
-    }
-});
 
-// Theme toggle functionality
-const themeToggle = document.querySelector('.theme-toggle');
-themeToggle.addEventListener('click', function () {
-    document.body.classList.toggle('dark-mode');
-    this.innerHTML = document.body.classList.contains('dark-mode') ? '☀️ Day Mode' : '🌙 Night Mode';
-});
 
 // Handle the keyword grouping process
+
 $(document).ready(function () {
     $('#keywordForm').on('submit', function (event) {
         event.preventDefault(); // Prevent the navigation default form submission
