@@ -528,6 +528,7 @@ textarea {
         width: auto; /* Adjust width */
         padding: 10px;
         color: white;
+        text-align: center; /* Center text */
     }
 
     /* Menu item text is hidden on mobile */
@@ -546,5 +547,20 @@ textarea {
         justify-content: center;
         align-items: center;
     }
-}
 
+    /* Show menu items on click */
+    .menu {
+        display: none; /* Initially hide menu */
+        flex-direction: column; /* Stack vertically */
+        background-color: var(--secondary-color); /* Match sidebar color */
+        position: absolute; /* Overlap content */
+        bottom: 60px; /* Position above the nav bar */
+        width: 100%; /* Full width */
+        z-index: 999; /* Ensure it appears above other content */
+    }
+
+    /* Show menu items when active */
+    .menu.active {
+        display: flex; /* Show menu */
+    }
+}
