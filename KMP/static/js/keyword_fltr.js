@@ -20,48 +20,45 @@ function copyToClipboard(textareaId) {
 
 
 // Handle the keyword filtering process
+// Handle the keyword filtering process
 
-document.addEventListener('DOMContentLoaded', function() {
-    const kwListTextarea = document.getElementById('keys_to_be_matched');
-    const positiveKwTextarea = document.getElementById('keys_to_match');
-    const matchesBox = document.getElementById('filteredResults');
-    const keywordCountDiv = document.getElementById('keywordCount');
-    const matchCountDiv = document.getElementById('matchCount');
+$(document).ready(function() {
+    const kwListTextarea = $('#keys_to_be_matched');
+    const positiveKwTextarea = $('#keys_to_match');
+    const matchesBox = $('#filteredResults');
+    const keywordCountDiv = $('#keywordCount');
+    const matchCountDiv = $('#matchCount');
 
     // Update the keyword count whenever the keyword list changes
-    kwListTextarea.addEventListener('input', function() {
-        const keywords = kwListTextarea.value.split('\n').filter(kw => kw.trim() !== '');
-        keywordCountDiv.textContent = `${keywords.length} keywords`;
+    kwListTextarea.on('input', function() {
+        const keywords = kwListTextarea.val().split('\n').filter(kw => kw.trim() !== '');
+        keywordCountDiv.text(`${keywords.length} keywords`);
     });
 
     // Handle the filtering process
-    document.querySelector('.filter-btn').addEventListener('click', function() {
-        const kwList = kwListTextarea.value.split('\n').filter(kw => kw.trim() !== '');
-        const positiveKw = positiveKwTextarea.value.split('\n').filter(kw => kw.trim() !== '');
+    $('.filter-btn').on('click', function() {
+        const kwList = kwListTextarea.val().split('\n').filter(kw => kw.trim() !== '');
+        const positiveKw = positiveKwTextarea.val().split('\n').filter(kw => kw.trim() !== '');
 
-        const formData = new FormData();
-        formData.append('keys_to_be_matched', kwList.join('\n'));
-        formData.append('keys_to_match', positiveKw.join('\n'));
+        const formData = {
+            keys_to_be_matched: kwList.join('\n'),
+            keys_to_match: positiveKw.join('\n')
+        };
 
         // Send form data to the Flask route via AJAX
-        fetch('/keyword/keyword_filter', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest' // Indicate AJAX request
+        $.ajax({
+            url: '/keyword/keyword_filter',
+            type: 'POST',
+            data: formData,
+            success: function(data) {
+                // Update the stats and output sections with the results
+                matchCountDiv.text(`${data.match_count} keywords match`);
+                matchesBox.val(data.matches);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                $('#stats').html(`<p>Error occurred: ${error.message}</p>`);
             }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Update the stats and output sections with the results
-            matchCountDiv.textContent = `${data.match_count} keywords match`;
-            matchesBox.value = data.matches;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            document.getElementById('stats').innerHTML = `<p>Error occurred: ${error.message}</p>`;
         });
     });
 });
-
-

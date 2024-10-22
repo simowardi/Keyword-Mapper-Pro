@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash
 from models import db, User
 from flask_login import login_required, current_user, logout_user
-from datetime import datetime
 
 account_bp = Blueprint('account', __name__)
 

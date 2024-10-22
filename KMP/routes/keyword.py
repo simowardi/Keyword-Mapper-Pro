@@ -1,14 +1,9 @@
-from flask import Flask, Blueprint, render_template, redirect, url_for, flash, jsonify, request, Response
+from flask import Blueprint, render_template, jsonify, request
 from models import db, User
-from flask_login import login_required, current_user, LoginManager, login_user, logout_user
-from datetime import datetime
-import csv
-import os
+from flask_login import login_required, current_user
 import time
 import requests
 import json
-import string
-from concurrent.futures import ThreadPoolExecutor
 
 
 keyword_bp = Blueprint('keyword', __name__)
@@ -105,8 +100,6 @@ def keyword_explorer():
                 expanded_keywords = expand_keyword(keyword.strip(), selected_prefixes)
                 for kw in expanded_keywords:
                     suggestions.extend(get_google_suggestions(kw, language, country))
-                    # Delay for half a second for each keyword
-
 
         # Corrected to return a JSON object instead of a string
         return jsonify({'suggestions': suggestions})
@@ -150,15 +143,11 @@ def keyword_filter():
             'match_count': len(matched_keywords)
         }
 
-        # Check for AJAX request
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            # Return JSON for AJAX requests
-            return jsonify(response_data)
-        else:
-            # Render the HTML template for normal requests
-            return render_template('keyword_filter.html', **response_data)
-	# Render for GET requests
+        return jsonify(response_data)  # Always return JSON for AJAX requests
+
+    # Render for GET requests
     return render_template('keyword_filter.html')
+
 
 
 
