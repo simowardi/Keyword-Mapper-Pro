@@ -66,6 +66,32 @@ body, html {
 	width: 50px;
   }
   
+  /* Logo (default state) */
+.logo {
+	display: flex;
+	align-items: center;
+	padding: 0.5rem 1rem;
+  }
+  
+  .logo-icon {
+	font-size: 1.5rem;
+	margin-right: 10px;
+  }
+  
+  .logo-text {
+	transition: opacity 0.3s ease, width 0.3s ease;
+	white-space: nowrap;
+	overflow: hidden;
+  }
+  
+  /* Hide text when collapsed */
+  .sidebar.collapsed .logo-text {
+	opacity: 0;
+	visibility: hidden;
+	width: 0;
+	margin: 0;
+  }
+  
   /* Menu Items */
   .menu-item {
 	display: flex;
