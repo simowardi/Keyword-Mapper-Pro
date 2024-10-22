@@ -490,7 +490,7 @@ textarea {
 @media (max-width: 768px) {
     /* Sidebar styles */
     .sidebar {
-        width: 80px; /* Narrow width for mobile */
+        width: var(--sidebar-collapsed-width); /* Narrow width for mobile */
         height: 100%; /* Full height */
         position: fixed; /* Fixed at the side */
         left: 0; /* Position on the left */
@@ -506,7 +506,16 @@ textarea {
 
     /* Expanded sidebar with text */
     .sidebar.expanded {
-        width: 250px; /* Full width when expanded */
+        width: var(--sidebar-width); /* Full width when expanded */
+        padding: 20px; /* Padding inside */
+    }
+
+    /* Logo styles */
+    .logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px; /* Space below logo */
+        color: white; /* Logo color */
     }
 
     /* Menu items only show icons */
@@ -519,6 +528,7 @@ textarea {
         padding: 10px;
         color: white;
         text-align: center; /* Center text */
+        transition: background-color 0.3s; /* Transition for hover */
     }
 
     /* Menu item text is hidden on mobile */
@@ -528,7 +538,12 @@ textarea {
 
     /* Icon size adjustment for mobile */
     .menu-item-icon {
-        font-size: 1.5rem;
+        font-size: 1.5rem; /* Increase icon size */
+    }
+
+    /* Hover effect for menu items */
+    .menu-item:hover {
+        background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
     }
 
     /* Toggle button styles */
@@ -546,15 +561,57 @@ textarea {
         transition: right 0.3s ease; /* Smooth transition */
     }
 
-    /* Show toggle button when sidebar is expanded */
-    .sidebar.expanded .toggle-button {
-        right: -40px; /* Position outside the expanded sidebar */
+    /* Logout button styles */
+    .logout {
+        margin-top: auto; /* Push to bottom of sidebar */
+        padding: 12px 15px; /* Padding for button */
+        background-color: #e74c3c; /* Red background */
+        border: none; /* No border */
+        color: white; /* Text color */
+        border-radius: 8px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor */
+        transition: background-color 0.3s, transform 0.2s; /* Transition effects */
+        display: flex; /* Flex layout */
+        align-items: center; /* Center alignment */
+        justify-content: center; /* Center alignment */
     }
 
-    /* Logout button styles for mobile (can be at the bottom like other menu items) */
-    .logout {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    /* Hover effect for logout button */
+    .logout:hover {
+        background-color: #c0392b; /* Darker red on hover */
+        transform: translateY(-2px); /* Slight upward move */
+    }
+
+    /* Main content area styles */
+    .main-content {
+        flex-grow: 1; /* Take up remaining space */
+        padding: 20px; /* Padding inside main content */
+        overflow-y: auto; /* Scrollable content */
+        display: flex; /* Flex layout for items */
+        flex-direction: column; /* Vertical layout */
+        transition: margin-left 0.3s ease; /* Smooth transition for sidebar collapse */
+    }
+
+    /* Footer styles */
+    .footer {
+        margin-top: auto; /* Push to bottom */
+        padding: 15px 20px; /* Padding inside footer */
+        background-color: var(--secondary-color); /* Background from variables */
+        color: white; /* Text color */
+        text-align: center; /* Center alignment */
+        border-radius: 12px 12px 0 0; /* Rounded top corners */
+    }
+
+    /* Footer link styles */
+    .footer a {
+        color: var(--primary-color); /* Primary color for links */
+        text-decoration: none; /* Remove underline */
+        margin: 0 10px; /* Space between links */
+        transition: color 0.3s; /* Smooth color transition */
+    }
+
+    /* Hover effect for footer links */
+    .footer a:hover {
+        text-decoration: underline; /* Underline on hover */
     }
 }
