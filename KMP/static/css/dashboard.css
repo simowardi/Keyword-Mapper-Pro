@@ -399,3 +399,28 @@ textarea {
 .results-section {
     display: none;
 }
+
+
+/* footer styles */
+/* Footer styles */
+.footer {
+    margin-top: auto; /* Push to bottom */
+    padding: 15px 20px; /* Padding inside footer */
+    background-color: var(--secondary-color); /* Background from variables */
+    color: white; /* Text color */
+    text-align: center; /* Center alignment */
+    border-radius: 12px 12px 0 0; /* Rounded top corners */
+}
+
+/* Footer link styles */
+.footer a {
+    color: var(--primary-color); /* Primary color for links */
+    text-decoration: none; /* Remove underline */
+    margin: 0 10px; /* Space between links */
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+/* Hover effect for footer links */
+.footer a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
