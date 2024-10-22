@@ -510,14 +510,6 @@ textarea {
         height: auto; /* Maintain auto height when expanded */
     }
 
-    /* Logo styles */
-    .logo {
-        display: flex;
-        align-items: center;
-        color: white; /* Logo color */
-        margin-right: 20px; /* Space between logo and menu items */
-    }
-
     /* Menu items only show icons */
     .menu-item {
         display: flex;
@@ -525,7 +517,7 @@ textarea {
         justify-content: center;
         align-items: center;
         width: auto; /* Auto width for items */
-        padding: 10px;
+        padding: 5px; /* Smaller padding for items */
         color: white;
         text-align: center; /* Center text */
         transition: background-color 0.3s; /* Transition for hover */
