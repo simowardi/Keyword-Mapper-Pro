@@ -10,15 +10,43 @@
 	<body>
 	  <div class="container">
 		<div class="sidebar">
-		  <a href="{{ url_for('dashboard') }}" class="logo">🚀 KMP</a>
-		  <button class="sidebar-toggle">≡</button>
-		  <a href="{{ url_for('dashboard') }}" class="menu-item active"><span class="menu-item-icon">🏠</span>Dashboard</a>
-		  <a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item"><span class="menu-item-icon">🌍</span>Keyword Explorer</a>
-		  <a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item"><span class="menu-item-icon">🔍</span>Keyword Filter</a>
-		  <a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item"><span class="menu-item-icon">🔠</span>Keyword Grouper</a>
-		  <a href="{{ url_for('account.account') }}" class="menu-item"><span class="menu-item-icon">⚙️</span>account</a>
-		  <a href="{{ url_for('auth.logout') }}" class="logout"><span class="menu-item-icon">🚪</span>Logout</a>
+			<a href="{{ url_for('dashboard') }}" class="logo">
+				<span class="logo-icon">🚀</span>
+				<span class="logo-text">KMP</span>
+			</a>
+			<button class="sidebar-toggle">≡</button>
+
+			<a href="{{ url_for('dashboard') }}" class="menu-item active">
+			  <span class="menu-item-icon">🏠</span>
+			  <span class="menu-item-text">Dashboard</span>
+			</a>
+
+			<a href="{{ url_for('keyword.keyword_explorer') }}" class="menu-item">
+			  <span class="menu-item-icon">🌍</span>
+			  <span class="menu-item-text">Keyword Explorer</span>
+			</a>
+
+			<a href="{{ url_for('keyword.keyword_filter') }}" class="menu-item">
+			  <span class="menu-item-icon">🔍</span>
+			  <span class="menu-item-text">Keyword Filter</span>
+			</a>
+
+			<a href="{{ url_for('keyword.keyword_grouper') }}" class="menu-item">
+			  <span class="menu-item-icon">🔠</span>
+			  <span class="menu-item-text">Keyword Grouper</span>
+			</a>
+
+			<a href="{{ url_for('account.account') }}" class="menu-item">
+			  <span class="menu-item-icon">⚙️</span>
+			  <span class="menu-item-text">Account</span>
+			</a>
+
+			<a href="{{ url_for('auth.logout') }}" class="logout">
+			  <span class="menu-item-icon">🚪</span>
+			  <span class="menu-item-text">Logout</span>
+			</a>
 		</div>
+
 
         <!-- Main Content -->
         <div class="main-content">
