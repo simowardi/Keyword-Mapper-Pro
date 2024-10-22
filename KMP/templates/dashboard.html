@@ -10,8 +10,11 @@
 	<body>
 	  <div class="container">
 		<div class="sidebar">
-			<a href="{{ url_for('dashboard') }}" class="logo">🚀 KMP</a>
-			<button class="sidebar-toggle">≡</button>
+			<a href="{{ url_for('dashboard') }}" class="logo">
+				<span class="logo-icon">🚀</span>
+				<span class="logo-text">KMP</span>
+			  </a>
+			  <button class="sidebar-toggle">≡</button>
 			
 			<a href="{{ url_for('dashboard') }}" class="menu-item active">
 			  <span class="menu-item-icon">🏠</span>
@@ -33,7 +36,7 @@
 			  <span class="menu-item-text">Keyword Grouper</span>
 			</a>
 			
-			<a href="{{ url_for('account.account') }}" class="menu-item">
+			<a href="{{ url_for('account.account') }}" class="logout">
 			  <span class="menu-item-icon">⚙️</span>
 			  <span class="menu-item-text">Account</span>
 			</a>
