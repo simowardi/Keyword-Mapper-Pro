@@ -54,24 +54,21 @@ body, html {
     padding: 20px 10px;
 }
 
-/* Sidebar toggle button */
+/* Position the toggle button */
 .sidebar-toggle {
-    position: absolute;
-    top: 20px;
-    right: -15px;
-    background: var(--primary-color);
-    border: none;
-    color: white;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
-    z-index: 1001;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: var(--box-shadow);
-}
+	position: fixed; /* Fixed position relative to viewport */
+	top: 1rem; /* Space from top */
+	right: -0.5rem; /* Slight overlap with edge */
+	width: 2rem; /* Width of the circular button */
+	height: 2rem; /* Height of the circular button */
+	border: none; /* Remove default button border */
+	border-radius: 50%; /* Makes the button perfectly circular */
+	background: #333; /* Dark background color */
+	color: #fff; /* White color for icon/content */
+	cursor: pointer; /* Shows clickable pointer on hover */
+	display: grid; /* Uses grid layout */
+	place-items: center; /* Centers content both horizontally and vertically */
+   }
 
 /* Main content area styles */
 .main-content {
