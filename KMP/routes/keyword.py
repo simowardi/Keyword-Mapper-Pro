@@ -228,8 +228,8 @@ def keyword_grouper():
 # Set your SerpApi key here
 SERPAPI_API_KEY = 'your_serpapi_api_key'
 
-@keyword_bp.route("/", methods=["GET", "POST"])
-def index():
+@keyword_bp.route("/keyword_seo", methods=["GET", "POST"])
+def keyword_seo():
     data = {}
     if request.method == "POST":
         userInput = request.form.get("keyword")
