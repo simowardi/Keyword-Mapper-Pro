@@ -100,8 +100,6 @@ def keyword_explorer():
                 expanded_keywords = expand_keyword(keyword.strip(), selected_prefixes)
                 for kw in expanded_keywords:
                     suggestions.extend(get_google_suggestions(kw, language, country))
-                    # Delay for half a second for each keyword
-
 
         # Corrected to return a JSON object instead of a string
         return jsonify({'suggestions': suggestions})
@@ -145,15 +143,11 @@ def keyword_filter():
             'match_count': len(matched_keywords)
         }
 
-        # Check for AJAX request
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            # Return JSON for AJAX requests
-            return jsonify(response_data)
-        else:
-            # Render the HTML template for normal requests
-            return render_template('keyword_filter.html', **response_data)
-	# Render for GET requests
+        return jsonify(response_data)  # Always return JSON for AJAX requests
+
+    # Render for GET requests
     return render_template('keyword_filter.html')
+
 
 
 
