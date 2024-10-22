@@ -48,43 +48,54 @@ body, html {
     position: relative; /* For toggle button positioning */
 }
 
-/* Collapsed sidebar styles */
+/* Sidebar when collapsed */
 .sidebar.collapsed {
-    width: var(--sidebar-collapsed-width);
-    padding: 20px 10px;
+	width: var(--sidebar-collapsed-width); /* Width from variables */
+	padding: 0; /* Remove padding */
 }
 
 /* Position the toggle button */
-/* Updated CSS */
+/* Sidebar Default Style */
 .sidebar {
 	width: 200px;
 	transition: width 0.3s ease;
   }
   
+  /* When Collapsed */
   .sidebar.collapsed {
 	width: 50px;
   }
   
+  /* Menu Items */
   .menu-item {
 	display: flex;
 	align-items: center;
+	padding: 0.5rem 1rem;
   }
   
+  /* Icon (always visible) */
   .menu-item-icon {
-	font-size: 1.5em;
-	margin-right: 10px;
+	font-size: 1.5rem;
+	margin-right: 1rem;
   }
   
+  /* Text (hide when collapsed) */
   .menu-item-text {
-	transition: opacity 0.3s ease;
+	transition: opacity 0.3s ease, width 0.3s ease;
+	white-space: nowrap;
+	overflow: hidden;
   }
   
   .sidebar.collapsed .menu-item-text {
-	opacity: 0 !important;
-	visibility: hidden !important;
-	width: 0 !important;
-	margin: 0 !important;
-	white-space: nowrap !important;
+	opacity: 0;
+	visibility: hidden;
+	width: 0;
+	margin: 0;
+  }
+  
+  /* Optional for better centering of the icons when collapsed */
+  .sidebar.collapsed .menu-item {
+	justify-content: center;
   }
   
   .sidebar-toggle {
@@ -98,8 +109,9 @@ body, html {
 	cursor: pointer;
 	display: grid;
 	place-items: center;
-	z-index: 1000; /* Ensure toggle button is above the sidebar */
+	z-index: 1000;
   }
+  
   
 
 
