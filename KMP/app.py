@@ -1,8 +1,7 @@
 from flask import Flask, render_template, send_from_directory
 from models import db, init_app
 from models.user import User
-from datetime import datetime
-from flask_login import login_user, LoginManager
+from flask_login import LoginManager
 from routes import auth_bp, account_bp, keyword_bp
 import os
 

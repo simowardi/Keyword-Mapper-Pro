@@ -1,14 +1,9 @@
-from flask import Flask, Blueprint, render_template, redirect, url_for, flash, jsonify, request, Response
+from flask import Blueprint, render_template, jsonify, request
 from models import db, User
-from flask_login import login_required, current_user, LoginManager, login_user, logout_user
-from datetime import datetime
-import csv
-import os
+from flask_login import login_required, current_user
 import time
 import requests
 import json
-import string
-from concurrent.futures import ThreadPoolExecutor
 
 
 keyword_bp = Blueprint('keyword', __name__)
