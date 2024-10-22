@@ -487,35 +487,35 @@ textarea {
 
 /* Responsive styles for mobile devices */
 /* Responsive styles for mobile devices */
+/* Responsive styles for mobile devices */
 @media (max-width: 768px) {
     /* Sidebar styles */
     .sidebar {
-        width: var(--sidebar-collapsed-width); /* Narrow width for mobile */
-        height: 100%; /* Full height */
-        position: fixed; /* Fixed at the side */
-        left: 0; /* Position on the left */
+        width: 100%; /* Full width for mobile */
+        height: auto; /* Auto height for content */
+        position: fixed; /* Fixed at the top */
+        left: 0; /* Align to the left */
         top: 0; /* Align to the top */
         background-color: var(--secondary-color); /* Background color */
         z-index: 1000;
         display: flex; /* Flex layout */
-        flex-direction: column; /* Stack items vertically */
-        align-items: center; /* Center items */
-        padding-top: 20px; /* Space at the top */
-        transition: width 0.3s ease; /* Smooth transition for width */
+        flex-direction: row; /* Horizontal layout for menu items */
+        align-items: center; /* Center items vertically */
+        padding: 10px; /* Padding inside */
+        transition: height 0.3s ease; /* Smooth transition for height */
     }
 
     /* Expanded sidebar with text */
     .sidebar.expanded {
-        width: var(--sidebar-width); /* Full width when expanded */
-        padding: 20px; /* Padding inside */
+        height: auto; /* Maintain auto height when expanded */
     }
 
     /* Logo styles */
     .logo {
         display: flex;
         align-items: center;
-        margin-bottom: 20px; /* Space below logo */
         color: white; /* Logo color */
+        margin-right: 20px; /* Space between logo and menu items */
     }
 
     /* Menu items only show icons */
@@ -524,7 +524,7 @@ textarea {
         flex-direction: column; /* Stack icon and text vertically */
         justify-content: center;
         align-items: center;
-        width: 100%; /* Full width */
+        width: auto; /* Auto width for items */
         padding: 10px;
         color: white;
         text-align: center; /* Center text */
@@ -549,8 +549,8 @@ textarea {
     /* Toggle button styles */
     .toggle-button {
         position: absolute; /* Position toggle button */
-        top: 20px; /* Position from top */
-        right: -40px; /* Position outside the sidebar */
+        top: 10px; /* Position from top */
+        right: 10px; /* Position inside sidebar */
         background-color: var(--primary-color); /* Toggle button color */
         color: white; /* Text color */
         border: none; /* No border */
@@ -559,6 +559,16 @@ textarea {
         height: 30px; /* Button size */
         cursor: pointer; /* Pointer cursor */
         transition: right 0.3s ease; /* Smooth transition */
+    }
+
+    /* Main content area styles */
+    .main-content {
+        margin-top: 60px; /* Space for the sidebar */
+        padding: 20px; /* Padding inside main content */
+        overflow-y: auto; /* Scrollable content */
+        display: flex; /* Flex layout for items */
+        flex-direction: column; /* Vertical layout */
+        transition: margin-left 0.3s ease; /* Smooth transition for sidebar collapse */
     }
 
     /* Logout button styles */
@@ -580,16 +590,6 @@ textarea {
     .logout:hover {
         background-color: #c0392b; /* Darker red on hover */
         transform: translateY(-2px); /* Slight upward move */
-    }
-
-    /* Main content area styles */
-    .main-content {
-        flex-grow: 1; /* Take up remaining space */
-        padding: 20px; /* Padding inside main content */
-        overflow-y: auto; /* Scrollable content */
-        display: flex; /* Flex layout for items */
-        flex-direction: column; /* Vertical layout */
-        transition: margin-left 0.3s ease; /* Smooth transition for sidebar collapse */
     }
 
     /* Footer styles */
