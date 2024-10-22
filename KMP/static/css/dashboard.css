@@ -1,246 +1,235 @@
-/* Color scheme for light mode */
+/* Theme Variables
+---------------------------------------------- */
 :root {
-    --primary-color: #3498db; /* Primary color for accents */
-    --secondary-color: #2c3e50; /* Background color for sidebar */
-    --text-color: #333; /* Default text color */
-    --bg-color: #ecf0f1; /* Background color for the body */
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Default box shadow */
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --text-color: #333;
+    --bg-color: #ecf0f1;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --sidebar-width: 200px;
+    --sidebar-collapsed-width: 60px;
 }
 
-/* Color scheme for dark mode */
 body.dark-mode {
-    --primary-color: #5dade2; /* Lighter primary color for dark mode */
-    --secondary-color: #1c2833; /* Darker background for sidebar in dark mode */
-    --text-color: #f0f0f0; /* Light text color for dark mode */
-    --bg-color: #2c3e50; /* Dark background for body in dark mode */
-    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Darker box shadow */
+    --primary-color: #5dade2;
+    --secondary-color: #1c2833;
+    --text-color: #f0f0f0;
+    --bg-color: #2c3e50;
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-/* Global styles for body and html */
+
+
+/* Base Styles
+---------------------------------------------- */
 body, html {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font settings */
-    height: 100%; /* Full height */
-    color: var(--text-color); /* Text color from variables */
-    background-color: var(--bg-color); /* Background color from variables */
-    transition: all 0.3s ease; /* Smooth transition for changes */
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100%;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: all 0.3s ease;
 }
 
-/* Main layout container */
 .container {
-    display: flex; /* Flex layout for sidebar and content */
-    height: 100%; /* Full height */
+    display: flex;
+    height: 100%;
 }
 
-/* Sidebar styles */
+
+
+/* Sidebar Styles
+---------------------------------------------- */
 .sidebar {
-    width: 250px; /* Fixed width for sidebar */
-    background-color: var(--secondary-color); /* Background color from variables */
-    color: white; /* Text color for sidebar */
-    padding: 20px; /* Padding inside sidebar */
-    display: flex; /* Flex layout for items */
-    flex-direction: column; /* Vertical layout */
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    width: var(--sidebar-width);
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-/* Main content area styles */
-.main-content {
-    flex-grow: 1; /* Take up remaining space */
-    padding: 20px; /* Padding inside main content */
-    overflow-y: auto; /* Scrollable content */
-    display: flex; /* Flex layout for items */
-    flex-direction: column; /* Vertical layout */
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
+    padding: 20px 10px;
 }
 
-/* Logo styles */
+.sidebar-toggle {
+    position: absolute;
+    top: 10px;
+    right: -15px;
+    background: var(--primary-color);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .logo {
-	color: white;
-    font-size: 24px; /* Logo size */
-    font-weight: bold; /* Bold text */
-    margin-bottom: 30px; /* Space below logo */
-    text-align: center; /* Center alignment */
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-/* Menu item styles */
+.sidebar.collapsed .logo {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
 .menu-item {
-    padding: 12px 15px; /* Padding for items */
-    margin-bottom: 10px; /* Space between items */
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s, transform 0.2s; /* Transition effects */
-    display: flex; /* Flex layout for icons and text */
-    align-items: center; /* Center alignment */
-    text-decoration: none; /* Remove underline */
-    color: white; /* Text color */
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: white;
 }
 
-/* Hover effect for menu items */
+.sidebar.collapsed .menu-item {
+    padding: 12px 0;
+    justify-content: center;
+}
+
 .menu-item:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
-    transform: translateX(5px); /* Slight move to the right */
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
 }
 
-/* Active menu item styles */
 .menu-item.active {
-    background-color: var(--primary-color); /* Highlight active item */
-    font-weight: bold; /* Bold text for active item */
+    background-color: var(--primary-color);
+    font-weight: bold;
 }
 
-/* Icon styles within menu items */
 .menu-item-icon {
-    margin-right: 10px; /* Space between icon and text */
-    font-size: 1.2em; /* Icon size */
+    margin-right: 10px;
+    font-size: 1.2em;
 }
 
-/* Logout button styles */
-.logout {
-    margin-top: auto; /* Push to bottom of sidebar */
-    padding: 12px 15px; /* Padding for button */
-    background-color: #e74c3c; /* Red background */
-    border: none; /* No border */
-    color: white; /* Text color */
-    border-radius: 8px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s, transform 0.2s; /* Transition effects */
-    display: flex; /* Flex layout */
-    align-items: center; /* Center alignment */
-    justify-content: center; /* Center alignment */
+.sidebar.collapsed .menu-item-icon {
+    margin-right: 0;
 }
 
-/* Hover effect for logout button */
-.logout:hover {
-    background-color: #c0392b; /* Darker red on hover */
-    transform: translateY(-2px); /* Slight upward move */
+.sidebar.collapsed .menu-item span {
+    display: none;
 }
 
-/* Dashboard main container */
+
+
+/* Main Content Styles
+---------------------------------------------- */
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
 .dashboard-container {
-    display: flex; /* Flex layout */
-    flex-direction: column; /* Vertical layout */
-    gap: 20px; /* Space between elements */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Welcome box styles */
 .welcome-box {
-    background-color: white; /* White background */
-    border-radius: 12px; /* Rounded corners */
-    padding: 25px; /* Padding inside box */
-    box-shadow: var(--box-shadow); /* Shadow from variables */
-    transition: all 0.3s ease; /* Smooth transition */
+    background-color: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: var(--box-shadow);
+    transition: all 0.3s ease;
 }
 
-/* Welcome box styles for dark mode */
 .dark-mode .welcome-box {
-    background-color: var(--secondary-color); /* Use secondary color */
+    background-color: var(--secondary-color);
 }
 
-/* Header styles within welcome box */
 .welcome-box h2 {
-    margin-top: 0; /* Remove top margin */
-    color: var(--primary-color); /* Primary color for header */
-    display: flex; /* Flex layout for emoji and text */
-    align-items: center; /* Center alignment */
+    margin-top: 0;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
 }
 
-/* Emoji styles within welcome box header */
 .welcome-box h2 .emoji {
-    margin-right: 10px; /* Space between emoji and text */
-    font-size: 1.5em; /* Emoji size */
+    margin-right: 10px;
+    font-size: 1.5em;
 }
 
-/* Video container styles */
-.video-container {
-    position: relative; /* Position for absolute child */
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
-    height: 0; /* No height */
-    overflow: hidden; /* Hide overflow */
-    max-width: 100%; /* Responsive width */
+
+
+/* Button Styles
+---------------------------------------------- */
+.logout {
+    margin-top: auto;
+    padding: 12px 15px;
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Styles for iframe in video container */
-.video-container iframe {
-    position: absolute; /* Absolute positioning */
-    top: 0; /* Align to top */
-    left: 0; /* Align to left */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
+.logout:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
 }
 
-/* Footer styles */
-.footer {
-    margin-top: auto; /* Push to bottom */
-    padding: 15px 20px; /* Padding inside footer */
-    background-color: var(--secondary-color); /* Background from variables */
-    color: white; /* Text color */
-    text-align: center; /* Center alignment */
-    border-radius: 12px 12px 0 0; /* Rounded top corners */
-}
-
-/* Footer link styles */
-.footer a {
-    color: var(--primary-color); /* Primary color for links */
-    text-decoration: none; /* Remove underline */
-    margin: 0 10px; /* Space between links */
-    transition: color 0.3s; /* Smooth color transition */
-}
-
-/* Hover effect for footer links */
-.footer a:hover {
-    text-decoration: underline; /* Underline on hover */
-}
-
-/* Theme toggle button styles */
 .theme-toggle {
-    position: absolute; /* Absolute positioning */
-    top: 20px; /* Position from top */
-    right: 20px; /* Position from right */
-    background-color: var(--primary-color); /* Primary color background */
-    color: white; /* Text color */
-    border: none; /* No border */
-    padding: 10px 15px; /* Padding for button */
-    border-radius: 30px; /* Circular shape */
-    cursor: pointer; /* Pointer cursor */
-    transition: all 0.3s ease; /* Smooth transition */
-    display: flex; /* Flex layout */
-    align-items: center; /* Center alignment */
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
 }
 
-/* Hover effect for theme toggle button */
 .theme-toggle:hover {
-    transform: scale(1.05); /* Slightly increase size */
+    transform: scale(1.05);
+}
+
+.delete-account-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.delete-account-btn:hover {
+    background-color: darkred;
 }
 
 
 
-/* Responsive styles for mobile devices */
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column; /* Stack items vertically */
-    }
-
-    .sidebar {
-        width: 100%; /* Full width for sidebar */
-        order: 2; /* Position sidebar below main content */
-    }
-
-    .main-content {
-        order: 1; /* Position main content above sidebar */
-    }
-
-    .theme-toggle {
-        top: 10px; /* Adjust position for smaller screens */
-        right: 10px; /* Adjust position for smaller screens */
-    }
-
-    .copy-btn {
-        top: 10px; /* Adjust position for smaller screens */
-        right: 10px; /* Adjust position for smaller screens */
-    }
-}
-
-
-
+/* Filter and Results Styles
+---------------------------------------------- */
 .keyword-filter-container {
     display: flex;
     justify-content: space-between;
@@ -250,7 +239,7 @@ body, html {
 
 .filter-box {
     margin-right: 20px;
-    flex-basis: 30%; /* Adjust width as necessary */
+    flex-basis: 30%;
 }
 
 .filter-box h2 {
@@ -258,15 +247,18 @@ body, html {
 }
 
 #filteredResults {
-    height: 400px; /* Double the height */
-    width: 100%; /* Full width */
+    height: 400px;
+    width: 100%;
 }
 
 .keyword-count {
     margin-top: 10px;
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 10px;
 }
 
-  textarea {
+textarea {
     width: 100%;
     height: 150px;
     resize: vertical;
@@ -275,16 +267,9 @@ body, html {
     border-radius: 4px;
     font-family: inherit;
     margin-bottom: 10px;
-  }
+}
 
-  .keyword-count {
-    font-size: 0.9em;
-    color: #777;
-    margin-bottom: 10px;
-  }
-
-
-  .filter-btn {
+.filter-btn {
     background-color: #2ecc71;
     color: white;
     border: none;
@@ -294,157 +279,70 @@ body, html {
     transition: background-color 0.3s;
     font-size: 16px;
     margin-top: 10px;
-  }
+}
 
-  .filter-btn:hover {
+.filter-btn:hover {
     background-color: #27ae60;
-  }
-
-
-
-/* Copy button styles */
-/* Simple Copy Button Styles */
-.simple-copy-btn {
-    background-color: var(--primary-color); /* Primary background color */
-    color: white; /* Text color */
-    border: none; /* No border for a cleaner look */
-    border-radius: 4px; /* Slightly rounded corners */
-    padding: 8px 12px; /* Padding for button */
-    cursor: pointer; /* Pointer cursor for better UX */
-    transition: background-color 0.3s; /* Smooth transition for background color */
-    font-size: 16px; /* Font size for the button */
-}
-
-/* Hover effect for the simple copy button */
-.simple-copy-btn:hover {
-    background-color: #2980b9; /* Darker shade on hover */
 }
 
 
-/* Delete Account Button Style */
-.delete-account-btn {
-    background-color: red; /* Red background */
-    color: white; /* White text color */
-    border: none; /* No border */
-    border-radius: 4px; /* Slightly rounded corners */
-    padding: 10px 15px; /* Padding for the button */
-    cursor: pointer; /* Pointer cursor on hover */
-    font-size: 16px; /* Font size */
-    transition: background-color 0.3s; /* Smooth transition */
+
+/* Footer Styles
+---------------------------------------------- */
+.footer {
+    margin-top: auto;
+    padding: 15px 20px;
+    background-color: var(--secondary-color);
+    color: white;
+    text-align: center;
+    border-radius: 12px 12px 0 0;
 }
 
-/* Button Hover Effect */
-.delete-account-btn:hover {
-    background-color: darkred; /* Darker red on hover */
-}
-
-
-/* new css for grouper results*/
-/* Styles for the grouped results section */
-/* Grouped results container */
-.grouped-results-container {
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	gap: 20px;
-  }
-  
-  /* Individual keyword group */
-
-
-  .keyword-group {
-    background-color: var(--bg-color); /* Ensure correct background */
-	color: var(--text-color); /* Set text color */
-	border-radius: 8px;
-	padding: 15px;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-
-  .keyword-list {
-    background-color: var(--bg-color); /* Ensure background matches */
-    color: var(--text-color); /* Set text color */
-}
-  
-  /* Keyword group heading */
-  .keyword-group strong {
-	display: block;
-	font-size: 16px;
-	font-weight: bold;
-	margin-bottom: 10px;
-  }
-  
-  /* Keyword list within each group */
-  .keyword-group ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-  }
-  
-  .keyword-group li {
-	font-size: 14px;
-	margin-bottom: 5px;
-  }
-  
-  /* Keyword count section */
-  .keyword-count {
-	text-align: right;
-	margin-top: 10px;
-	font-size: 14px;
-	color: #666;
-  }
-  
-  #matchCount {
-	font-weight: bold;
-  }
-
-/* Copy button styles of grouper results*/
-  .keyword-group {
-    position: relative; /* Allow absolute positioning of child elements */
-}
-
-.copy-button {
-    position: absolute; /* Position the button absolutely */
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    background-color: transparent; /* No background for a minimal look */
-    color: #007bff; /* Bootstrap primary color */
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
+.footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    margin: 0 10px;
     transition: color 0.3s;
 }
 
-.copy-button:hover {
-    color: #0056b3; /* Darker shade on hover */
-}
-
-.copy-button i {
-    margin-right: 5px; /* Space between icon and text */
-}
-
-.keyword-list {
-    max-height: 150px; /* Set a maximum height for the list */
-    overflow-y: auto; /* Enable vertical scrolling */
-    margin-top: 10px; /* Space between the title and list */
-    border: 1px solid #ccc; /* Optional: Add a border for better visibility */
-    padding: 5px; /* Optional: Add some padding */
-    background-color: #f9f9f9; /* Optional: Background color */
-}
-
-.keyword-list ul {
-    list-style-type: none; /* Remove default list styling */
-    padding: 0; /* Remove padding */
-    margin: 0; /* Remove margin */
+.footer a:hover {
+    text-decoration: underline;
 }
 
 
-/* explorer results */ 
-.results-section {
-    display: none; /* Hidden initially */
-}
 
-
-/* space between button stop & clean button */
-    .button-container {
-        display: flex;
-        gap: 10px; /* Adjust the value as needed */
+/* Responsive Styles
+---------------------------------------------- */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
     }
+
+    .sidebar {
+        width: 100%;
+        order: 2;
+    }
+
+    .sidebar.collapsed {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .main-content {
+        order: 1;
+    }
+
+    .theme-toggle {
+        top: 10px;
+        right: 10px;
+    }
+
+    .copy-btn {
+        top: 10px;
+        right: 10px;
+    }
+
+    .sidebar-toggle {
+        display: none;
+    }
+}
