@@ -12,20 +12,15 @@ auth_bp = Blueprint('auth', __name__)
 def login():
     """
     This function is responsible for handling the login process.
-    It checks if the request method is 'POST',
-    indicating that the login form has been submitted.
-    If so, it retrieves the username and password from 
-    the form data and queries the database for a user with the given username.
-    If a user is found and the password matches,
-    the user's ID is stored in the session and the user is redirected to the account page.
-    Otherwise, an error message is displayed on the login page.
 
     Parameters:
     - None
 
     Returns:
-    - If the request method is 'POST' and the login is successful, it redirects to the account page.
-    - If the request method is 'POST' and the login is unsuccessful, it renders the login page with an error message.
+    - If the request method is 'POST' and the login is successful, 
+    it redirects to the account page.
+    - If the request method is 'POST' and the login is unsuccessful, 
+    it renders the login page with an error message.
     - If the request method is not 'POST', it renders the login page.
     """
     if current_user.is_authenticated:
@@ -49,14 +44,6 @@ def login():
 def register():
     """
     This function is responsible for handling the registration process
-    when a user submits the registration form. 
-    It checks if the request method is 'POST', 
-    indicating that the registration form has been submitted. 
-    If so, it retrieves the username, email, and password from the form data 
-    and creates a new user object with the provided information. 
-    The new user object is then added to the database session and committed.
-    the user's ID is stored in the session for future use.
-    After successful registration, the user is redirected to the account page.
 
     Parameters:
     - None
